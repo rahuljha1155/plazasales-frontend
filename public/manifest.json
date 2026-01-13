@@ -1,0 +1,29 @@
+{
+  "personalInfo": [
+    {
+      "fullName": "Lysandra Bauer",
+      "email": "nexysokycu@mailinator.com",
+      "country": "Voluptas possimus d",
+      "phoneNumber": "+1 (982) 391-1854",
+      "gender": "other",
+      "dateOfBirth": "1958-08-17",
+      "passportNumber": "313876",
+      "passportExpiryDate": "2025-11-08",
+      "isChild": false
+    }
+  ],
+  "adults": 1,
+  "totalPeople": 1,
+  "numberOfTravelers": 1,
+  "package": "68b7e33db2dac984a7aa1ea3",
+  "fixedDateId": "68f33516b7a96a52661a3c24",
+  "arrivalDate": "2025-10-18",
+  "departureDate": "2025-10-25",
+  "addons": [],
+  "message": "Excited for this trip!",
+  "specialRequirements": "N/A",
+  "totalAmount": 85200,
+  "termsAccepted": true,
+  "createdBy": "user_12345",
+  "customizedBooking": false
+}
