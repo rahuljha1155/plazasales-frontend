@@ -4,7 +4,6 @@ export interface Country {
   dialCode: string;
   flag: string;
 }
-
 export const countries: Country[] = [
   { code: "US", name: "United States", dialCode: "+1", flag: "🇺🇸" },
   { code: "GB", name: "United Kingdom", dialCode: "+44", flag: "🇬🇧" },
