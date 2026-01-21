@@ -64,16 +64,18 @@ jobs:
             IMAGE_NAME="rahuljha1155/plaza-frontend"
             SHORT_SHA="${GITHUB_SHA::7}"
             IMAGE_TAG="sha-${SHORT_SHA}"
-            COMPOSE_FILE="/var/www/plazasales-frontend/docker-compose.frontend.yml"
+            COMPOSE_FILE="/var/www/plazasales-frontend/docker-compose.yml"
             STATE_FILE="/var/www/plazasales-frontend/.last_successful_tag"
 
             docker pull "${IMAGE_NAME}:latest"
             docker pull "${IMAGE_NAME}:${IMAGE_TAG}"
 
             export IMAGE_NAME IMAGE_TAG
+            docker compose -f "${COMPOSE_FILE}" pull
             docker compose -f "${COMPOSE_FILE}" up -d
 
             if curl -fsS http://127.0.0.1:2661/ >/dev/null; then
+              curl -Ik https://plazasales.com.np || true
               echo "${IMAGE_TAG}" > "${STATE_FILE}"
             else
               echo "Health check failed, attempting rollback..."

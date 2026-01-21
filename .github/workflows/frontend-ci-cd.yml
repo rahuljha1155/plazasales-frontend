@@ -1,8 +1,7 @@
 name: Frontend Deploy (Standalone + PM2)
 
 on:
-  push:
-    branches: ["main", "master"]
+  workflow_dispatch:
 
 concurrency:
   group: frontend-${{ github.ref }}
