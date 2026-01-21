@@ -1,15 +1,58 @@
-name: Frontend Deploy (Standalone + PM2)
+name: Frontend CI/CD
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 concurrency:
   group: frontend-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  IMAGE_NAME: rahuljha1155/plaza-frontend
+
 jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Compute image tag
+        id: meta
+        run: |
+          SHORT_SHA="${GITHUB_SHA::7}"
+          echo "short_sha=${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:sha-${{ steps.meta.outputs.short_sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
   deploy:
     runs-on: ubuntu-latest
+    needs: build-and-push
     steps:
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v0.1.6
@@ -20,27 +63,19 @@ jobs:
           port: 22
           script: |
             set -euo pipefail
+            IMAGE_NAME="rahuljha1155/plaza-frontend"
+            SHORT_SHA="${GITHUB_SHA::7}"
+            IMAGE_TAG="sha-${SHORT_SHA}"
 
-            cd /var/www/plazasales-frontend
+            docker pull "${IMAGE_NAME}:latest"
+            docker pull "${IMAGE_NAME}:${IMAGE_TAG}"
 
-            git pull
-
-            pnpm install --frozen-lockfile
-            pnpm build
-
-            # IMPORTANT for standalone: copy static + public into standalone output
-            rm -rf .next/standalone/.next || true
-            mkdir -p .next/standalone/.next
-            cp -r .next/static .next/standalone/.next/static
-            cp -r public .next/standalone/public
-
-            # Restart PM2 using standalone server, or start if missing
-            if pm2 describe plazasales-frontend >/dev/null 2>&1; then
-              pm2 restart plazasales-frontend
-            else
-              HOSTNAME=127.0.0.1 PORT=2661 pm2 start server.js \
-                --name plazasales-frontend \
-                --cwd /var/www/plazasales-frontend/.next/standalone
+            if docker ps -a --format "{{.Names}}" | grep -q "^plazasales-frontend$"; then
+              docker rm -f plazasales-frontend
             fi
 
-            pm2 save
+            docker run -d \
+              --name plazasales-frontend \
+              --restart unless-stopped \
+              -p 127.0.0.1:2661:2661 \
+              "${IMAGE_NAME}:${IMAGE_TAG}"
