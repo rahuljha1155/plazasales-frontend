@@ -44,7 +44,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: false,
   output: "standalone",
-  staticPageGenerationTimeout: 180, // ADD THIS LINE
+  staticPageGenerationTimeout: 900, // ADD THIS LINE
 
   images: {
     remotePatterns: [
