@@ -43,13 +43,15 @@ jobs:
           context: .
           push: true
           build-args: |
-            NEXT_PUBLIC_API_BASE_URL=${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
-            NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
+            NEXT_PUBLIC_API_URL=https://app.plazasales.com.np/api/v1/plaza
+            NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6LeC4AEsAAAAACosF5XfvpZIiKGA2zTfkO4a_eNQ
           tags: |
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:sha-${{ steps.meta.outputs.short_sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          platforms: linux/amd64
+          provenance: false
 
   deploy:
     runs-on: ubuntu-latest
@@ -64,19 +66,84 @@ jobs:
           port: 22
           script: |
             set -euo pipefail
+
+            # Variables
             IMAGE_NAME="rahuljha1155/plaza-frontend"
             SHORT_SHA="${GITHUB_SHA::7}"
             IMAGE_TAG="sha-${SHORT_SHA}"
+            DEPLOY_DIR="/var/www/plazasales-frontend"
 
-            docker pull "${IMAGE_NAME}:latest"
+            echo "🚀 Starting deployment..."
+            echo "Image: ${IMAGE_NAME}:${IMAGE_TAG}"
+
+            # Navigate to deploy directory
+            cd "${DEPLOY_DIR}"
+            echo "Current directory: $(pwd)"
+
+            # Pull the new Docker images
+            echo "📦 Pulling Docker images..."
             docker pull "${IMAGE_NAME}:${IMAGE_TAG}"
+            docker pull "${IMAGE_NAME}:latest"
 
+            # Stop and remove existing container if it exists
+            echo "🛑 Checking for existing container..."
             if docker ps -a --format "{{.Names}}" | grep -q "^plazasales-frontend$"; then
-              docker rm -f plazasales-frontend
+              echo "Stopping existing container..."
+              docker stop plazasales-frontend || true
+              docker rm plazasales-frontend || true
+              echo "Existing container removed."
+            else
+              echo "No existing container found."
             fi
 
+            # Run new container
+            echo "🚀 Starting new container..."
             docker run -d \
               --name plazasales-frontend \
               --restart unless-stopped \
               -p 127.0.0.1:2661:2661 \
+              -e NEXT_PUBLIC_API_URL=https://app.plazasales.com.np/api/v1/plaza \
+              -e NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6LeC4AEsAAAAACosF5XfvpZIiKGA2zTfkO4a_eNQ \
+              -e NODE_ENV=production \
               "${IMAGE_NAME}:${IMAGE_TAG}"
+
+            # Wait for container to start
+            echo "⏳ Waiting for container to start..."
+            sleep 10
+
+            # Check if container is running
+            echo "🔍 Checking container status..."
+            if docker ps --format "{{.Names}} {{.Status}}" | grep -q "plazasales-frontend"; then
+              echo "✅ Container is running!"
+              
+              # Check logs for errors
+              echo "📋 Checking container logs..."
+              docker logs plazasales-frontend --tail 20
+              
+              # Simple health check
+              echo "🧪 Testing application..."
+              if curl -s -f http://localhost:2661 > /dev/null; then
+                echo "✅ Application is responding!"
+              else
+                echo "⚠️  Application might need more time to start..."
+                # Give it more time and try again
+                sleep 20
+                if curl -s -f http://localhost:2661 > /dev/null; then
+                  echo "✅ Application is now responding!"
+                else
+                  echo "❌ Application failed to start. Check logs."
+                  docker logs plazasales-frontend
+                fi
+              fi
+            else
+              echo "❌ Container failed to start. Checking logs..."
+              docker logs plazasales-frontend || true
+              exit 1
+            fi
+
+            # Clean up old Docker images
+            echo "🧹 Cleaning up old Docker images..."
+            docker image prune -f
+
+            echo "🎉 Deployment completed successfully!"
+            echo "🌐 Application is running on port 2661"

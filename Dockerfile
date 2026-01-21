@@ -1,38 +1,45 @@
-FROM node:20-alpine AS base
+FROM node:20-alpine AS builder
 
-RUN apk add --no-cache libc6-compat curl
-ENV PNPM_HOME=/pnpm
-ENV PATH=$PNPM_HOME:$PATH
-RUN corepack enable && corepack prepare pnpm@10.5.2 --activate
+# Install pnpm
+RUN npm install -g pnpm
 
 WORKDIR /app
 
-FROM base AS deps
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+# Copy package files
+COPY package.json pnpm-lock.yaml* ./
+
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
-FROM base AS builder
-ARG NEXT_PUBLIC_API_BASE_URL
-ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
-ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+# Copy application code
 COPY . .
-COPY --from=deps /app/node_modules ./node_modules
+
+# Set environment variables directly (these are public/client-side)
+ENV NEXT_PUBLIC_API_URL=https://app.plazasales.com.np/api/v1/plaza
+ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6LeC4AEsAAAAACosF5XfvpZIiKGA2zTfkO4a_eNQ
+ENV NODE_ENV=production
+
+# Ensure next.config.js exists
+RUN if [ ! -f next.config.js ] && [ ! -f next.config.ts ]; then \
+    echo "module.exports = { staticPageGenerationTimeout: 180 }" > next.config.js; \
+  fi
+
+# Build the application
 RUN pnpm build
 
-FROM base AS runner
-ENV NODE_ENV=production
-ENV HOSTNAME=0.0.0.0
-ENV PORT=2661
-
-RUN addgroup -S nodejs && adduser -S nextjs -G nodejs
+# Production stage
+FROM node:20-alpine AS runner
 WORKDIR /app
 
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
+ENV NODE_ENV=production
+ENV PORT=2661
 
-USER nextjs
+# Copy built application
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
 EXPOSE 2661
 
-CMD ["node", "server.js"]
+CMD ["pnpm", "start"]
