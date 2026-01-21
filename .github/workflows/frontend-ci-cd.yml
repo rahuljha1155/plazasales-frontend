@@ -24,12 +24,7 @@ jobs:
 
             cd /var/www/plazasales-frontend
 
-            git fetch origin
-            if git show-ref --verify --quiet refs/remotes/origin/main; then
-              git reset --hard origin/main
-            else
-              git reset --hard origin/master
-            fi
+            git pull
 
             pnpm install --frozen-lockfile
             pnpm build
@@ -40,10 +35,13 @@ jobs:
             cp -r .next/static .next/standalone/.next/static
             cp -r public .next/standalone/public
 
-            # Restart PM2 using standalone server
-            pm2 delete plazasales-frontend || true
-            HOSTNAME=127.0.0.1 PORT=2661 pm2 start server.js \
-              --name plazasales-frontend \
-              --cwd /var/www/plazasales-frontend/.next/standalone
+            # Restart PM2 using standalone server, or start if missing
+            if pm2 describe plazasales-frontend >/dev/null 2>&1; then
+              pm2 restart plazasales-frontend
+            else
+              HOSTNAME=127.0.0.1 PORT=2661 pm2 start server.js \
+                --name plazasales-frontend \
+                --cwd /var/www/plazasales-frontend/.next/standalone
+            fi
 
             pm2 save

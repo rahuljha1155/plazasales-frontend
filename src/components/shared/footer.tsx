@@ -36,7 +36,7 @@ const Footer = () => {
           headers: {
             "X-Recaptcha-Token": token,
           },
-        }
+        },
       );
       toast.success(response?.data?.message || "Subscribed successfully!", {
         description:
@@ -225,7 +225,10 @@ const Footer = () => {
                       Head Office
                     </h2>
                     <div className="flex text-xs items-start gap-2 max-w-[90%] ">
-                      <span>Biratnagar, Nepal</span>
+                      <span>
+                        4F, Mahabir Plaza | Hospital Chowk Biratnagar - 7 |
+                        Koshi | Nepa
+                      </span>
                     </div>
                   </li>
                   <li className="space-y-2  h-full md:bg-transparent  md:p-0 rounded-md ">
@@ -234,8 +237,8 @@ const Footer = () => {
                     </h2>
                     <div className="flex text-xs items-start gap-2 max-w-[90%]">
                       <span>
-                        Barahikshetra Auto Repairs, Bishal Nagar Marg,
-                        kathmandu, Nepal
+                        2F, AP Complex | Bishal Nagar Marg Hadigaun | Kathmandu
+                        - 5 | Nepal
                       </span>
                     </div>
                   </li>
