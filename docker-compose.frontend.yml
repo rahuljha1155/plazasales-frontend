@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  plaza-frontend:
+    container_name: plaza-frontend
+    image: ${IMAGE_NAME:-rahuljha1155/plaza-frontend}:${IMAGE_TAG:-latest}
+    ports:
+      - "127.0.0.1:2661:2661"
+    restart: always
+    env_file:
+      - /var/www/plazasales-frontend/.env
+    # Alternative to env_file:
+    # environment:
+    #   NODE_ENV: production
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:2661/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
