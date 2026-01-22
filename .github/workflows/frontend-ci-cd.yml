@@ -12,26 +12,29 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to VPS via SSH (git pull + build + pm2 restart)
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
+
+          # ✅ pass github ref name into the VPS shell
+          envs: GITHUB_REF_NAME
+
           script: |
             set -euo pipefail
 
             APP_DIR="/var/www/plazasales-frontend"
             APP_NAME="plazasales-frontend"
-            BRANCH="${GITHUB_REF_NAME}"
+            BRANCH="${GITHUB_REF_NAME:-main}"
             PORT="3000"
 
             echo "✅ Deploying ${APP_NAME} | branch=${BRANCH}"
 
             cd "${APP_DIR}"
 
-            # Ensure pnpm exists on VPS
             if ! command -v pnpm >/dev/null 2>&1; then
               echo "📦 Installing pnpm..."
               npm i -g pnpm
@@ -51,7 +54,6 @@ jobs:
             if pm2 describe "${APP_NAME}" >/dev/null 2>&1; then
               pm2 restart "${APP_NAME}" --update-env --time
             else
-              # Force Next.js to bind PORT (safe even if your start script already does)
               pm2 start "pnpm start -- -p ${PORT}" --name "${APP_NAME}" --time
             fi
 
