@@ -110,7 +110,7 @@ export default function Sidebar({
     if (!selectedCategory) {
       const subcategoryMap = new Map<
         string,
-        { id: string; title: string; slug: string; categorySlug: string }
+        { id: string; title: string; slug: string; categorySlug: string; sortOrder?: number }
       >();
 
       if (selectedBrand) {
@@ -124,6 +124,7 @@ export default function Sidebar({
                 title: sub.title,
                 slug: sub.slug,
                 categorySlug: cat.slug,
+                sortOrder: sub.sortOrder,
               });
             }
           });
@@ -139,6 +140,7 @@ export default function Sidebar({
                   title: sub.title,
                   slug: sub.slug,
                   categorySlug: cat.slug,
+                  sortOrder: sub.sortOrder,
                 });
               }
             });
@@ -146,13 +148,15 @@ export default function Sidebar({
         });
       }
 
-      return Array.from(subcategoryMap.values());
+      return Array.from(subcategoryMap.values()).sort(
+        (a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)
+      );
     }
 
     // Show subcategories for selected category
     const subcategoryMap = new Map<
       string,
-      { id: string; title: string; slug: string; categorySlug: string }
+      { id: string; title: string; slug: string; categorySlug: string; sortOrder?: number }
     >();
 
     if (selectedBrand) {
@@ -168,6 +172,7 @@ export default function Sidebar({
                 title: sub.title,
                 slug: sub.slug,
                 categorySlug: cat.slug,
+                sortOrder: sub.sortOrder,
               });
             }
           });
@@ -186,6 +191,7 @@ export default function Sidebar({
                   title: sub.title,
                   slug: sub.slug,
                   categorySlug: cat.slug,
+                  sortOrder: sub.sortOrder,
                 });
               }
             });
@@ -193,7 +199,9 @@ export default function Sidebar({
       });
     }
 
-    return Array.from(subcategoryMap.values());
+    return Array.from(subcategoryMap.values()).sort(
+      (a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)
+    );
   }, [brands, selectedBrand, selectedCategory]);
 
   const handleBrandToggle = React.useCallback(
@@ -368,32 +376,34 @@ export default function Sidebar({
                             <div className="h-4 bg-zinc-200 rounded w-24"></div>
                           </div>
                         ))
-                      : brands?.map((brandItem) => {
-                          const isSelected = selectedBrand === brandItem.slug;
-                          if (
-                            brandItem.slug
-                              .toLocaleLowerCase()
-                              .includes("forward")
-                          )
-                            return null;
-                          return (
-                            <label
-                              key={brandItem.id}
-                              className="flex items-center gap-2 cursor-pointer rounded-md transition-colors group"
-                            >
-                              <Checkbox
-                                checked={isSelected}
-                                onCheckedChange={() =>
-                                  handleBrandToggle(brandItem.slug)
-                                }
-                                className="size-5 rounded-full"
-                              />
-                              <span className="text-sm text-zinc-700 group-hover:text-zinc-900">
-                                {brandItem.name}
-                              </span>
-                            </label>
-                          );
-                        })}
+                      : [...brands]
+                          .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
+                          .map((brandItem) => {
+                            const isSelected = selectedBrand === brandItem.slug;
+                            if (
+                              brandItem.slug
+                                .toLocaleLowerCase()
+                                .includes("forward")
+                            )
+                              return null;
+                            return (
+                              <label
+                                key={brandItem.id}
+                                className="flex items-center gap-2 cursor-pointer rounded-md transition-colors group"
+                              >
+                                <Checkbox
+                                  checked={isSelected}
+                                  onCheckedChange={() =>
+                                    handleBrandToggle(brandItem.slug)
+                                  }
+                                  className="size-5 rounded-full"
+                                />
+                                <span className="text-sm text-zinc-700 group-hover:text-zinc-900">
+                                  {brandItem.name}
+                                </span>
+                              </label>
+                            );
+                          })}
                   </div>
                 </div>
               </div>

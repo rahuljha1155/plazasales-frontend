@@ -275,7 +275,7 @@ export default function Navbar() {
               <Icon icon="teenyicons:search-outline" className="size-4" />
             </button>
 
-            <TransitionLink target="_blank" href={"https://wa.link/fz239i"}>
+            <TransitionLink target="_blank" href={"https://wa.me/9779801016633"}>
               <div className="flex gap-2 items-center group text-zinc-500 border rounded-full px-4 py-1.5  hover:text-white transition-all cursor-pointer hover:bg-gradient-to-r from-green-600 to-green-800">
                 <Icon icon={"logos:whatsapp-icon"} className="size-4  group-hover:grayscale-0" />
                 Whatsapp

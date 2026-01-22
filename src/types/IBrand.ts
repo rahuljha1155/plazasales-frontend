@@ -60,6 +60,7 @@ export interface ISubCategory {
   title: string;
   slug: string;
   coverImage: string | null;
+  sortOrder?: number;
 }
 
 export interface IPopularProduct {

@@ -58,7 +58,9 @@ export default function ProductList({
 
   useEffect(() => {
     if (initialBrands.length > 0) {
-      setBrands(initialBrands);
+      // Sort brands by sortOrder before setting
+      const sortedBrands = [...initialBrands].sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+      setBrands(sortedBrands);
     }
   }, [initialBrands, setBrands]);
 

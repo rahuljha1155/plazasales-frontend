@@ -4,8 +4,8 @@ import { Icon } from '@iconify/react';
 import TransitionLink from './transition-link';
 
 export default function WhatsAppButton() {
-  // Replace with your actual WhatsApp number (with country code, no + or spaces)
-  const phoneNumber = '9779800000000'; // Example: 9779800000000 for Nepal
+  // WhatsApp number with country code (no + or spaces)
+  const phoneNumber = '9779801016633';
   const message = 'Hello! I would like to inquire about your products.';
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 

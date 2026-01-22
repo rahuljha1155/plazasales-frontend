@@ -143,7 +143,7 @@ export default function NavbarSheet({ onOpen }: { onOpen: () => void }) {
                   </div>
 
                   <TransitionLink
-                    href="https://wa.link/fz239i"
+                    href="https://wa.me/9779801016633"
                     target="_blank"
                     className="flex items-center gap-3 md:gap-4 px-2 md:px-4 py-1.5 md:py-3 rounded-lg"
                   >

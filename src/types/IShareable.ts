@@ -10,7 +10,7 @@ export interface IShareable {
     isPublished: boolean;
     isPopular: boolean;
   };
-  kind: "BROCHURE" | "MANUAL" | "CATALOG" | "DATASHEET";
+  kind: "BROCHURE" | "MANUAL" | "CATALOG" | "DATASHEET" | "OTHER";
   title: string;
   mediaAsset: {
     id: string;
