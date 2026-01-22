@@ -1,11 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: false,
-  output: "standalone",
-  staticPageGenerationTimeout: 900, // ADD THIS LINE
-
   images: {
     remotePatterns: [
       {
@@ -24,7 +20,7 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "pub-969c218ddb2f4a29bbe25940c8760402.r2.dev",
         port: "",
-        pathname: "/**",
+        pathname: "/uploads/**",
       },
     ],
     formats: ["image/avif", "image/webp"],
@@ -34,7 +30,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     workerThreads: false,
-    cpus: 4,
+    cpus: 1,
   },
 };
 

@@ -227,7 +227,7 @@ const Footer = () => {
                     <div className="flex text-xs items-start gap-2 max-w-[90%] ">
                       <span>
                         4F, Mahabir Plaza | Hospital Chowk Biratnagar - 7 |
-                        Koshi | Nepa
+                        Koshi | Nepal
                       </span>
                     </div>
                   </li>
