@@ -1,7 +1,11 @@
+'use client'
+
 import Image from 'next/image'
 import Title from '../home/title'
 import { TeamMember } from '@/services/teamService'
 import { Skeleton } from '@/components/ui/skeleton'
+import DOMPurify from 'dompurify'
+import { useMemo } from 'react'
 
 export function MDMessageSkeleton() {
     return (
@@ -44,6 +48,14 @@ export function MDMessageSkeleton() {
 }
 
 export function MDMessage({ data, isLoading }: { data: TeamMember | undefined; isLoading?: boolean }) {
+    // Sanitize description for security (client-side)
+    const sanitizedDescription = useMemo(() => {
+        if (typeof window !== 'undefined' && data?.description?.text) {
+            return DOMPurify.sanitize(data.description.text);
+        }
+        return '';
+    }, [data?.description?.text]);
+
     if (isLoading) {
         return <MDMessageSkeleton />
     }
@@ -74,7 +86,7 @@ export function MDMessage({ data, isLoading }: { data: TeamMember | undefined; i
                     </div>
 
                     <div className="space-y-6 text-center lg:text-left">
-                        <div className="text-sm md:text-lg leading-relaxed text-foreground space-y-4" dangerouslySetInnerHTML={{ __html: data?.description?.text || "" }}>
+                        <div className="text-sm md:text-lg leading-relaxed text-foreground space-y-4" dangerouslySetInnerHTML={{ __html: sanitizedDescription }}>
 
                         </div>
 

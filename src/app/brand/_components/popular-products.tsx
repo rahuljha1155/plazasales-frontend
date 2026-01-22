@@ -38,7 +38,7 @@ export default function PopularProducts({ products }: PopularProductsProps) {
                   fill
                   quality={90}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
-                  className="bg-muted/80 object-contain w-auto   sm:h-40"
+                  className="bg-white object-contain w-auto   sm:h-40"
                 />
               </div>
 

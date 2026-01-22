@@ -171,14 +171,14 @@ export default function NavbarDropdown({
                           )}
 
                           <div className="flex flex-col h-full">
-                            <div className="w-full! h-35 xl:h-45 border rounded-xl sm:rounded-2xl overflow-hidden relative">
+                            <div className="w-full! h-35 xl:h-45 bg-white border rounded-xl sm:rounded-2xl overflow-hidden relative">
                               <Image
                                 src={data?.coverimage || data?.coverImage || "/brokenimg.jpg"}
                                 alt={data?.title || data?.name || "Product"}
                                 fill
                                 quality={90}
                                 sizes="(max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-                                className="bg-muted/80 object-cover h-40"
+                                className="object-contain p-2"
                               />
                             </div>
 

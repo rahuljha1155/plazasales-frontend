@@ -5,6 +5,8 @@ import { TransitionLink } from '@/components/shared'
 import { searchProductsServer } from '@/services/productService'
 import ProductCardV2 from '@/components/ui/product-card-v2'
 import { Button } from '@/components/ui/button'
+import DOMPurify from 'dompurify'
+import { JSDOM } from 'jsdom'
 
 export interface TechnologyResponse {
     status: number;
@@ -34,6 +36,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     }
     const technologyData = await data();
     const technology = technologyData.technology;
+
+    // Sanitize description for security
+    const window = new JSDOM('').window;
+    const purify = DOMPurify(window);
+    const sanitizedDescription = purify.sanitize(technology.description);
 
     // Fetch related products using wild search
     const relatedProductsData = await searchProductsServer({
@@ -87,7 +94,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                         <div className="max-w-7xl p-4 xl:p-0 py-12! mx-auto  mb-8">
                             <div
                                 className="prose prose-lg text-center lg:text-left max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary prose-strong:text-gray-900"
-                                dangerouslySetInnerHTML={{ __html: technology.description }}
+                                dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
                             />
                             <div className="flex justify-center lg:justify-start  mt-8">
                                 <TransitionLink href={`/products?search=${technology.title}`}>

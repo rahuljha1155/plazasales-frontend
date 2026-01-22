@@ -77,11 +77,11 @@ export async function generateMetadata(): Promise<Metadata> {
         other: {
           ...(seo.extraMeta
             ? Object.entries(seo.extraMeta).reduce((acc, [key, value]) => {
-                if (typeof value === "string" || typeof value === "number") {
-                  acc[key] = value;
-                }
-                return acc;
-              }, {} as Record<string, string | number>)
+              if (typeof value === "string" || typeof value === "number") {
+                acc[key] = value;
+              }
+              return acc;
+            }, {} as Record<string, string | number>)
             : {}),
         },
       };
@@ -144,6 +144,21 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google Analytics */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-FFSEP7RYRQ"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-FFSEP7RYRQ');
+            `,
+          }}
+        />
         {/* Suppress console warnings in development */}
         <script
           dangerouslySetInnerHTML={{

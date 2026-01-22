@@ -183,6 +183,14 @@ const Footer = () => {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <TransitionLink
+                      href="/shareable-resources"
+                      className="hover:text-primary hover:underline"
+                      >
+                        Shareable Resources
+                    </TransitionLink>
+                  </li>
+                  <li>
+                    <TransitionLink
                       href="/cookies-policy"
                       className="hover:text-primary hover:underline"
                     >

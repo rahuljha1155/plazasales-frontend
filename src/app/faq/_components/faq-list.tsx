@@ -1,16 +1,28 @@
 "use client"
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Icon } from "@iconify/react";
 import { IFAQ } from '@/types/IFAQ';
 import { TransitionLink } from '@/components/shared';
+import DOMPurify from 'dompurify';
 
 interface FAQListProps {
     faqs: IFAQ[];
 }
 
 export default function FAQList({ faqs }: FAQListProps) {
+    // Sanitize all FAQ descriptions for security
+    const sanitizedFaqs = useMemo(() => {
+        if (typeof window !== 'undefined') {
+            return faqs.map(faq => ({
+                ...faq,
+                sanitizedContent: DOMPurify.sanitize(faq.description.content)
+            }));
+        }
+        return faqs.map(faq => ({ ...faq, sanitizedContent: '' }));
+    }, [faqs]);
+
     return (
         <section className='py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-zinc-50/50 to-white dark:from-zinc-900/50 dark:to-zinc-950'>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-0">
@@ -39,8 +51,8 @@ export default function FAQList({ faqs }: FAQListProps) {
 
                 {/* FAQ List */}
                 <div className='space-y-8 sm:space-y-6 md:space-y-5 lg:space-y-6'>
-                    {faqs.length > 0 ? (
-                        faqs.map((faq, index) => (
+                    {sanitizedFaqs.length > 0 ? (
+                        sanitizedFaqs.map((faq, index) => (
                             <div
                                 key={faq.id}
                                 className="group relative bg-white dark:bg-zinc-900 rounded-xl sm:rounded-2xl md:border border-zinc-200 dark:border-zinc-800  md:p-6 lg:p-8 hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-300 overflow-hidden"
@@ -57,7 +69,7 @@ export default function FAQList({ faqs }: FAQListProps) {
 
                                     <div className='  md:pl-16 lg:pl-20'>
                                         <div
-                                            dangerouslySetInnerHTML={{ __html: faq.description.content }}
+                                            dangerouslySetInnerHTML={{ __html: faq.sanitizedContent }}
                                             className='text-sm sm:text-base  text-zinc-700 dark:text-zinc-300 leading-relaxed prose prose-sm sm:prose-base md:prose-lg max-w-none prose-p:mb-2 prose-ul:ml-4 prose-li:marker:text-primary prose-headings:text-zinc-800 dark:prose-headings:text-zinc-100'
                                         />
                                     </div>

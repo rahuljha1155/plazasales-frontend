@@ -6,6 +6,8 @@ import { Icon } from '@iconify/react';
 import BlogCard from '@/components/ui/blogs-card';
 import { TransitionLink } from '@/components/shared';
 import CustomBreadcrumb from '@/components/ui/custom-breadcum';
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
 
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
@@ -53,6 +55,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         { name: blogDetails?.blog?.title || "Blog Details", href: "#" }
     ];
 
+    // Sanitize blog content for security
+    const window = new JSDOM('').window;
+    const purify = DOMPurify(window);
+    const sanitizedExcerpt = purify.sanitize(blogDetails?.blog?.excerpt || '');
+    const sanitizedDescription = purify.sanitize(blogDetails?.blog?.description || '');
+
     return (
         <div className='pb-20'>
             <div className="bg-muted/80 py-2 ">
@@ -69,8 +77,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                                 />
                             </div>
                             <h1 className="text-gray-900 border-b pb-6 mb-6 font-bold text-xl md:text-3xl">{blogDetails?.blog?.title}</h1>
-                            <div className="" dangerouslySetInnerHTML={{ __html: blogDetails?.blog?.excerpt }}></div>
-                            <div className="ckeditor-content-display px-0 mx-0 !text-sm" dangerouslySetInnerHTML={{ __html: blogDetails?.blog?.description }}></div>
+                            <div className="" dangerouslySetInnerHTML={{ __html: sanitizedExcerpt }}></div>
+                            <div className="ckeditor-content-display px-0 mx-0 !text-sm" dangerouslySetInnerHTML={{ __html: sanitizedDescription }}></div>
                             {blogDetails.blog?.mediaAssets.length && (<div className="grid md:grid-cols-2 gap-4 lg:mt-10">
                                 {blogDetails?.blog?.mediaAssets?.map((media) => (
                                     <div key={media.id} className="w-full aspect-video   relative">
