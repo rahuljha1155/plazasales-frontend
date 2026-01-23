@@ -88,12 +88,15 @@ export default function NavbarDropdown({
                   brands.map((brand, idx) => (
                     <li
                       className={`font-medium py-1 group border hover:border-primary rounded-full ${activeCategory === idx
-                        ? "bg-white border-primary text-primary"
-                        : "border-zinc-200 text-zinc-200"
-                        } cursor-pointer`}
+                        ? "border-primary"
+                        : "border-zinc-200"
+                        } cursor-pointer transition-all duration-300`}
                       onMouseOver={() => setActiveCategory(idx)}
                       onClick={() => setDrapdownState({ isActive: false, idx: null })}
                       key={brand.id}
+                      style={{
+                        backgroundColor: brand.themeColor || '#ffffff'
+                      }}
                     >
                       <TransitionLink
                         href={`/brand/${brand.slug}`}
@@ -104,10 +107,10 @@ export default function NavbarDropdown({
                           alt={brand?.name || "Product"}
                           height={20}
                           width={100}
-                          className="object-contain h-[18px] xl:h-[25px] w-fit p-1"
+                          className="object-contain h-[18px] xl:h-[25px] w-fit p-1 brightness-0 invert"
                         />
                         <span
-                          className='text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300'
+                          className='text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300'
                           style={{
                             opacity: activeCategory === idx ? 1 : 0
                           }}

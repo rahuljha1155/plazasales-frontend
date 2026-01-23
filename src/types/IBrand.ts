@@ -24,6 +24,7 @@ export interface IBrand {
   outdoorImage: string | null;
   youtubeId: string | null;
   themeColor: string | null;
+  dropdownImage: string | null;
   description: string | null;
   usp: string | null;
   isAuthorizedDistributor: boolean;
