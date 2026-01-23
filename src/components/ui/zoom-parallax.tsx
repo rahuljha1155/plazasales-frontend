@@ -51,12 +51,21 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 					style={{ scale, willChange: 'transform' }}
 					className={`absolute top-0 flex h-full w-full items-center justify-center ${positionClass}`}
 				>
-					<div className="relative rounded-lg overflow-hidden h-[25vh] w-[25vw]">
-						<img
+					<div className="relative rounded-lg overflow-hidden h-[25vh] w-[25vw] [image-rendering:crisp-edges] [image-rendering:-webkit-optimize-contrast]">
+						<Image
 							src={url || '/brokenimg.jpg'}
 							alt={`Parallax image ${index + 1}`}
-							className={`h-full w-full object-contain ${url === images[0]?.centerImage ? "object-cover" : ""}`}
-							sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 95vw, 100vw"
+							fill
+							quality={100}
+							priority={index === 0}
+							sizes="(max-width: 1024px) 100vw, 200vw"
+							className={`object-contain ${url === images[0]?.centerImage ? "object-cover" : ""}`}
+							style={{
+								imageRendering: 'crisp-edges',
+								WebkitFontSmoothing: 'antialiased',
+								backfaceVisibility: 'hidden',
+								transform: 'translateZ(0)',
+							}}
 						/>
 					</div>
 				</motion.div>

@@ -16,27 +16,38 @@ export default function PlazaHero() {
 
       <div className="space-y-2  sm:space-y-8 relative z-40 flex flex-col items-center text-center lg:text-left lg:items-start justify-center">
         <div className="text-sm sm:text-base lg:text-lg text-center lg:text-left">
-          From <span className="text-primary font-medium">indoor</span> to{" "}
-          <span className="text-primary font-medium">outdoor</span> to{" "}
-          <span className="text-primary font-medium">office</span>
+          From <span className="text-primary font-medium">core</span> to{" "}
+          <span className="text-primary font-medium">edge</span> to{" "}
+          <span className=" font-medium">the full spectrum of it and electronics</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-left font-semibold leading-tight">
-          Empowering B2B brands to lead their market.
+        <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl text-center lg:text-left font-semibold leading-tight">
+          Empowering Productivity through better IT.
         </h1>
-        <div className="flex justify-center lg:justify-start gap-6 sm:gap-8 w-full mt-4 lg:mt-0 divide-x divide-zinc-300 dark:divide-zinc-700 md:pt-4">
-          {[...Array(3)].map((_, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col sm:flex-row gap-1 sm:gap-3 md:items-center md:justify-center sm:justify-start sm:pr-8 last:pr-0"
-            >
-              <span className="text-2xl md:text-4xl xl:text-6xl font-bold text-primary">
-                {(idx + 1) * 12}
-              </span>
-              <p className="text-xs backdrop-blur-lg sm:text-sm lg:text-base text-muted-foreground max-w-[120px]  lg:text-left leading-tight">
-                Years of experience
-              </p>
-            </div>
-          ))}
+        <div className="flex justify-center lg:justify-start gap-3 sm:gap-6 w-full mt-4 lg:mt-0 divide-x divide-zinc-300 dark:divide-zinc-700 md:pt-4">
+          <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 items-center sm:items-center sm:pr-4">
+            <span className="text-xl md:text-2xl xl:text-3xl font-bold text-primary">
+              12
+            </span>
+            <p className="text-[10px] sm:text-xs text-center sm:text-left text-muted-foreground max-w-[80px] leading-tight">
+              Years of Experience
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 items-center sm:items-center sm:pl-4 sm:pr-4">
+            <span className="text-xl md:text-2xl xl:text-3xl font-bold text-primary">
+              300+
+            </span>
+            <p className="text-[10px] sm:text-xs text-center sm:text-left text-muted-foreground max-w-[80px] leading-tight">
+              Authorized Partners
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 items-center sm:items-center sm:pl-4">
+            <span className="text-xl md:text-2xl xl:text-3xl font-bold text-primary">
+              1000+
+            </span>
+            <p className="text-[10px] sm:text-xs text-center sm:text-left text-muted-foreground max-w-[80px] leading-tight">
+              Product SKU Range
+            </p>
+          </div>
         </div>
 
         <TransitionLink
