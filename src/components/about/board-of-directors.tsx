@@ -1,4 +1,3 @@
-import React from 'react'
 import Image from 'next/image'
 import Title from '../home/title'
 import { getAllTeamMembersServer, TeamMember } from '@/services/teamService'
@@ -48,39 +47,39 @@ export async function BoardOfDirectors() {
                                         />
                                     </div>
                                     <div className="flex justify-between items-end">
-                                        <div className="  mt-4">
-                                            <h3 className="text-xl  font-bold text-foreground">
+                                        <div className="mt-4">
+                                            <h3 className="text-xl font-bold text-foreground">
                                                 {member.fullname}
                                             </h3>
-                                            <p className="text-primary font-semibold ">
+                                            <p className="text-primary font-semibold">
                                                 {member.designation}
                                             </p>
                                         </div>
 
-                                        <div className="flex gap-4 flex-wrap  items-center">
-                                            {member?.facebook && (
-                                                <Link href={member?.facebook} target="_blank" rel="noopener noreferrer">
-                                                    <span>
-                                                        <Icon className='size-5' icon={"logos:facebook"} />
-                                                    </span>
-                                                </Link>
-                                            )}
-                                            {member?.twitter && (
-                                                <Link href={member?.twitter} target="_blank" rel="noopener noreferrer">
-                                                    <span>
-                                                        <Icon className='size-5' icon={"skill-icons:instagram"} />
-                                                    </span>
-                                                </Link>
-                                            )}
-                                            {member?.linkedin && (
-                                                <Link href={member?.linkedin} target="_blank" rel="noopener noreferrer">
-                                                    <span>
-                                                        <Icon className='size-5' icon={"logos:linkedin-icon"} />
-                                                    </span>
-                                                </Link>
-                                            )}
-
-                                        </div>
+                                        {(member?.facebook || member?.twitter || member?.linkedin || member?.instagram) && (
+                                            <div className="flex gap-4 flex-wrap items-center">
+                                                {member?.facebook && (
+                                                    <Link href={member.facebook} target="_blank" rel="noopener noreferrer">
+                                                        <Icon className='size-5' icon="logos:facebook" />
+                                                    </Link>
+                                                )}
+                                                {member?.instagram && (
+                                                    <Link href={member.instagram} target="_blank" rel="noopener noreferrer">
+                                                        <Icon className='size-5' icon="skill-icons:instagram" />
+                                                    </Link>
+                                                )}
+                                                {member?.twitter && (
+                                                    <Link href={member.twitter} target="_blank" rel="noopener noreferrer">
+                                                        <Icon className='size-5' icon="pajamas:twitter" />
+                                                    </Link>
+                                                )}
+                                                {member?.linkedin && (
+                                                    <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                                                        <Icon className='size-5' icon="logos:linkedin-icon" />
+                                                    </Link>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             ))}

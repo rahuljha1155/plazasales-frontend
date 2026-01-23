@@ -1,11 +1,7 @@
-'use client'
-
 import Image from 'next/image'
 import Title from '../home/title'
 import { TeamMember } from '@/services/teamService'
 import { Skeleton } from '@/components/ui/skeleton'
-import DOMPurify from 'dompurify'
-import { useMemo } from 'react'
 
 export function MDMessageSkeleton() {
     return (
@@ -48,30 +44,26 @@ export function MDMessageSkeleton() {
 }
 
 export function MDMessage({ data, isLoading }: { data: TeamMember | undefined; isLoading?: boolean }) {
-    // Sanitize description for security (client-side)
-    const sanitizedDescription = useMemo(() => {
-        if (typeof window !== 'undefined' && data?.description?.text) {
-            return DOMPurify.sanitize(data.description.text);
-        }
-        return '';
-    }, [data?.description?.text]);
-
     if (isLoading) {
         return <MDMessageSkeleton />
     }
+
+    // Don't render if no data or no description
+    if (!data || !data.description?.text) {
+        return null;
+    }
+
     return (
         <div className="py-10 md:py-16 px-4 md:px-8">
-
-
             <div className="max-w-7xl mx-auto">
                 <Title title='From Our Leadership' />
-                <p className='md:text-xl  text-center mt-2'>What Our Leader has to say about lorem ispum dollar sir</p>
+                <p className='md:text-xl text-center mt-2'>What Our Leader has to say about Plaza Sales</p>
 
                 <div className="grid lg:grid-cols-2 mt-6 md:mt-16 gap-8 items-center">
                     <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden">
                         <Image
-                            src={data?.image || "/brokenimg.jpg"}
-                            alt={data?.fullname || "Managing Director"}
+                            src={data.image || "/brokenimg.jpg"}
+                            alt={data.fullname || "Managing Director"}
                             fill
                             quality={90}
                             sizes="(max-width: 768px) 100vw, 50vw"
@@ -81,18 +73,19 @@ export function MDMessage({ data, isLoading }: { data: TeamMember | undefined; i
                     </div>
 
                     <div className="pt-4 border-t text-center lg:text-left md:hidden border-border">
-                        <p className="font-bold md:text-xl text-primary">{data?.fullname || ""}</p>
-                        <p className="text-muted-foreground text-sm md:text-base">{data?.designation || ""}</p>
+                        <p className="font-bold md:text-xl text-primary">{data.fullname}</p>
+                        <p className="text-muted-foreground text-sm md:text-base">{data.designation}</p>
                     </div>
 
                     <div className="space-y-6 text-center lg:text-left">
-                        <div className="text-sm md:text-lg leading-relaxed text-foreground space-y-4" dangerouslySetInnerHTML={{ __html: sanitizedDescription }}>
-
-                        </div>
+                        <div
+                            className="text-sm md:text-lg leading-relaxed text-foreground space-y-4"
+                            dangerouslySetInnerHTML={{ __html: data.description.text }}
+                        />
 
                         <div className="pt-4 border-t border-border hidden md:block">
-                            <p className="font-bold md:text-xl text-primary">{data?.fullname || ""}</p>
-                            <p className="text-muted-foreground text-sm md:text-base">{data?.designation || ""}</p>
+                            <p className="font-bold md:text-xl text-primary">{data.fullname}</p>
+                            <p className="text-muted-foreground text-sm md:text-base">{data.designation}</p>
                         </div>
                     </div>
                 </div>

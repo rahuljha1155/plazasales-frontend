@@ -11,22 +11,22 @@ interface ShareableBodyProps {
 }
 
 const getKindIcon = (kind: string) => {
-  switch (kind) {
-    case "BROCHURE":
-      return "solar:document-text-bold";
-    case "MANUAL":
-      return "solar:book-bold";
-    case "CATALOG":
-      return "solar:documents-bold";
-    case "DATASHEET":
-      return "solar:clipboard-list-bold";
-    default:
-      return "solar:document-bold";
-  }
+    switch (kind) {
+        case "BROCHURE":
+            return "solar:document-text-bold";
+        case "MANUAL":
+            return "solar:book-bold";
+        case "CATALOG":
+            return "solar:documents-bold";
+        case "DATASHEET":
+            return "solar:clipboard-list-bold";
+        default:
+            return "solar:document-bold";
+    }
 };
 
 const getKindColor = (kind: string) => {
-  return "bg-primary/10 text-primary";
+    return "bg-primary/10 text-primary";
 };
 
 export default function ShareableBody({ shareables }: ShareableBodyProps) {
@@ -38,9 +38,9 @@ export default function ShareableBody({ shareables }: ShareableBodyProps) {
         .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
 
     const kinds = ["ALL", ...Array.from(new Set(sortedShareables.map(s => s.kind)))];
-    
-    const filteredShareables = filter === "ALL" 
-        ? sortedShareables 
+
+    const filteredShareables = filter === "ALL"
+        ? sortedShareables
         : sortedShareables.filter(s => s.kind === filter);
 
     const handleDownload = async (url: string, filename: string) => {
@@ -48,17 +48,17 @@ export default function ShareableBody({ shareables }: ShareableBodyProps) {
             // Fetch the file
             const response = await fetch(url);
             const blob = await response.blob();
-            
+
             // Create a blob URL
             const blobUrl = window.URL.createObjectURL(blob);
-            
+
             // Create a temporary anchor element to trigger download
             const link = document.createElement('a');
             link.href = blobUrl;
             link.download = filename;
             document.body.appendChild(link);
             link.click();
-            
+
             // Cleanup
             document.body.removeChild(link);
             window.URL.revokeObjectURL(blobUrl);
@@ -82,11 +82,10 @@ export default function ShareableBody({ shareables }: ShareableBodyProps) {
                         <button
                             key={kind}
                             onClick={() => setFilter(kind)}
-                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                                filter === kind
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === kind
                                     ? "bg-primary text-white shadow-md scale-105"
                                     : "bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700"
-                            }`}
+                                }`}
                         >
                             {kind}
                         </button>
