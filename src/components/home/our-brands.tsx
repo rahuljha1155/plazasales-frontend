@@ -64,7 +64,7 @@ export default function HoverSliderDemo() {
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-3">
                     <div className="lg:mx-auto text-center">
                         <Title title="Brands We Represent" />
-                        <p className='text-sm md:text-lg mt-1 lg:mt-3 text-center'>Our Exclusive Blogs and ideas on Popular Brands</p>
+                        <p className='text-sm md:text-lg mt-1 lg:mt-3 text-center'>Brands that excel in their respective categories.</p>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@ export default function HoverSliderDemo() {
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-3">
                 <div className="lg:mx-auto text-center">
                     <Title title="Brands We Represent" />
-                    <p className='text-sm md:text-lg mt-1 lg:mt-3 text-center'>Our Exclusive Blogs and ideas on Popular Brands</p>
+                    <p className='text-sm md:text-lg mt-1 lg:mt-3 text-center'>Brands that excel in their respective categories.</p>
                 </div>
             </div>
 

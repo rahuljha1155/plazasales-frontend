@@ -32,7 +32,7 @@ export default function ProductCategory() {
     <section className="relative py-8 md:py-12 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-6 md:mb-16">
-          <Title title="Explore Categories" />
+          <Title title="Product Verticals" />
           <p className='text-sm md:text-lg mt-1 lg:mt-3'>Discover innovative technology designed for your lifestyle</p>
         </div>
 
