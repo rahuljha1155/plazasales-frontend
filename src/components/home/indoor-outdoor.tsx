@@ -36,7 +36,7 @@ export default function IndoorOutdoor() {
     return (
         <section className='lg:px-0 py-8 md:py-12 lg:py-20 px-4 xl:px-0  max-w-screen overflow-x-hidden'>
             <div className="relative pointer-events-none flex flex-col  w-full  justify-center items-center">
-                <Title title="Explore Technologies" wrapperClassName={"!mx-0  mx-auto"} />
+                <Title title="Product Verticals" wrapperClassName={"!mx-0  mx-auto"} />
                 <p className='text-sm md:text-xl mt-1 lg:mt-3 text-center'>Discover innovative technology designed for your lifestyle</p>
                 <div className="grid grid-cols-2 mt-4 md:mt-14 lg:grid-cols-2 gap-3 lg:gap-4 py-2 max-w-5xl mx-auto relative  w-full pointer-events-auto">
                     {data?.map((item, idx) => {
