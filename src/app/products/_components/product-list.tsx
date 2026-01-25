@@ -97,11 +97,14 @@ export default function ProductList({
               <ProductCardSkeleton key={index} />
             ))
           ) : initialProducts?.length > 0 ? (
-            initialProducts?.map((product) => {
-              if (!product.brand?.name?.includes("forward")) {
-                return <ProductCardV2 key={product.id} data={product} />;
-              }
-            })
+            initialProducts
+              ?.filter((product) => product.isPublished === true) // Only show explicitly published products
+              ?.map((product) => {
+                if (!product.brand?.name?.includes("forward")) {
+                  return <ProductCardV2 key={product.id} data={product} />;
+                }
+                return null;
+              })
           ) : (
             <div className="col-span-full text-center py-12">
               <Icon
@@ -132,7 +135,7 @@ export default function ProductList({
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t pt-6">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-16 border-t pt-6">
             <div className="text-sm text-muted-foreground">
               Showing {(page - 1) * 16 + 1} to{" "}
               {Math.min(page * 16, totalProducts)} of {totalProducts} products

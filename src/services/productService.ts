@@ -127,7 +127,6 @@ export async function getAllProductsServer({
 }
 
 
-// Server-side function for wildcard search (no reCAPTCHA needed)
 export async function searchProductsServer({
     page = 1,
     limit = 10,
