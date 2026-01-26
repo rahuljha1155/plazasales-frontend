@@ -150,10 +150,10 @@ export default function ProductList({
                   variant="outline"
                   size="sm"
                   disabled={page <= 1}
-                  className="gap-1"
+                  className="gap-1 h-6 px-2 py-1"
                 >
-                  <Icon icon="tabler:chevron-left" width="16" height="16" />
-                  <span className="hidden md:block">Previous</span>
+                  <Icon icon="tabler:chevron-left" width="14" height="14" />
+                  <span className="hidden md:block text-xs">Previous</span>
                 </Button>
               </Link>
 
@@ -179,7 +179,7 @@ export default function ProductList({
                       <Button
                         variant={page === pageNum ? "default" : "outline"}
                         size="sm"
-                        className="min-w-[40px]"
+                        className="min-w-[32px] h-6 px-2 py-1 text-xs"
                       >
                         {pageNum}
                       </Button>

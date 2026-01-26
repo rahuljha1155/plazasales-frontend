@@ -42,9 +42,10 @@ export default function ProductCardV2({ data }: { data: IAllProduct }) {
               src={data?.coverimage || data?.coverImage || "/brokenimg.jpg"}
               alt={data?.title || data?.name || "Product"}
               fill
-              quality={90}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
+              quality={100}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1920px) 25vw, 20vw"
               className=" object-contain w-auto   sm:h-40"
+              priority={false}
             />
           </div>
 

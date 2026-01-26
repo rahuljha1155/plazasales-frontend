@@ -7,6 +7,9 @@ export default function Downloads({ downloads, categories }: { downloads: IDownl
 
     if (!downloads || downloads.length === 0) return null
 
+    // Sort downloads by sortOrder
+    const sortedDownloads = [...downloads].sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+
     // Helper function to format file size
     const formatFileSize = (bytes: string) => {
         const size = parseInt(bytes);
@@ -123,7 +126,7 @@ export default function Downloads({ downloads, categories }: { downloads: IDownl
             <h2 className='leading-none text-[22px] font-medium will-change-transform sm:text-3xl   font-overusedGrotesk mb-4 text-primary '>Downloads</h2>
 
             <div>
-                {downloads?.map((download) => (
+                {sortedDownloads?.map((download) => (
                     <DownloadCard key={download.id} download={download} />
                 ))}
             </div>
