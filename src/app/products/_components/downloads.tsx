@@ -34,6 +34,11 @@ export default function Downloads({ downloads, categories }: { downloads: IDownl
                 <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                         <h3 className='text-xl font-semibold'>{download.title}</h3>
+                        {download.deprecated && (
+                            <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded-md font-medium">
+                                Deprecated
+                            </span>
+                        )}
                     </div>
                     <p className='text-gray-800 max-w-2xl'>{download.summary}</p>
                     {download.minOsVersion && (
