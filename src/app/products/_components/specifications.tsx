@@ -306,19 +306,21 @@ export default function Specifications({
       </h2>
 
 
-      <div
-        className="editor text-base!"
-        dangerouslySetInnerHTML={{
-          __html: (() => {
-            let html = decodeHtml(speficication || '');
-            html = html
-              .replace(/^<pre><code[^>]*>/, '')
-              .replace(/<\/code><\/pre>$/, '');
+      <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+        <div
+          className="editor text-base! min-w-full"
+          dangerouslySetInnerHTML={{
+            __html: (() => {
+              let html = decodeHtml(speficication || '');
+              html = html
+                .replace(/^<pre><code[^>]*>/, '')
+                .replace(/<\/code><\/pre>$/, '');
 
-            return DOMPurify.sanitize(html);
-          })()
-        }}
-      >
+              return DOMPurify.sanitize(html);
+            })()
+          }}
+        >
+        </div>
       </div>
     </section>
   );

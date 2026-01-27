@@ -83,6 +83,26 @@ export default function ProductList({
     return params.toString();
   };
 
+  // Sort products by category, subcategory, and then by sortOrder
+  const sortedProducts = [...(initialProducts || [])].sort((a, b) => {
+    // First sort by category name
+    const categoryA = a.category?.name || a.category?.title || '';
+    const categoryB = b.category?.name || b.category?.title || '';
+    if (categoryA !== categoryB) {
+      return categoryA.localeCompare(categoryB);
+    }
+
+    // Then sort by subcategory name
+    const subcategoryA = a.subcategory?.name || a.subcategory?.title || '';
+    const subcategoryB = b.subcategory?.name || b.subcategory?.title || '';
+    if (subcategoryA !== subcategoryB) {
+      return subcategoryA.localeCompare(subcategoryB);
+    }
+
+    // Finally sort by sortOrder
+    return (a.sortOrder || 0) - (b.sortOrder || 0);
+  });
+
   return (
     <>
       <AdBanner ads={ads} />
@@ -97,7 +117,7 @@ export default function ProductList({
               <ProductCardSkeleton key={index} />
             ))
           ) : initialProducts?.length > 0 ? (
-            initialProducts
+            sortedProducts
               ?.filter((product) => product.isPublished === true) // Only show explicitly published products
               ?.map((product) => {
                 if (!product.brand?.name?.includes("forward")) {

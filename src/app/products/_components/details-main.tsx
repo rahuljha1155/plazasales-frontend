@@ -76,7 +76,7 @@ export default function DetailsMain({ initialData }: { initialData: IProductBySl
     }, [product?.product?.brand?.themeColor, product?.product?.brand?.logoUrl, setProductBrandLogo, clearProductBrandLogo])
 
     return (
-        <section className="max-w-7xl px-4 xl:px-0 mx-auto mb-16 animate-in fade-in duration-300">
+        <section className="max-w-7xl px-4 xl:px-0 mx-auto mb-16 animate-in fade-in duration-300 overflow-x-hidden">
             <div className="mb-4 mt-4 capitalize! flex justify-between items-center">
                 <CustomBreadcrumb paths={paths} className='bg-transparent' />
             </div>

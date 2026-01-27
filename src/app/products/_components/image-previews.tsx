@@ -45,10 +45,10 @@ export default function ImagesPreview({ slides, defaultImage, product }: { slide
   )
 
   return (
-    <div className=''>
+    <div className='w-full overflow-hidden'>
       {/* Embla Carousel - visible up to lg screen */}
-      <div className="relative lg:hidden">
-        <div className="overflow-hidden rounded-sm" ref={emblaRef}>
+      <div className="relative lg:hidden w-full">
+        <div className="overflow-hidden rounded-sm w-full" ref={emblaRef}>
           <div className="flex touch-pan-y">
             {allMediaAssets.map((media, index) => (
               <div
