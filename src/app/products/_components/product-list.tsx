@@ -217,11 +217,11 @@ export default function ProductList({
                   variant="outline"
                   size="sm"
                   disabled={page >= totalPages}
-                  className="gap-1"
+                  className="gap-1 h-5 px-2 py-0"
                 >
-                  <span className="hidden md:block">Next</span>
+                  <span className="hidden md:block text-xs">Next</span>
 
-                  <Icon icon="tabler:chevron-right" width="16" height="16" />
+                  <Icon icon="tabler:chevron-right" width="12" height="12" />
                 </Button>
               </Link>
             </div>

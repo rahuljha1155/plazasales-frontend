@@ -17,7 +17,8 @@ export default function CustomBreadcrumb({ paths, className, onClick }: CustomBr
   const isMobile = useMediaQuery('(max-width: 640px)')
   
   // On mobile, show only first and last items if there are more than 3 items
-  const displayPaths = isMobile && paths.length > 3 
+  // Use isMobile check only after mount to avoid hydration mismatch
+  const displayPaths = (isMobile && paths.length > 3)
     ? [paths[0], { name: '...', href: '#' }, paths[paths.length - 1]]
     : paths;
 
