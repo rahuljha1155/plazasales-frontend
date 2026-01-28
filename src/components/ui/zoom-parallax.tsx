@@ -23,7 +23,19 @@ const imagePositions = [
 
 export function ZoomParallax({ images }: ZoomParallaxProps) {
 	const container = useRef<HTMLDivElement>(null);
-	const urls = [images[0]?.centerImage, images[0]?.sideImages[0], images[0]?.sideImages[1], images[0]?.sideImages[2], images[0]?.sideImages[3], images[0]?.sideImages[4],];
+	
+	const urls = useMemo(
+		() => [
+			images[0]?.centerImage,
+			images[0]?.sideImages[0],
+			images[0]?.sideImages[1],
+			images[0]?.sideImages[2],
+			images[0]?.sideImages[3],
+			images[0]?.sideImages[4],
+		],
+		[images]
+	);
+	
 	const { scrollYProgress } = useScroll({
 		target: container,
 		offset: ['start start', 'end end'],
@@ -51,7 +63,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 					style={{ scale, willChange: 'transform' }}
 					className={`absolute top-0 flex h-full w-full items-center justify-center ${positionClass}`}
 				>
-					<div className="relative rounded-lg overflow-hidden h-[25vh] w-[25vw] [image-rendering:crisp-edges] [image-rendering:-webkit-optimize-contrast]">
+					<div className="relative rounded-lg overflow-hidden h-[25vh] w-[25vw] [image-rendering:crisp-edges]">
 						<Image
 							src={url || '/brokenimg.jpg'}
 							alt={`Parallax image ${index + 1}`}
@@ -71,7 +83,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 				</motion.div>
 			);
 		});
-	}, [images, scales]);
+	}, [urls, images, scales]);
 
 	if (urls.length === 0) {
 		return null;

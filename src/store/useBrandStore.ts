@@ -55,7 +55,8 @@ const saveToSession = (brands: IBrand[]) => {
   try {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(brands));
     sessionStorage.setItem(TIMESTAMP_KEY, Date.now().toString());
-  } catch (error) {
+  } catch {
+    // Session storage not available
   }
 };
 

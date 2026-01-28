@@ -84,9 +84,7 @@ export default function ContactModal({ productData, btnClassName }: {
       };
 
 
-      const res = await submitInquiry(submitData, token);
-
-
+      await submitInquiry(submitData, token);
 
       setResult({
         isSuccess: true,
@@ -96,7 +94,7 @@ export default function ContactModal({ productData, btnClassName }: {
       setIsResultOpen(true);
       form.reset();
 
-    } catch (error) {
+    } catch {
       setResult({
         isSuccess: false,
         message: 'An error occurred while submitting the form. Please try again.'
@@ -166,7 +164,7 @@ export default function ContactModal({ productData, btnClassName }: {
                       value={countryCode}
                     >
                       <SelectTrigger
-                        className='py-3 sm:py-4 md:py-2 max-h-11 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y-[1px]! overflow-hidden border-zinc-600 text-sm sm:text-base w-[90px]'
+                        className='py-3 sm:py-4 md:py-2 max-h-11 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y! overflow-hidden border-zinc-600 text-sm sm:text-base w-[90px]'
                       >
                         <SelectValue >
                           {countryCode && countries.find(c => c.code === countryCode) ? (
@@ -179,7 +177,7 @@ export default function ContactModal({ productData, btnClassName }: {
                         </SelectValue>
                       </SelectTrigger>
                       <SelectContent
-                        className="max-h-[300px] z-[9999]"
+                        className="max-h-[300px] z-9999"
                         position="popper"
                         sideOffset={5}
                       >
@@ -207,7 +205,7 @@ export default function ContactModal({ productData, btnClassName }: {
                               onBlur={field.onBlur}
                               name={field.name}
                               ref={field.ref}
-                              className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y-[1px]! overflow-hidden border-zinc-600 text-sm sm:text-base'
+                              className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y! overflow-hidden border-zinc-600 text-sm sm:text-base'
                             />
                           </FormControl>
                           <FormMessage />
@@ -230,7 +228,7 @@ export default function ContactModal({ productData, btnClassName }: {
                           onBlur={field.onBlur}
                           name={field.name}
                           ref={field.ref}
-                          className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y-[1px]! overflow-hidden border-zinc-600 text-sm sm:text-base'
+                          className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y! overflow-hidden border-zinc-600 text-sm sm:text-base'
                         />
                       </FormControl>
                       <FormMessage />
@@ -251,7 +249,7 @@ export default function ContactModal({ productData, btnClassName }: {
                           onBlur={field.onBlur}
                           name={field.name}
                           ref={field.ref}
-                          className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y-[1px]! overflow-hidden border-zinc-600 text-sm sm:text-base'
+                          className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y! overflow-hidden border-zinc-600 text-sm sm:text-base'
                           id="address"
                         />
                       </FormControl>
@@ -288,7 +286,7 @@ export default function ContactModal({ productData, btnClassName }: {
                 <DialogClose asChild>
                   <Button variant="outline" type='button' className='w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-5 rounded-md md:rounded-full border-primary text-primary shadow-none text-sm sm:text-base'>Cancel</Button>
                 </DialogClose>
-                <Button type="submit" disabled={isSubmitting} className='w-full sm:w-auto rounded-md md:rounded-full !px-6 sm:!px-8 py-4 sm:py-5 border-primary shadow-none text-sm sm:text-base'>
+                <Button type="submit" disabled={isSubmitting} className='w-full sm:w-auto rounded-md md:rounded-full px-6! sm:px-8! py-4 sm:py-5 border-primary shadow-none text-sm sm:text-base'>
                   {isSubmitting ? 'Sending...' : 'Send'} <Icon icon="ph:paper-plane-tilt-light" className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Button>
               </DialogFooter>

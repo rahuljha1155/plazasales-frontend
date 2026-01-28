@@ -71,7 +71,8 @@ export function Pricing({
                 }
               }
             }
-          } catch (error) {
+          } catch {
+            // Error handled silently
           }
         }
       });
@@ -115,7 +116,7 @@ export function Pricing({
   };
 
   // Render pricing card
-  const renderPricingCard = (pkg: PricingPackage, index: number, totalPackages: number) => {
+  const renderPricingCard = (pkg: PricingPackage, index: number) => {
     const monthlyPrice = parseFloat(pkg.price) || 0;
     const yearlyPrice = parseFloat(pkg.yearlyPrice) || 0;
     const displayPrice = isMonthly ? monthlyPrice : yearlyPrice;
@@ -129,7 +130,7 @@ export function Pricing({
       <div
         key={index}
         className={cn(
-          "rounded-2xl border-[1px] p-4 sm:p-6 bg-background text-center lg:flex lg:flex-col lg:justify-center relative",
+          "rounded-2xl border p-4 sm:p-6 bg-background text-center lg:flex lg:flex-col lg:justify-center relative",
           isPopular ? "border-primary border-2" : "border-border",
           "flex flex-col",
           !isPopular && "mt-5 border-zinc-400"
@@ -189,7 +190,7 @@ export function Pricing({
           <ul className="mt-4 sm:mt-5 gap-2 flex flex-col">
             {pkg.features.map((feature, idx) => (
               <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm md:text-base">
-                <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                 <span className="text-left">{feature}</span>
               </li>
             ))}
@@ -295,7 +296,7 @@ export function Pricing({
                 pricingPackages.length >= 3 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
               )}>
                 {pricingPackages.map((pkg, index) =>
-                  renderPricingCard(pkg, index, pricingPackages.length)
+                  renderPricingCard(pkg, index)
                 )}
               </div>
 

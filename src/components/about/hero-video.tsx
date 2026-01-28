@@ -85,7 +85,8 @@ function useContainerScrollContext() {
   }
   return context
 }
-interface ContainerScrollProps extends React.HTMLAttributes<HTMLDivElement> { }
+
+type ContainerScrollProps = React.HTMLAttributes<HTMLDivElement>
 
 const ContainerScroll = ({
   children,

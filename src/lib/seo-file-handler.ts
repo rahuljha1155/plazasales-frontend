@@ -18,14 +18,14 @@ export async function updateSeoFiles(sitemapUrl?: string, manifestUrl?: string) 
                 let existingContent = '';
                 try {
                     existingContent = await fs.readFile(sitemapPath, 'utf-8');
-                } catch (e) {
+                } catch {
                     // File doesn't exist, that's fine
                 }
 
                 if (response.data && response.data !== existingContent) {
                     await fs.writeFile(sitemapPath, response.data);
                 }
-            } catch (error) {
+            } catch {
             }
         }
 
@@ -42,16 +42,16 @@ export async function updateSeoFiles(sitemapUrl?: string, manifestUrl?: string) 
                 let existingContent = '';
                 try {
                     existingContent = await fs.readFile(manifestPath, 'utf-8');
-                } catch (e) {
+                } catch {
                     // File doesn't exist
                 }
 
                 if (manifestContent && manifestContent !== existingContent) {
                     await fs.writeFile(manifestPath, manifestContent);
                 }
-            } catch (error) {
+            } catch {
             }
         }
-    } catch (error) {
+    } catch {
     }
 }

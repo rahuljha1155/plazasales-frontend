@@ -11,44 +11,44 @@ export async function generateMetadata({ params }: { params: Promise<{ brand: st
   try {
     const data = await getProductBySlugServer(slug);
     const { product } = data;
-    const seo = product.seoMetadata as any;
+    const seo = product.seoMetadata as Record<string, unknown>;
 
     return {
-      title: seo?.title || product.metaTitle || product.name,
-      description: seo?.description || product.metadescription || product.shortDescription,
-      keywords: seo?.keywords || product.metatag || [],
+      title: seo?.title as string || product.metaTitle || product.name,
+      description: seo?.description as string || product.metadescription || product.shortDescription,
+      keywords: seo?.keywords as string[] || product.metatag || [],
       openGraph: {
-        title: seo?.openGraph?.title || product.name,
-        description: seo?.openGraph?.description || product.shortDescription,
+        title: (seo?.openGraph as Record<string, unknown>)?.title as string || product.name,
+        description: (seo?.openGraph as Record<string, unknown>)?.description as string || product.shortDescription,
         // type: (seo?.openGraph?.type as 'website' | 'article') || 'website',
-        url: seo?.openGraph?.url || seo?.canonicalUrl,
-        siteName: seo?.openGraph?.siteName,
-        locale: seo?.openGraph?.locale || 'en_US',
-        images: seo?.openGraph?.images?.map((img: any) => img.url) || [product.coverImage],
+        url: (seo?.openGraph as Record<string, unknown>)?.url as string || seo?.canonicalUrl as string,
+        siteName: (seo?.openGraph as Record<string, unknown>)?.siteName as string,
+        locale: (seo?.openGraph as Record<string, unknown>)?.locale as string || 'en_US',
+        images: ((seo?.openGraph as Record<string, unknown>)?.images as Array<{url: string}>)?.map((img) => img.url) || [product.coverImage],
       },
       twitter: {
         card: 'summary_large_image',
-        title: seo?.twitter?.title || product.name,
-        description: seo?.twitter?.description || product.shortDescription,
-        images: seo?.twitter?.images || [product.coverImage],
+        title: (seo?.twitter as Record<string, unknown>)?.title as string || product.name,
+        description: (seo?.twitter as Record<string, unknown>)?.description as string || product.shortDescription,
+        images: (seo?.twitter as Record<string, unknown>)?.images as string[] || [product.coverImage],
       },
       robots: {
-        index: seo?.robots?.index ?? true,
-        follow: seo?.robots?.follow ?? true,
-        'max-snippet': seo?.robots?.maxSnippet,
+        index: (seo?.robots as Record<string, unknown>)?.index as boolean ?? true,
+        follow: (seo?.robots as Record<string, unknown>)?.follow as boolean ?? true,
+        'max-snippet': (seo?.robots as Record<string, unknown>)?.maxSnippet as number,
         'max-image-preview': "large",
-        'max-video-preview': seo?.robots?.maxVideoPreview,
+        'max-video-preview': (seo?.robots as Record<string, unknown>)?.maxVideoPreview as number,
       },
       alternates: {
-        canonical: seo?.canonicalUrl,
-        languages: seo?.alternates?.languages,
+        canonical: seo?.canonicalUrl as string,
+        languages: (seo?.alternates as Record<string, unknown>)?.languages as Record<string, string>,
       },
       other: {
-        'theme-color': seo?.extraMeta?.themeColor,
-        'category': seo?.extraMeta?.category,
+        'theme-color': (seo?.extraMeta as Record<string, unknown>)?.themeColor as string,
+        'category': (seo?.extraMeta as Record<string, unknown>)?.category as string,
       },
     };
-  } catch (error) {
+  } catch {
     return {
       title: 'Product',
       description: 'Product details',
@@ -64,7 +64,7 @@ export default async function Page({ params }: { params: Promise<{ brand: string
   try {
     const productData = await getProductBySlugServer(slug);
     const { product } = productData;
-    const jsonLd = (product.seoMetadata as any)?.jsonLd;
+    const jsonLd = (product.seoMetadata as Record<string, unknown>)?.jsonLd as Record<string, unknown> | undefined;
 
     return (
       <main className="min-h-screen bg-background">
@@ -79,7 +79,7 @@ export default async function Page({ params }: { params: Promise<{ brand: string
         </Suspense>
       </main>
     );
-  } catch (error) {
+  } catch {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">

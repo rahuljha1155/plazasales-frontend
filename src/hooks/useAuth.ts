@@ -25,7 +25,7 @@ export function useAuth() {
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         });
-      } catch (error) {
+      } catch {
         setUser(null);
       } finally {
         setLoading(false);

@@ -2,15 +2,18 @@
 import { Icon } from "@iconify/react";
 import { TransitionLink } from "../shared";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 export default function PlazaHero() {
   return (
     <main className=" min-h-full  lg:min-h-[65vh] py-16 lg:py-0 px-4 xl:px-0 grid lg:grid-cols-2 gap-12 lg:gap-16 max-w-7xl relative mx-auto overflow-hidden">
       <div className="lg:hidden absolute  inset-0 w-full h-full z-10 pointer-events-none">
-        <img
+        <Image
           src="/home/globe.png"
           alt="globe image"
-          className="size-full translate-y-1/2 object-contain animate-float select-none pointer-events-none"
+          fill
+          sizes="(max-width: 1024px) 90vw, 50vw"
+          className="translate-y-1/2 object-contain animate-float select-none pointer-events-none"
         />
       </div>
 
@@ -60,11 +63,13 @@ export default function PlazaHero() {
           </Button>
         </TransitionLink>
       </div>
-      <div className="hidden lg:flex justify-center items-center w-full relative">
-        <img
+      <div className="hidden lg:flex justify-center items-center w-full relative h-[500px]">
+        <Image
           src="/home/globe.png"
           alt="globe image"
-          className="size-[90%] object-contain animate-float select-none pointer-events-none"
+          fill
+          sizes="50vw"
+          className="object-contain animate-float select-none pointer-events-none"
         />
       </div>
     </main>

@@ -119,7 +119,7 @@ const ContactSection = () => {
       await postContact(submitData, token);
       setShowSuccessModal(true);
       form.reset();
-    } catch (error) {
+    } catch {
       setShowErrorModal(true);
     } finally {
       setLoading(false);
@@ -223,7 +223,7 @@ const ContactSection = () => {
                           onKeyDown={handleSelectOpen}
                         >
                           <SelectValue
-                            className="!text-xl !text-primary/70"
+                            className="text-xl! text-primary/70!"
                             placeholder="Select a purpose..."
                           />
                         </SelectTrigger>

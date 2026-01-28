@@ -164,7 +164,10 @@ export default function ProductList({
               <Link
                 href={`/products?${buildUrlParams(page - 1)}`}
                 className={page <= 1 ? "pointer-events-none" : ""}
-                onClick={() => setLoading(true)}
+                onClick={() => {
+                  setLoading(true);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
               >
                 <Button
                   variant="outline"
@@ -194,7 +197,10 @@ export default function ProductList({
                     <Link
                       key={pageNum}
                       href={`/products?${buildUrlParams(pageNum)}`}
-                      onClick={() => setLoading(true)}
+                      onClick={() => {
+                        setLoading(true);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
                     >
                       <Button
                         variant={page === pageNum ? "default" : "outline"}
@@ -211,7 +217,10 @@ export default function ProductList({
               <Link
                 href={`/products?${buildUrlParams(page + 1)}`}
                 className={page >= totalPages ? "pointer-events-none" : ""}
-                onClick={() => setLoading(true)}
+                onClick={() => {
+                  setLoading(true);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
               >
                 <Button
                   variant="outline"

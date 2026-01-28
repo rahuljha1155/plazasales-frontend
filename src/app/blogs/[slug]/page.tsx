@@ -17,14 +17,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
     try {
         blogDetails = await getBlogBySlug(slug);
-    } catch (error) {
+    } catch {
         hasError = true;
     }
 
     if (hasError || !blogDetails?.blog) {
         return (
             <main>
-                <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
+                <div className="max-w-7xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
                     <div className="max-w-xl mx-auto space-y-3 text-center">
                         <h3 className="text-primary font-semibold">
                             404 Error
@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <div className="bg-muted/80 py-2 ">
                 <CustomBreadcrumb paths={paths} className='bg-transparent' />
             </div>
-            <div className="relative p-4 !pb-10">
+            <div className="relative p-4 pb-10!">
                 <div className="max-w-7xl   mx-auto ">
                     <div
                         className="  rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
@@ -78,7 +78,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                             </div>
                             <h1 className="text-gray-900 border-b pb-6 mb-6 font-bold text-xl md:text-3xl">{blogDetails?.blog?.title}</h1>
                             <div className="" dangerouslySetInnerHTML={{ __html: sanitizedExcerpt }}></div>
-                            <div className="ckeditor-content-display px-0 mx-0 !text-sm" dangerouslySetInnerHTML={{ __html: sanitizedDescription }}></div>
+                            <div className="ckeditor-content-display px-0 mx-0 text-sm!" dangerouslySetInnerHTML={{ __html: sanitizedDescription }}></div>
                             {blogDetails.blog?.mediaAssets.length && (<div className="grid md:grid-cols-2 gap-4 lg:mt-10">
                                 {blogDetails?.blog?.mediaAssets?.map((media) => (
                                     <div key={media.id} className="w-full aspect-video   relative">
@@ -107,7 +107,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
             <div className="max-w-7xl md:mt-10 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 lg:p-0">
                 <h2 className='col-span-3 text-xl md:text-3xl font-semibold'>Similar Blogs</h2>
-                {blogDetails.similarBlogs.map((blog) => (<TransitionLink href={`/blogs/${blog.slug}`} key={blog.id} className='col-span-3  md:col-span-1' >     <BlogCard className='!p-0' data={blog} /></TransitionLink>))}
+                {blogDetails.similarBlogs.map((blog) => (<TransitionLink href={`/blogs/${blog.slug}`} key={blog.id} className='col-span-3  md:col-span-1' >     <BlogCard className='p-0!' data={blog} /></TransitionLink>))}
                 {blogDetails.similarBlogs.length > 3 && (
                     <div className="col-span-3 flex justify-end items-center">
                         <TransitionLink href="/blogs">

@@ -28,7 +28,7 @@ export default async function Career() {
     try {
         const response = await getAllCareers();
         jobOpenings = response.data.careers;
-    } catch (err) {
+    } catch {
         error = "Failed to load job openings. Please try again later.";
     }
     return (
@@ -39,7 +39,7 @@ export default async function Career() {
                     <div className="  px-4 xl:px-0  relative z-10">
                         <div className="max-w-5xl mx-auto text-center ">
 
-                            <h1 className="text-xl  md:text-2xl font-bold md:font-semibold lg:text-4xl   mb-3 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent leading-tight">
+                            <h1 className="text-xl  md:text-2xl font-bold md:font-semibold lg:text-4xl   mb-3 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent leading-tight">
                                 Build Your Career With Us
                             </h1>
 
@@ -110,16 +110,16 @@ export default async function Career() {
                                                     {job.title}
                                                 </h3>
                                             </div>
-                                            <p className="text-gray-600 dark:text-gray-400 mb-2 md:mb-5 leading-relaxed flex-grow text-sm md:text-base font-medium">
+                                            <p className="text-gray-600 dark:text-gray-400 mb-2 md:mb-5 leading-relaxed grow text-sm md:text-base font-medium">
                                                 {job.salaryRange}
                                             </p>
                                             <div className="flex flex-wrap gap-2 md:gap-3 text-sm text-gray-700 dark:text-gray-300 mb-6 md:pb-6 md:border-b border-gray-200 dark:border-gray-700">
                                                 <div className="flex items-center gap-2">
-                                                    <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                                                    <MapPin className="w-4 h-4 text-primary shrink-0" />
                                                     <span className="truncate">{job.location}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <Clock className="w-4 h-4 text-primary flex-shrink-0" />
+                                                    <Clock className="w-4 h-4 text-primary shrink-0" />
                                                     <span>{jobTypeMap[job.jobType] || job.jobType}</span>
                                                 </div>
                                             </div>
@@ -149,16 +149,16 @@ export default async function Career() {
                                                     {job.title}
                                                 </h3>
                                             </div>
-                                            <p className="text-gray-600 dark:text-gray-400 mb-2 md:mb-5 leading-relaxed flex-grow text-sm md:text-base font-medium">
+                                            <p className="text-gray-600 dark:text-gray-400 mb-2 md:mb-5 leading-relaxed grow text-sm md:text-base font-medium">
                                                 {job.salaryRange}
                                             </p>
                                             <div className="flex flex-wrap gap-1 md:gap-3 text-sm text-gray-700 dark:text-gray-300 mb-6 md:pb-6 md:border-b border-gray-200 dark:border-gray-700">
                                                 <div className="flex items-center gap-2">
-                                                    <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                                                    <MapPin className="w-4 h-4 text-primary shrink-0" />
                                                     <span className="truncate">{job.location}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <Clock className="w-4 h-4 text-primary flex-shrink-0" />
+                                                    <Clock className="w-4 h-4 text-primary shrink-0" />
                                                     <span>{jobTypeMap[job.jobType] || job.jobType}</span>
                                                 </div>
                                             </div>

@@ -10,7 +10,6 @@ interface TextStaggerHoverProps {
 }
 interface HoverSliderImageProps {
   index: number
-  imageUrl: string
 }
 interface HoverSliderProps {
   children?: React.ReactNode
@@ -77,7 +76,7 @@ WordStaggerHover.displayName = "WordStaggerHover"
 export const TextStaggerHover = React.forwardRef<
   HTMLElement,
   React.HTMLAttributes<HTMLElement> & TextStaggerHoverProps
->(({ text, index, children, className, ...props }, ref) => {
+>(({ text, index, className, ...props }, ref) => {
   const { activeSlide, changeSlide } = useHoverSliderContext()
   const { characters } = splitText(text)
   const isActive = activeSlide === index
@@ -199,7 +198,7 @@ export const HoverSliderImageWrap = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "grid  overflow-hidden [&>*]:col-start-1 [&>*]:col-end-1 [&>*]:row-start-1 [&>*]:row-end-1 [&>*]:size-full",
+        "grid  overflow-hidden *:col-start-1 *:col-end-1 *:row-start-1 *:row-end-1 *:size-full",
         className
       )}
       {...props}
@@ -211,7 +210,7 @@ HoverSliderImageWrap.displayName = "HoverSliderImageWrap"
 export const HoverSliderImage = React.forwardRef<
   HTMLImageElement,
   HTMLMotionProps<"img"> & HoverSliderImageProps
->(({ index, imageUrl, children, className, ...props }, ref) => {
+>(({ index, className, ...props }, ref) => {
   const { activeSlide } = useHoverSliderContext()
   return (
     <motion.img

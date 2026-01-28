@@ -1,7 +1,7 @@
 import About from "@/components/home/about-us";
 import { getAllProductsServer, searchProductsServer } from "@/services/productService";
 import { fetchBrandsServer } from "@/services/brandService";
-import { adService, adServiceById } from "@/services/adService";
+import { adServiceById } from "@/services/adService";
 import { LoadingProvider } from "@/app/products/_components/loading-context";
 import Sidebar from "@/app/products/_components/sidebar";
 import ProductList from "@/app/products/_components/product-list";

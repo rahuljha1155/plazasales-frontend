@@ -117,11 +117,12 @@ export const FloatingElement = ({
   useEffect(() => {
     if (!elementRef.current || !context) return
 
+    const currentId = idRef.current;
     const nonNullDepth = depth ?? 0.01
 
-    context.registerElement(idRef.current, elementRef.current, nonNullDepth)
-    return () => context.unregisterElement(idRef.current)
-  }, [depth])
+    context.registerElement(currentId, elementRef.current, nonNullDepth)
+    return () => context.unregisterElement(currentId)
+  }, [depth, context])
 
   return (
     <div

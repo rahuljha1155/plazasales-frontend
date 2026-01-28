@@ -50,7 +50,7 @@ export function MagneticTabs({
   const springTop = useSpring(indicatorTop, springConfig);
   const springH = useSpring(indicatorHeight, springConfig);
 
-  const updateIndicator = (value: string) => {
+  const updateIndicator = React.useCallback((value: string) => {
     const idx = items.findIndex((item) => item.value === value);
     const btn = tabRefs.current[idx];
     const container = containerRef.current;
@@ -62,24 +62,25 @@ export function MagneticTabs({
       indicatorTop.set(tRect.top - cRect.top - indicatorPadding);
       indicatorHeight.set(tRect.height + indicatorPadding * 2);
     }
-  };
+  }, [items, indicatorPadding, indicatorX, indicatorWidth, indicatorTop, indicatorHeight]);
 
   React.useEffect(() => {
     updateIndicator(active);
     const ro = new ResizeObserver(() => updateIndicator(active));
     if (containerRef.current) ro.observe(containerRef.current);
     tabRefs.current.forEach((el) => el && ro.observe(el));
-    window.addEventListener("resize", () => updateIndicator(active));
+    const handleResize = () => updateIndicator(active);
+    window.addEventListener("resize", handleResize);
     return () => {
       ro.disconnect();
-      window.removeEventListener("resize", () => updateIndicator(active));
+      window.removeEventListener("resize", handleResize);
     };
-  }, [active, indicatorPadding]);
+  }, [active, updateIndicator]);
 
   React.useEffect(() => {
     if (hovered) updateIndicator(hovered);
     else updateIndicator(active);
-  }, [hovered, active, indicatorPadding]);
+  }, [hovered, active, updateIndicator]);
 
   return (
     <div

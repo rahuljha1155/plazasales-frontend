@@ -87,10 +87,9 @@ export default function BookDemoModal({ productData, btnClassName }: {
                 purpose: data.purpose,
             };
 
-            const res = await postContact(submitData, token);
+            await postContact(submitData, token);
 
-
-                setResult({
+            setResult({
                     isSuccess: true,
                     message: 'Your demo request has been sent successfully! You will receive a mail from our team soon.'
                 });
@@ -99,7 +98,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                 form.reset();
 
 
-        } catch (error) {
+        } catch {
             setResult({
                 isSuccess: false,
                 message: 'An error occurred while submitting the form. Please try again.'
@@ -137,7 +136,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                             });
                         })}>
                             <DialogHeader className='gap-0'>
-                                <DialogTitle className='text-lg sm:text-xl md:text-2xl md:pl-2'>Demo Request  <span className='text-primary break-words'>{productData?.name}</span></DialogTitle>
+                                <DialogTitle className='text-lg sm:text-xl md:text-2xl md:pl-2'>Demo Request  <span className='text-primary wrap-break-word'>{productData?.name}</span></DialogTitle>
                             </DialogHeader>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 sm:gap-y-6 mt-4 sm:mt-6 gap-3 sm:gap-4">
                                 <FormField
@@ -154,7 +153,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                                                     onBlur={field.onBlur}
                                                     name={field.name}
                                                     ref={field.ref}
-                                                    className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-x-[2px]! overflow-hidden border-zinc-600! text-sm sm:text-base'
+                                                    className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-x-2! overflow-hidden border-zinc-600! text-sm sm:text-base'
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -173,7 +172,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                                                     value={field.value}
                                         >
                                             <SelectTrigger
-                                                className='py-3 sm:py-4 md:py-2 max-h-11 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y-[1px]! overflow-hidden border-zinc-600 text-sm sm:text-base w-[90px]'
+                                                className='py-3 sm:py-4 md:py-2 max-h-11 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y! overflow-hidden border-zinc-600 text-sm sm:text-base w-[90px]'
                                             >
                                                 <SelectValue >
                                                     {countryCode && countries.find(c => c.code === countryCode) ? (
@@ -186,7 +185,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                                                 </SelectValue>
                                             </SelectTrigger>
                                             <SelectContent
-                                                className="max-h-[300px] z-[9999]"
+                                                className="max-h-[300px] z-9999"
                                                 position="popper"
                                                 sideOffset={5}
                                             >
@@ -216,7 +215,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                                                             onBlur={field.onBlur}
                                                             name={field.name}
                                                             ref={field.ref}
-                                                            className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y-[1px]! overflow-hidden border-zinc-600 text-sm sm:text-base'
+                                                            className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y! overflow-hidden border-zinc-600 text-sm sm:text-base'
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
@@ -239,7 +238,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                                                     onBlur={field.onBlur}
                                                     name={field.name}
                                                     ref={field.ref}
-                                                    className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y-[1px]! overflow-hidden border-zinc-600 text-sm sm:text-base'
+                                                    className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y! overflow-hidden border-zinc-600 text-sm sm:text-base'
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -260,7 +259,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                                                     onBlur={field.onBlur}
                                                     name={field.name}
                                                     ref={field.ref}
-                                                    className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y-[1px]! overflow-hidden border-zinc-600 text-sm sm:text-base'
+                                                    className='py-3 sm:py-4 md:py-5 rounded-md md:rounded-full px-3 sm:px-4 md:px-5 border-[1.5px] border-y! overflow-hidden border-zinc-600 text-sm sm:text-base'
                                                     id="address"
                                                 />
                                             </FormControl>
@@ -297,7 +296,7 @@ export default function BookDemoModal({ productData, btnClassName }: {
                                 <DialogClose asChild>
                                     <Button variant="outline" type='button' className='w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-5 rounded-md md:rounded-full border-primary text-primary shadow-none text-sm sm:text-base'>Cancel</Button>
                                 </DialogClose>
-                                <Button type="submit" disabled={isSubmitting} className='w-full sm:w-auto rounded-md md:rounded-full !px-6 sm:!px-8 py-4 sm:py-5 border-primary shadow-none text-sm sm:text-base'>
+                                <Button type="submit" disabled={isSubmitting} className='w-full sm:w-auto rounded-md md:rounded-full px-6! sm:px-8! py-4 sm:py-5 border-primary shadow-none text-sm sm:text-base'>
                                     {isSubmitting ? 'Sending...' : 'Send'} <Icon icon="ph:paper-plane-tilt-light" className="w-5 h-5 sm:w-6 sm:h-6" />
                                 </Button>
                             </DialogFooter>

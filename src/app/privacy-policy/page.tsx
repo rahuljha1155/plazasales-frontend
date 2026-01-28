@@ -1,16 +1,10 @@
 import React from "react";
 
-type Props = {
-  companyName?: string;
-  contactEmail?: string;
-  effectiveDate?: string;
-};
+export default function PrivacyPolicy() {
+  const companyName = "Plaza Sales Pvt. Ltd.";
+  const contactEmail = "info@plazasales.com";
+  const effectiveDate = "January 1, 2025";
 
-export default function PrivacyPolicy({
-  companyName = "Plaza Sales Pvt. Ltd.",
-  contactEmail = "info@plazasales.com",
-  effectiveDate = "January 1, 2025",
-}: Props) {
   return (
     <main className="min-h-screen text-gray-800 px-4 xl:px-0">
       <section className="max-w-7xl mx-auto overflow-hidden">

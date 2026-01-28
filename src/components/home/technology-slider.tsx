@@ -4,6 +4,7 @@ import useEmblaCarousel from "embla-carousel-react"
 import type { EmblaOptionsType, EmblaCarouselType, EmblaEventType } from "embla-carousel"
 import { DotButton, useDotButton } from "./embla-carousel/embla-dots"
 import Autoplay from "embla-carousel-autoplay"
+import Image from "next/image"
 
 
 const TWEEN_FACTOR_BASE = 0.2
@@ -86,20 +87,22 @@ const TechnologySlider: React.FC<PropType> = ({ slides, options }) => {
       .on("reInit", tweenParallax)
       .on("scroll", tweenParallax)
       .on("slideFocus", tweenParallax)
-  }, [emblaApi, tweenParallax])
+  }, [emblaApi, tweenParallax, setTweenNodes, setTweenFactor])
 
   return (
     <div className=" mx-auto">
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex touch-pan-y ml-[-1rem]">
+        <div className="flex touch-pan-y -ml-4">
           {slides.map((data,index) => (
             <div key={index} className="flex-[0_0_60%] pl-4">
-              <div className="rounded-2xl h-[30rem] overflow-hidden">
+              <div className="rounded-2xl h-120 overflow-hidden">
                 <div data-parallax-layer className="relative h-full w-full flex justify-center">
-                  <img
+                  <Image
                     className="object-cover w-[120%] h-full"
                     src={data.imageUrl}
-                    alt=""
+                    alt={data.title}
+                    width={800}
+                    height={600}
                   />
                 </div>
               </div>

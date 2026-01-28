@@ -76,8 +76,8 @@ const ReviewsList: React.FC<PropType> = ({ reviews, options }) => {
                                         ))}
                                     </div>
                                     <h4 className="font-bold text-lg mb-2 line-clamp-1">{review.title}</h4>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3 flex-grow">
-                                        "{review.comment}"
+                                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3 grow">
+                                        &ldquo;{review.comment}&rdquo;
                                     </p>
                                     <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-50 dark:border-zinc-800">
                                         <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">

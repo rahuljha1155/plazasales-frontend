@@ -64,7 +64,7 @@ export default function ReviewForm({ onSuccess }: { onSuccess?: () => void }) {
             } else {
                 toast.error(res.message || "Failed to submit review");
             }
-        } catch (error) {
+        } catch {
             toast.error("An error occurred. Please try again.");
         } finally {
             setLoading(false);
@@ -120,7 +120,7 @@ export default function ReviewForm({ onSuccess }: { onSuccess?: () => void }) {
                 <FormField
                     control={form.control}
                     name="rating"
-                    render={({ field }) => (
+                    render={() => (
                         <FormItem>
                             <FormLabel>Rating</FormLabel>
                             <FormControl>

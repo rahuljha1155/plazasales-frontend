@@ -11,7 +11,7 @@ const fetchFaq = async () => {
     try {
         const res = await api.get('/faq/get-all-faq');
         return res.data;
-    } catch (error) {
+    } catch {
         return {
             status: 404,
             message: "Error",

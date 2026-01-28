@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: Params }) {
     const response = await getAdProducts(slug);
     products = response.data.products;
     total = response.data.total;
-  } catch (err) {
+  } catch {
     error = "Failed to load products";
   }
 
@@ -82,7 +82,7 @@ export default async function Page({ params }: { params: Params }) {
               >
                 <div className="relative  group cursor-pointer border-zinc-200 dark:border-zinc-800 rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-primary/10 transition-all duration-500 flex flex-col h-full">
                   {data?.isPopular && (
-                    <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-gradient-to-r from-primary to-primary/90 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full z-10 shadow-lg flex items-center gap-1">
+                    <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-linear-to-r from-primary to-primary/90 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full z-10 shadow-lg flex items-center gap-1">
                       <Icon
                         icon="prime:star-fill"
                         width="12"

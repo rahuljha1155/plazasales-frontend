@@ -49,7 +49,7 @@ class RecaptchaTokenManager {
       const token = await this.executeRecaptcha!(action);
       this.token = token;
       return token;
-    } catch (error) {
+    } catch {
       return null;
     }
   }

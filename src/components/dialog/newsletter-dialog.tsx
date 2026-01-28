@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Icon } from '@iconify/react'
@@ -81,7 +80,7 @@ export default function NewsletterDialog() {
             if (!token) {
                 throw new Error('Failed to obtain recaptcha token')
             }
-        } catch (error) {
+        } catch {
             toast.error('Security verification failed', {
                 description: 'Please refresh the page and try again.',
                 position: 'top-right',
@@ -130,14 +129,13 @@ export default function NewsletterDialog() {
         <Dialog open={isOpen} onOpenChange={() => { }}>
             <DialogContent
                 showCloseButton={false}
-                className="sm:max-w-md w-full! sm:w-full rounded-2xl p-4 sm:p-6 overflow-hidden backdrop-blur-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-4 data-[state=closed]:slide-out-to-right-4 data-[state=open]:slide-in-from-bottom-4 data-[state=open]:slide-in-from-right-4 z-[100]"
+                className="sm:max-w-md w-full! sm:w-full rounded-2xl p-4 sm:p-6 overflow-hidden backdrop-blur-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom-4 data-[state=closed]:slide-out-to-right-4 data-[state=open]:slide-in-from-bottom-4 data-[state=open]:slide-in-from-right-4 z-100"
                 onPointerDownOutside={(e) => e.preventDefault()}
                 onEscapeKeyDown={(e) => e.preventDefault()}
                 onInteractOutside={(e) => e.preventDefault()}
             >
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit, (errors) => {
-                    })}>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
                         <DialogHeader className='gap-2 '>
                             <div className="flex items-center gap-2">
                                 <DialogTitle className='text-xl'>Subscribe to Our Newsletter</DialogTitle>

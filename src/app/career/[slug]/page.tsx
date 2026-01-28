@@ -27,7 +27,6 @@ export default function JobDetailPage() {
     const [job, setJob] = useState<ICareerDetail | null>(null);
     const [loading, setLoading] = useState(true);
     const [showNotFound, setShowNotFound] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
     const params = useParams();
     const router = useRouter();
     const { slug } = params;
@@ -44,12 +43,7 @@ export default function JobDetailPage() {
                 }
 
                 setJob(response.career);
-
-                // Check if job is already saved
-                const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
-                const isJobSaved = savedJobs.some((savedJob: { id: string }) => savedJob.id === response.career.id);
-                setIsSaved(isJobSaved);
-            } catch (err) {
+            } catch {
                 setShowNotFound(true);
             } finally {
                 setLoading(false);
@@ -57,7 +51,7 @@ export default function JobDetailPage() {
         };
 
         fetchCareer();
-    }, [params.slug]);
+    }, [slug]);
 
     if (loading) {
         return (
@@ -73,7 +67,7 @@ export default function JobDetailPage() {
     if (showNotFound || !job) {
         return (
             <main>
-                <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
+                <div className="max-w-7xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
                     <div className="max-w-xl mx-auto space-y-3 text-center">
                         <h3 className="text-primary font-semibold">
                             404 Error
@@ -113,7 +107,8 @@ export default function JobDetailPage() {
                 await navigator.clipboard.writeText(window.location.href);
                 alert('Link copied to clipboard!');
             }
-        } catch (error) {
+        } catch {
+            // Error handled silently
         }
     };
 
@@ -144,11 +139,11 @@ export default function JobDetailPage() {
                                     </h1>
                                     <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm sm:text-base text-gray-600 mb-4">
                                         <div className="flex items-center gap-2">
-                                            <Building2 className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                                            <Building2 className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                                             <span className="font-medium">Plaze Electronics</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                                            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                                             <span>{job.location}</span>
                                         </div>
                                     </div>
@@ -160,7 +155,7 @@ export default function JobDetailPage() {
                                             {job.salaryRange}
                                         </span>
                                         <div className="inline-flex items-center bg-orange-500 gap-1.5 sm:gap-2 text-white  px-2.5 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium">
-                                            <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                                            <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                                             <span>Closes on {new Date(job?.expiryDate).toLocaleDateString("en-US", {
                                                 month: "short",
                                                 day: "numeric",
@@ -221,15 +216,15 @@ export default function JobDetailPage() {
                                 <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">About Plaze Electronics</h3>
                                 <div className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-gray-600">
                                     <div className="flex items-center gap-2.5 sm:gap-3">
-                                        <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 flex-shrink-0" />
+                                        <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 shrink-0" />
                                         <span>Technology & Electronics</span>
                                     </div>
                                     <div className="flex items-center gap-2.5 sm:gap-3">
-                                        <Users className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 flex-shrink-0" />
+                                        <Users className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 shrink-0" />
                                         <span>50+ employees</span>
                                     </div>
                                     <div className="flex items-center gap-2.5 sm:gap-3">
-                                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 flex-shrink-0" />
+                                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 shrink-0" />
                                         <span>Addis Ababa, Ethiopia</span>
                                     </div>
                                 </div>

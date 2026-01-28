@@ -78,12 +78,14 @@ export default function AdBanner({ ads, className = '' }: AdBannerProps) {
                         setRecordedImpressions(prev => new Set(prev).add(currentBanner.adId));
                         sessionStorage.setItem(impressionKey, 'true');
                     }
-                } catch (error) {
+                } catch {
+                    // Error handled silently
                 }
             };
             recordImpressions();
             }
-        } catch (error) {
+        } catch {
+            // Error handled silently
         }
     }, [selectedIndex, allBanners, getToken, recordedImpressions]);
     // Track impression for currently visible banner
@@ -97,9 +99,9 @@ export default function AdBanner({ ads, className = '' }: AdBannerProps) {
             const token = await getToken('ad_click');
             if (token) {
                 await recordClick(adId, token);
-            } else {
             }
-        } catch (error) {
+        } catch {
+            // Error handled silently
         }
 
         // Open target URL
@@ -126,6 +128,7 @@ export default function AdBanner({ ads, className = '' }: AdBannerProps) {
                                 <Image
                                     src={banner.url}
                                     fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                     alt={banner.title}
                                     className="object-cover"
                                     priority={index === 0}

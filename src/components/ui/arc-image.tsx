@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 // --- The ArcGalleryHero Component ---
 type ArcGalleryHeroProps = {
@@ -99,15 +100,13 @@ export const ArcGalleryHero: React.FC<ArcGalleryHeroProps> = ({
                   className="rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-200 dark:ring-gray-700 bg-white dark:bg-gray-800 transition-transform hover:scale-105 w-full h-full"
                   style={{ transform: `rotate(${angle / 4}deg)` }}
                 >
-                  <img
+                  <Image
                     src={src}
                     alt={`Memory ${i + 1}`}
-                    className="block w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 640px) 80px, (max-width: 1024px) 100px, 120px"
+                    className="object-cover"
                     draggable={false}
-                    // Add a fallback in case an image fails to load
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = `https://placehold.co/400x400/334155/e2e8f0?text=Memory`;
-                    }}
                   />
                 </div>
               </div>

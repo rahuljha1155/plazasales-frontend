@@ -1,6 +1,7 @@
 "use client";
 import { Icon } from '@iconify/react';
 import { TransitionLink } from '../shared';
+import Image from 'next/image';
 
 interface CategoryCardProps {
   data: {
@@ -20,11 +21,13 @@ export default function CategoryCard({ data }: CategoryCardProps) {
       <article className="relative h-full  w-full sm:min-w-[200px] md:min-w-[300px]   border border-zinc-200 rounded-md md:rounded-2xl lg:rounded-3xl overflow-hidden  transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg">
         <div className=" inset-0 flex items-center justify-center ">
           <div className="relative w-full h-30 sm:h-50   transition-transform duration-700 ease-out group-hover:scale-105">
-            <img
+            <Image
               src={data.coverImage || "/brokenimg.webp"}
               alt={data.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 300px"
               loading="lazy"
-              className="w-full h-full object-contain object-center   "
+              className="object-contain object-center"
             />
           </div>
         </div>
@@ -43,7 +46,7 @@ export default function CategoryCard({ data }: CategoryCardProps) {
           </div>
         </div>
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
         </div>
       </article>
     </TransitionLink>

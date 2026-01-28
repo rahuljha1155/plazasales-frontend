@@ -166,7 +166,7 @@ export default function Navbar() {
         </div>
       )}
       <nav
-        className={`sticky  pointer-events-none transition-all duration-500 ${drapdownState.isActive ? "bg-background" : "bg-background backdrop-blur-3xl "} top-0 left-0 z-[220] w-full md:text-sm border-b border-primary/10  ${state ? "shadow-lg rounded-b-xl md:shadow-none" : ""} ${isVisible ? "translate-y-0" : "-translate-y-full"}`}>
+        className={`sticky  pointer-events-none transition-all duration-500 ${drapdownState.isActive ? "bg-background" : "bg-background backdrop-blur-3xl "} top-0 left-0 z-220 w-full md:text-sm border-b border-primary/10  ${state ? "shadow-lg rounded-b-xl md:shadow-none" : ""} ${isVisible ? "translate-y-0" : "-translate-y-full"}`}>
         <div className="items-center justify-between lg:py-1 gap-x-4 lg:gap-x-8 xl:gap-x-14 px-4  xl:px-0 lg:max-w-7xl mx-auto lg:flex">
 
 
@@ -240,7 +240,7 @@ export default function Navbar() {
                       <button
                         key={idx}
                         className={`w-full flex items-center justify-between md:justify-center gap-1 text-sm  py-2 md:py-0 ${item.highlight ? "text-primary" : ""}`}
-                        onClick={(e) => {
+                        onClick={() => {
                           setDrapdownState({
                             idx,
                             isActive: !(drapdownState.idx === idx && drapdownState.isActive)
@@ -276,7 +276,7 @@ export default function Navbar() {
             </button>
 
             <TransitionLink target="_blank" href={"https://wa.me/9779801016633"}>
-              <div className="flex gap-2 items-center group text-zinc-500 border rounded-full px-4 py-1.5  hover:text-white transition-all cursor-pointer hover:bg-gradient-to-r from-green-600 to-green-800">
+              <div className="flex gap-2 items-center group text-zinc-500 border rounded-full px-4 py-1.5  hover:text-white transition-all cursor-pointer hover:bg-linear-to-r from-green-600 to-green-800">
                 <Icon icon={"logos:whatsapp-icon"} className="size-4  group-hover:grayscale-0" />
                 Whatsapp
               </div>
@@ -287,13 +287,13 @@ export default function Navbar() {
       {state && (
         <div
           onMouseEnter={() => setDrapdownState({ idx: null, isActive: false })}
-          className="z-50 md:z-[200] fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden"
+          className="z-50 md:z-200 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden"
         ></div>
       )}
 
       {showSearchModal && (
         <div
-          className="search-modal-overlay md:fixed inset-0 z-[400] bg-black/60 md:backdrop-blur-sm flex items-start justify-center md:pt-24"
+          className="search-modal-overlay md:fixed inset-0 z-400 bg-black/60 md:backdrop-blur-sm flex items-start justify-center md:pt-24"
           style={{ contain: 'layout style paint', animation: 'fadeIn 0.15s ease-out' }}
           onClick={(e) => {
             // Only close if clicking directly on overlay, not on modal content

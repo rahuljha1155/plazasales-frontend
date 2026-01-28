@@ -11,7 +11,8 @@ export async function BoardOfDirectors() {
     try {
         const response = await getAllTeamMembersServer({ limit: 100 })
         members = response.data.members
-    } catch (error) {
+    } catch {
+        // Error handled silently
     }
 
     const CEO = members.find(member => member.isLeader === true)

@@ -94,7 +94,7 @@ const BrandSlider: React.FC<PropType> = ({ slides, options }) => {
       .on("reInit", tweenParallax)
       .on("scroll", tweenParallax)
       .on("slideFocus", tweenParallax);
-  }, [emblaApi, tweenParallax]);
+  }, [emblaApi, tweenParallax, setTweenNodes, setTweenFactor]);
 
   return (
     <div className="embla  sm:h-[40vh] lg:h-[55vh]  overflow-hidden mx-auto">
@@ -143,7 +143,7 @@ const BrandSlider: React.FC<PropType> = ({ slides, options }) => {
                 <DotButton
                   key={index}
                   onClick={() => onDotButtonClick(index)}
-                  className={`!size-2 sm:size-4 border-0 outline-0 flex items-center justify-center rounded-full after:content-[''] after:w-[0.9rem] after:h-[0.9rem]  ${
+                  className={`size-2! sm:size-4 border-0 outline-0 flex items-center justify-center rounded-full after:content-[''] after:w-[0.9rem] after:h-[0.9rem]  ${
                     index === selectedIndex ? "bg-red-500 " : "bg-white"
                   }`}
                 />

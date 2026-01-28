@@ -1,5 +1,6 @@
 'use client'
 import React, { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 
 // Responsive values based on viewport size
 const getResponsiveValues = () => {
@@ -168,10 +169,12 @@ export const ImageHover = () => {
                                 onTouchStart={handleTouchStart}
                                 onTouchEnd={handleTouchEnd}
                         >
-                                <img
+                                <Image
                                         src="https://images.unsplash.com/photo-1638551145269-f7925c37e672?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                         alt="Beach Marine"
-                                        className="absolute w-full h-full object-cover rounded-xl overflow-hidden"
+                                        fill
+                                        sizes="90vw"
+                                        className="object-cover rounded-xl overflow-hidden"
                                 />
                                 {/* Overlay: blurred, dark, with mask */}
                                 <div

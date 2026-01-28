@@ -12,8 +12,7 @@ import confetti from "canvas-confetti";
 import NumberFlow from "@number-flow/react";
 import DOMPurify from "dompurify";
 import BookDemoModal from "@/components/dialog/demo-request";
-import { IProduct, IProductBySlugResponse } from "@/types/IProduct";
-import { IAllProduct } from "@/services/productService";
+import { IProductBySlugResponse } from "@/types/IProduct";
 
 
 interface PricingPackage {
@@ -26,12 +25,6 @@ interface PricingPackage {
   buttonText: string;
   href: string;
   isPopular: boolean;
-}
-
-interface PricingData {
-  title: string;
-  shortDesc: string;
-  packages: PricingPackage[];
 }
 
 export const decodeHtml = (html: string) => {
@@ -78,7 +71,7 @@ export default function Specifications({
       const parsed = JSON.parse(speficication);
       // Handle both array format and old object format for backwards compatibility
       pricingData = Array.isArray(parsed) ? parsed : (parsed.packages || null);
-    } catch (error) {
+    } catch {
     }
   }
 
@@ -195,12 +188,12 @@ export default function Specifications({
                   opacity: { duration: 0.5 },
                 }}
                 className={cn(
-                  `rounded-2xl border-[1px] w-full md:max-w-[280px] lg:max-w-[370px] p-6 bg-background text-center lg:flex lg:flex-col lg:justify-center relative`,
+                  `rounded-2xl border w-full md:max-w-[280px] lg:max-w-[370px] p-6 bg-background text-center lg:flex lg:flex-col lg:justify-center relative`,
                   isPopular ? "border-primary border-2" : "border-border",
                   "flex flex-col",
                   (!isPopular && pricingData.length >= 3) && "mt-5 border-zinc-400",
                   index === 0 || index === 2
-                    ? "z-0 transform translate-x-0 translate-y-0 -translate-z-[50px] rotate-y-[10deg]"
+                    ? "z-0 transform translate-x-0 translate-y-0 -translate-z-[50px] rotate-y-10"
                     : "z-10",
                   index === 0 && "origin-right",
                   index === 2 && "origin-left"
@@ -261,7 +254,7 @@ export default function Specifications({
                   <ul className="mt-5 gap-2 flex flex-col justify-center items-center text-center">
                     {pkg.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                        <Check className="h-4 w-4 text-primary mt-1 shrink-0" />
                         <span className="text-left text-sm md:text-base">{feature}</span>
                       </li>
                     ))}

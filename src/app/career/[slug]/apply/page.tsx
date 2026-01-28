@@ -50,7 +50,7 @@ export default function ApplyPage() {
         setFetchLoading(true)
         const response = await getCareerById(params.slug as string)
         setJob(response.career)
-      } catch (err) {
+      } catch {
         setShowNotFound(true)
       } finally {
         setFetchLoading(false)
@@ -142,7 +142,7 @@ export default function ApplyPage() {
         setShowErrorModal(true)
       }
 
-    } catch (error) {
+    } catch {
       setShowErrorModal(true)
     } finally {
       setLoading(false)
@@ -163,7 +163,7 @@ export default function ApplyPage() {
   if (showNotFound || !job) {
     return (
       <main>
-        <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
           <div className="max-w-xl mx-auto space-y-3 text-center">
             <h3 className="text-primary font-semibold">
               404 Error
@@ -470,7 +470,7 @@ export default function ApplyPage() {
                       </h4>
                       <div className="space-y-3 mt-4 text-sm">
                         <div className="flex items-start gap-3">
-                          <Building2 className="w-5 h-5 text-gray-800 mt-0.5 flex-shrink-0" />
+                          <Building2 className="w-5 h-5 text-gray-800 mt-0.5 shrink-0" />
                           <div>
                             <p className="font-medium text-sm md:text-[16px] text-zinc-800">Department</p>
                             <p className="font-medium text-gray-700">{job.department}</p>
@@ -478,7 +478,7 @@ export default function ApplyPage() {
                         </div>
 
                         <div className="flex items-start gap-3">
-                          <MapPin className="w-5 h-5 text-gray-800 mt-0.5 flex-shrink-0" />
+                          <MapPin className="w-5 h-5 text-gray-800 mt-0.5 shrink-0" />
                           <div>
                             <p className="font-medium text-sm md:text-[16px] text-zinc-800">Location</p>
                             <p className="font-medium text-gray-700">{job.location}</p>
@@ -486,7 +486,7 @@ export default function ApplyPage() {
                         </div>
 
                         <div className="flex items-start gap-3">
-                          <Briefcase className="w-5 h-5 text-gray-800 mt-0.5 flex-shrink-0" />
+                          <Briefcase className="w-5 h-5 text-gray-800 mt-0.5 shrink-0" />
                           <div>
                             <p className="font-medium text-sm md:text-[16px] text-zinc-800">Employment Type</p>
                             <p className="font-medium text-gray-700">{jobTypeMap[job.jobType] || job.jobType}</p>
@@ -494,7 +494,7 @@ export default function ApplyPage() {
                         </div>
 
                         <div className="flex items-start gap-3">
-                          <Clock className="w-5 h-5 text-gray-800 mt-0.5 flex-shrink-0" />
+                          <Clock className="w-5 h-5 text-gray-800 mt-0.5 shrink-0" />
                           <div>
                             <p className="font-medium text-sm md:text-[16px] text-zinc-800">Salary Range</p>
                             <p className="font-medium text-gray-700">{job.salaryRange}</p>

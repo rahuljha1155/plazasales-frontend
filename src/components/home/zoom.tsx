@@ -37,7 +37,8 @@ export default function DefaultDemo() {
 		try {
 			const response = await api.get<GalleryResponse>(`/home-gallery/get-home-galleries`);
 			setData(response.data);
-		} catch (error) {
+		} catch {
+			// Error handled silently
 		}
 	};
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Footer from "@/components/shared/footer";
 import Navbar from "@/components/shared/navbar";
@@ -145,20 +146,18 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Google Analytics */}
-        <script
-          async
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-FFSEP7RYRQ"
+          strategy="afterInteractive"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-FFSEP7RYRQ');
-            `,
-          }}
-        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-FFSEP7RYRQ');
+          `}
+        </Script>
         {/* Suppress console warnings in development */}
         <script
           dangerouslySetInnerHTML={{

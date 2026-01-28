@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useBrandStore } from '@/store/useBrandStore'
 import TransitionLink from './transition-link'
 import { Button } from '../ui/button'
+import { IAllProduct } from '@/services/productService'
 
 export default function NavbarDropdown({
   drapdownState,
@@ -65,13 +66,13 @@ export default function NavbarDropdown({
     <>
       {/* Dropdown modal area */}
       <div
-        className={`fixed hidden md:block inset-0 ${drapdownState.isActive ? "backdrop-blur-[8px] " : ""} pointer-events-none z-[210]`}
+        className={`fixed hidden md:block inset-0 ${drapdownState.isActive ? "backdrop-blur-sm " : ""} pointer-events-none z-210`}
       >
         <div
           ref={modalRef}
           className={`min-h-[50dvh] w-[65dvw] mx-auto py-4 dark:bg-zinc-900 pointer-events-auto rounded-b-md transition-all duration-500 ${getDropdownPosition()}`}
         >
-          <div className="grid p-5 bg-background mt-[4rem] rounded-2xl border border-primary/20 md:grid-cols-2 lg:grid-cols-11 gap-4 xl:gap-8">
+          <div className="grid p-5 bg-background mt-16 rounded-2xl border border-primary/20 md:grid-cols-2 lg:grid-cols-11 gap-4 xl:gap-8">
             <div className="px-4 col-span-3 space-y-3">
               <h2 className="xl:text-xl font-semibold">Our Brands</h2>
               <ul className="space-y-1">
@@ -100,7 +101,7 @@ export default function NavbarDropdown({
                     >
                       <TransitionLink
                         href={`/brand/${brand.slug}`}
-                        className="!w-full p-0.5 px-3 justify-between items-center flex"
+                        className="w-full! p-0.5 px-3 justify-between items-center flex"
                       >
                         <Image
                           src={brand.logoUrl || '/brokenimg.jpg'}
@@ -160,14 +161,14 @@ export default function NavbarDropdown({
                 ) : (
                   brands[activeCategory]?.popularProducts
                     ?.slice(0, 3)
-                    .map((data: any) => (
+                    .map((data: IAllProduct) => (
                       <TransitionLink
                         key={data.id}
                         href={`/products/${brands[activeCategory]?.slug}/${data?.category?.slug}/${data?.subcategory?.slug}/${data?.slug}`}
                       >
                         <div className="relative group cursor-pointer border-zinc-200 dark:border-zinc-800 overflow-hidden hover:shadow-primary/10 transition-all duration-500 flex flex-col h-full max-w-[18.7rem] lg:min-w-full w-full">
                           {data?.ispopular && (
-                            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-gradient-to-r from-primary to-primary/90 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full z-10 shadow-lg flex items-center gap-1">
+                            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-linear-to-r from-primary to-primary/90 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full z-10 shadow-lg flex items-center gap-1">
                               <Icon icon="prime:star-fill" width="12" height="12" className="sm:w-[14px] sm:h-[14px]" />
                               <span className="hidden sm:block">Popular</span>
                             </div>

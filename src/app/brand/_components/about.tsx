@@ -8,6 +8,7 @@ import Title from "@/components/home/title";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import BookDemoModal from "@/components/dialog/demo-request";
+import DOMPurify from 'dompurify';
 import { useEffect, useState } from "react";
 
 export default function BrandAbout({ brand }: { brand: IBrand }) {
@@ -23,7 +24,6 @@ export default function BrandAbout({ brand }: { brand: IBrand }) {
   useEffect(() => {
     if (!mounted) return
 
-    const DOMPurify = require('dompurify');
     setSanitizedDescription(DOMPurify.sanitize(brand?.description?.trim() || ""));
   }, [brand?.description, mounted])
 

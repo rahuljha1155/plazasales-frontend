@@ -108,6 +108,7 @@ function ToggleVideo({ videoId }: { videoId: string }) {
                     onClick={handlePlayClick}
                     className="relative w-full h-full"
                 >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                         alt="Video thumbnail"

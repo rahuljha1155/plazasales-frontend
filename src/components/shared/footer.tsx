@@ -48,10 +48,13 @@ const Footer = () => {
       });
       setEmail("");
     } catch (error: unknown) {
-      // Safely access error.response using type assertion
+      // Safely access error.response using type guard
       const errorMessage =
-        (error as any)?.response?.data?.message ||
-        "Failed to subscribe. Please try again later.";
+        (error && typeof error === 'object' && 'response' in error && 
+         error.response && typeof error.response === 'object' && 'data' in error.response &&
+         error.response.data && typeof error.response.data === 'object' && 'message' in error.response.data)
+          ? String(error.response.data.message)
+          : "Failed to subscribe. Please try again later.";
       toast.error(errorMessage, {
         description: "Please check your details and try again.",
         icon: null,

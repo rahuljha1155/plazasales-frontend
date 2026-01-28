@@ -38,7 +38,7 @@ export default function ProductSearch({ initialSearch = '' }: ProductSearchProps
       });
 
       setSearchResults(response.data?.products || []);
-    } catch (error) {
+    } catch {
       setSearchResults([]);
     } finally {
       setIsSearching(false);
@@ -170,10 +170,10 @@ export default function ProductSearch({ initialSearch = '' }: ProductSearchProps
                         alt={product.title || "Product"}
                         width={60}
                         height={60}
-                        className="w-14 h-14 object-cover rounded-md flex-shrink-0"
+                        className="w-14 h-14 object-cover rounded-md shrink-0"
                       />
                     ) : (
-                      <div className="w-14 h-14 bg-zinc-200 rounded-md flex items-center justify-center flex-shrink-0">
+                      <div className="w-14 h-14 bg-zinc-200 rounded-md flex items-center justify-center shrink-0">
                         <Icon icon="mdi:package-variant" className="size-6 text-zinc-400" />
                       </div>
                     )}
@@ -185,7 +185,7 @@ export default function ProductSearch({ initialSearch = '' }: ProductSearchProps
                         {product?.brandName || product?.model}
                       </p>
                     </div>
-                    <Icon icon="tabler:arrow-up-right" className="size-4 text-zinc-400 group-hover:text-primary transition-colors flex-shrink-0" />
+                    <Icon icon="tabler:arrow-up-right" className="size-4 text-zinc-400 group-hover:text-primary transition-colors shrink-0" />
                   </TransitionLink>
                 ))}
               </div>

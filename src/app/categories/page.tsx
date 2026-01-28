@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { getAllCategories } from "@/services/categoryService";
 import { ICategory } from "@/types/ICategory";
-import CategoryCard from "@/components/ui/category-card";
 import { Icon } from "@iconify/react";
 import Title from "@/components/home/title";
 import { TransitionLink } from "@/components/shared";
+import Image from "next/image";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -18,7 +18,8 @@ export default function CategoriesPage() {
         setLoading(true);
         const categoriesResponse = await getAllCategories({ page: 1, limit: 100 });
         setCategories(categoriesResponse.data.categories);
-      } catch (error) {
+      } catch {
+        // Error handled silently
       } finally {
         setLoading(false);
       }
@@ -76,15 +77,16 @@ export default function CategoriesPage() {
                   </h2>
                         <div className="flex gap-2 justify-center flex-wrap mb-6 xl:gap-4">
                     {brandCategories.map((data) => (
-                      <TransitionLink href={`/products?category=${encodeURIComponent(data.slug)}`} className="group block">
+                      <TransitionLink key={data.id} href={`/products?category=${encodeURIComponent(data.slug)}`} className="group block">
                         <article className="relative h-full w-[42vw] md:max-w-[25vw] xl:max-w-[20vw]   border border-zinc-200 rounded-md md:rounded-2xl lg:rounded-3xl overflow-hidden  transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg">
                           <div className=" flex items-center justify-center ">
                             <div className="relative w-full h-30 sm:h-50   transition-transform duration-700 ease-out group-hover:scale-105">
-                              <img
+                              <Image
                                 src={data.coverImage || "/brokenimg.webp"}
                                 alt={data.title}
-                                loading="lazy"
-                                className="w-full h-full object-contain object-center   "
+                                fill
+                                sizes="(max-width: 768px) 50vw, 25vw"
+                                className="object-contain object-center"
                               />
                             </div>
                           </div>
@@ -103,7 +105,7 @@ export default function CategoriesPage() {
                             </div>
                           </div>
                           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                           </div>
                         </article>
                       </TransitionLink>

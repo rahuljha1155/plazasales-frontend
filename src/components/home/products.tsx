@@ -5,11 +5,12 @@ import Banners from "@/components/home/firstbanner";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import MotionPathPlugin from 'gsap/MotionPathPlugin';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 export default function AnimatedProducts() {
-  const earbudRef = React.useRef<HTMLImageElement>(null);
+  const earbudRef = React.useRef<HTMLDivElement>(null);
   const container2Ref = React.useRef<HTMLDivElement>(null);
   const pathRef = React.useRef<SVGPathElement>(null);
 
@@ -52,12 +53,15 @@ export default function AnimatedProducts() {
   return (
     <div ref={container2Ref} className="relative ">
       {/* Animated image - positioned fixed for scroll animation */}
-      <img
-        src="/banners/earbud.png"
-        alt="earbuds"
-        className="fixed top-0 left-0 w-32 h-32 object-contain z-10"
-        ref={earbudRef}
-      />
+      <div className="fixed top-0 left-0 w-32 h-32 z-10" ref={earbudRef}>
+        <Image
+          src="/banners/earbud.png"
+          alt="earbuds"
+          fill
+          sizes="128px"
+          className="object-contain"
+        />
+      </div>
 
       <svg width="745" height="745" className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' viewBox="0 0 745 745" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path ref={pathRef} d="M0.5 0.00259399C1.66667 224.503 152.1 687.603 744.5 744.003" stroke="black"/>

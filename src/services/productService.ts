@@ -1,5 +1,4 @@
 import { api } from "@/config/axios.config";
-import { IGetAllProductsResponse } from "@/types/IProduct";
 import { IProductBySlugResponse } from "@/types/IProductBySlug";
 
 // Client-side function (requires reCAPTCHA token)

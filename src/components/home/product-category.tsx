@@ -19,7 +19,8 @@ export default function ProductCategory() {
         setLoading(true);
         const response = await getAllCategories({ page: 1, limit: 10 });
         setCategories(response.data.categories);
-      } catch (error) {
+      } catch {
+        // Error handled silently
       } finally {
         setLoading(false);
       }

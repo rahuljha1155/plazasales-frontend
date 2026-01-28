@@ -5,8 +5,6 @@ import {
 } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { NextButton, PrevButton, usePrevNextButtons } from "./embla-carousel/embla-buttons";
-import { useDotButton } from "./embla-carousel/embla-dots";
 import Image from "next/image";
 import { IBlog } from "@/types/IBlog";
 import { TransitionLink } from "../shared";
@@ -18,18 +16,11 @@ type PropType = {
 };
 
 const BlogsCarousel: React.FC<PropType> = ({ slides, options }) => {
-    const [emblaRef, emblaApi] = useEmblaCarousel(options, [
+    const [emblaRef] = useEmblaCarousel(options, [
         Autoplay({
             delay: 3000,
         }),
     ]);
-
-    const {
-        prevBtnDisabled,
-        nextBtnDisabled,
-        onPrevButtonClick,
-        onNextButtonClick,
-    } = usePrevNextButtons(emblaApi);
 
     return (
         <div className="embla  overflow-hidden mx-auto ">

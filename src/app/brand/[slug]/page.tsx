@@ -10,7 +10,6 @@ import ImageShowcase from "../_components/image-showcase";
 import FeaturesGrid from "../_components/features-grid";
 import CTASection from "../_components/cta-section";
 import { brandFeatures } from "../_components/features-data";
-import Link from "next/link";
 import AppStore from "../_components/app-store";
 
 export const revalidate = 1;
@@ -25,14 +24,14 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
   try {
     const response = await fetchBrandBySlugServer(slug);
     brandData = response.brand;
-  } catch (error) {
+  } catch {
     hasError = true;
   }
 
   if (hasError || !brandData) {
     return (
       <main>
-        <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
           <div className="max-w-xl mx-auto space-y-3 text-center">
             <h3 className="text-primary font-semibold">
               404 Error
@@ -95,7 +94,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
 
       {filteredSaasProducts.length > 0 && (
         <section className="relative py-8 bg-muted/80! border-t border-primary/20 ">
-          <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
+          <div className="absolute inset-0 bg-grid-slate-100 mask-[linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
           <div className="mx-auto px-4 max-w-7xl">
             <Pricing data={{ ...brandData, popularProducts: filteredSaasProducts }} />
           </div>
@@ -104,7 +103,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
 
       {filteredPopularProducts.length > 0 && (
         <section className="relative  py-8 pb-10 md:py-12 lg:py-20">
-          <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
+          <div className="absolute inset-0 bg-grid-slate-100 mask-[linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
           <div className="mx-auto px-4 max-w-7xl">
             <div className="space-y-6 md:space-y-12">
               {/* Section Header */}

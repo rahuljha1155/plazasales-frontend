@@ -37,7 +37,7 @@ export function useRecaptchaToken() {
       try {
         const token = await executeRecaptcha(action);
         return token;
-      } catch (error) {
+      } catch {
         return null;
       }
     },

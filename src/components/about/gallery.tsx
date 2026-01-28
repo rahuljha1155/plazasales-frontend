@@ -17,7 +17,7 @@ const InteractiveSelector = () => {
     if (brands.length === 0) {
       fetchBrands();
     }
-  }, [brands]);
+  }, [brands, fetchBrands]);
 
   useEffect(() => {
     setMounted(true);
@@ -72,11 +72,11 @@ const InteractiveSelector = () => {
       <div className="w-full mx-auto md:text-center mb-2">
         <Title
           wrapperClassName="!mb-1 text-center w-full"
-          className="!mb-0 text-black dark:text-white !pb-0"
-          title="We're Your Growth Partners."
+          className="mb-0! text-black dark:text-white pb-0!"
+          title="We&apos;re Your Growth Partners."
         />
         <p className="mt-2 text-sm text-center! md:text-xl text-zinc-700 font-medium mx-auto animate-fadeInTop delay-600">
-          Discover luxurious camping experiences in nature's most breathtaking spots.
+          Discover luxurious camping experiences in nature&apos;s most breathtaking spots.
         </p>
       </div>
 
@@ -125,7 +125,7 @@ const InteractiveSelector = () => {
                 <div className="label absolute left-0 right-0 bottom-5 flex items-center justify-start h-12 z-2 pointer-events-none p-4 pb-10 gap-3 w-full">
                   <TransitionLink
                     href={`/brand/${option.slug}`}
-                    className="icon size-16 shrink-0 bg-white rounded-full p-2 flex items-center justify-center flex-grow-0 transition-all duration-200"
+                    className="icon size-16 shrink-0 bg-white rounded-full p-2 flex items-center justify-center grow-0 transition-all duration-200"
                   >
                     <Image
                       src={option.logoUrl}
@@ -175,7 +175,7 @@ const InteractiveSelector = () => {
                 <div className="p-4 flex items-center gap-3">
                   <TransitionLink
                     href={`/brand/${option.slug}`}
-                    className="icon size-16 shrink-0 bg-white rounded-full p-2 flex items-center justify-center flex-grow-0 transition-all duration-200"
+                    className="icon size-16 shrink-0 bg-white rounded-full p-2 flex items-center justify-center grow-0 transition-all duration-200"
                   >
                     <Image
                       src={option.logoUrl}

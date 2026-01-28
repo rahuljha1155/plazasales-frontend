@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import React from 'react'
+import Image from 'next/image'
 
 export default function CreativeCard() {
   return (
@@ -8,7 +9,7 @@ export default function CreativeCard() {
         <p className='pr-10 max-w- '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, expedita?</p>
         <button className='flex gap-3 hover:border-zinc-500 border-b pb-1 border-dashed  items-center font-semibold mt-5'>Explore Category <Icon icon="mdi:arrow-right" /></button>
         <div className="flex absolute pointer-events-none inset-0  justify-end items-end">
-            <img src="/cctv/cam1.png" alt="camera" className='w-52 2xl:w-64' />
+            <Image src="/cctv/cam1.png" alt="camera" width={256} height={256} className='w-52 2xl:w-64' />
         </div>
     </div>
   )

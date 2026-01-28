@@ -3,7 +3,6 @@
 import { IShareable } from "@/types/IShareable";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 interface ShareableBodyProps {
@@ -23,10 +22,6 @@ const getKindIcon = (kind: string) => {
         default:
             return "solar:document-bold";
     }
-};
-
-const getKindColor = (kind: string) => {
-    return "bg-primary/10 text-primary";
 };
 
 export default function ShareableBody({ shareables }: ShareableBodyProps) {
@@ -62,7 +57,7 @@ export default function ShareableBody({ shareables }: ShareableBodyProps) {
             // Cleanup
             document.body.removeChild(link);
             window.URL.revokeObjectURL(blobUrl);
-        } catch (error) {
+        } catch {
             // Fallback: if CORS fails, use direct link
             const link = document.createElement('a');
             link.href = url;
@@ -101,7 +96,7 @@ export default function ShareableBody({ shareables }: ShareableBodyProps) {
                         className="group border border-gray-200 dark:border-zinc-700 rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-200 bg-white dark:bg-zinc-900 flex flex-row"
                     >
                         {/* Image - Left Side */}
-                        <div className="relative w-28 sm:w-32 flex-shrink-0 bg-gray-50 dark:bg-zinc-800 overflow-hidden flex items-center justify-center p-3">
+                        <div className="relative w-28 sm:w-32 shrink-0 bg-gray-50 dark:bg-zinc-800 overflow-hidden flex items-center justify-center p-3">
                             {shareable.mediaAsset.type === "IMAGE" ? (
                                 <Image
                                     src={shareable.mediaAsset.fileUrl}

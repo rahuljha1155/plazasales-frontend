@@ -17,14 +17,14 @@ export default async function BlogsPage() {
 
     try {
         blogs = await getAllBlogs();
-    } catch (error) {
+    } catch {
         hasError = true;
     }
 
     if (hasError) {
         return (
             <main>
-                <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
+                <div className="max-w-7xl mx-auto px-4 flex items-center justify-start h-[90dvh] md:px-8">
                     <div className="max-w-xl mx-auto space-y-3 text-center">
                         <h3 className="text-primary font-semibold">
                             404 Error

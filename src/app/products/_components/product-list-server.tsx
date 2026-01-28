@@ -35,7 +35,7 @@ export default async function ProductListServer({ search, page, limit }: Product
         ))}
       </div>
     );
-  } catch (error) {
+  } catch {
     return (
       <div className="col-span-full text-center py-12">
         <p className="text-red-500 text-lg">

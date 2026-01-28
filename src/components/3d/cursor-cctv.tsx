@@ -55,8 +55,8 @@ export default function Cctv3d() {
                     }
                 });
             },
-            (xhr) => null,
-            (error) => null
+            undefined,
+            undefined
         );
 
         // Track mouse movement
@@ -109,7 +109,7 @@ export default function Cctv3d() {
 
     return (
         <div className="pointer-events-none ">
-            <canvas className="fixed h-screen  z-[100] w-screen inset-0" ref={canvasRef} />
+            <canvas className="fixed h-screen  z-100 w-screen inset-0" ref={canvasRef} />
         </div>
     );
 }

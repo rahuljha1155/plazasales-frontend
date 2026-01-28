@@ -31,7 +31,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [displayPath, setDisplayPath] = useState(pathname);
-  const [isUserInitiated, setIsUserInitiated] = useState(false);
+  const [, setIsUserInitiated] = useState(false);
 
   const startTransition = useCallback(
     (callback: () => void) => {
@@ -84,7 +84,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
               duration: 0.5,
               ease: [0.76, 0, 0.24, 1],
             }}
-            className="fixed inset-0 z-[9998] bg-primary flex items-center justify-center"
+            className="fixed inset-0 z-9998 bg-primary flex items-center justify-center"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}

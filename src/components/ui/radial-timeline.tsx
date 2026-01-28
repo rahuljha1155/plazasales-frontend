@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 
 interface TimelineItem {
   img: string | Blob | undefined;
@@ -155,11 +156,11 @@ export default function RadialOrbitalTimeline({
             transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
           }}
         >
-          <div className="absolute w-32 h-16 rounded-full  flex items-center justify-center z-10">
-            <img src="/logos/Favicon.png" alt="plaza sales" />
+          <div className="absolute w-32 h-16 rounded-full flex items-center justify-center z-10">
+            <Image src="/logos/Favicon.png" alt="plaza sales" width={128} height={64} className="object-contain" />
           </div>
 
-          <div className="absolute w-[23rem] h-[23rem]  rounded-full border border-dashed border-primary/50"></div>
+          <div className="absolute w-92 h-92  rounded-full border border-dashed border-primary/50"></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
@@ -223,7 +224,7 @@ export default function RadialOrbitalTimeline({
                 `}
                 >
                   {/* <Icon size={16} /> */}
-                  <img src={item.img} alt="" />
+                  <Image src={item.img as string} alt={item.title} fill sizes="64px" className="object-contain" />
                 </div>
                 {isExpanded && (
                   <Card className="absolute gap-0 bg-primary text-white top-20 left-1/2 -translate-x-1/2 w-96 dark:bg-black/90 backdrop-blur-lg border-white/30 shadow-xl shadow-white/10 overflow-visible">

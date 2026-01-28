@@ -4,6 +4,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils"; // Assuming you have a `cn` utility for classnames
 import Title from "./title";
+import Image from "next/image";
 
 // Define the type for each team member
 interface TeamMember {
@@ -115,10 +116,12 @@ const AnimatedTeamSection = React.forwardRef<
                 transition: { type: "spring", stiffness: 300, damping: 20 },
               }}
             >
-              <img
+              <Image
                 src={member.image}
                 alt={member.name}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 112px, (max-width: 1024px) 144px, 176px"
+                className="object-cover"
               />
             </motion.div>
           ))}

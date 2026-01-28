@@ -141,9 +141,16 @@ primaryColor,
   );
 
   // Scroll + GSAP wiring
+  // Extract complex dependency to separate variable
+  const lenisOptionsString = JSON.stringify(lenisOptions);
+  const containerEaseValue = eases.container;
+  const overlayEaseValue = eases.overlay;
+  const textEaseValue = eases.text;
+
   useEffect(() => {
     if (!isClient) return;
 
+    const rootElement = rootRef.current;
     let gsap: any;
     let ScrollTrigger: any;
     let CustomEase: any;
@@ -183,9 +190,9 @@ primaryColor,
 
       if (cancelled) return;
 
-      const containerEase = eases.container ?? "expo.out";
-      const overlayEase = eases.overlay ?? "expo.out";
-      const textEase = eases.text ?? "power3.inOut";
+      const containerEase = containerEaseValue ?? "expo.out";
+      const overlayEase = overlayEaseValue ?? "expo.out";
+      const textEase = textEaseValue ?? "power3.inOut";
 
       const container = containerRef.current!;
       const overlayEl = overlayRef.current!;
@@ -342,17 +349,18 @@ primaryColor,
         (mainTl as any)?.kill?.();
       } catch {}
       try {
-        if ((ScrollTrigger as any)?.getAll && rootRef.current) {
+        if ((ScrollTrigger as any)?.getAll && rootElement) {
           (ScrollTrigger as any)
             .getAll()
-            .forEach((t: any) => rootRef.current!.contains(t.trigger) && t.kill(true));
+            .forEach((t: any) => rootElement.contains(t.trigger) && t.kill(true));
         }
       } catch {}
       try {
         if (overlayDarkenEl?.parentElement) {
           overlayDarkenEl.parentElement.removeChild(overlayDarkenEl);
         }
-      } catch (err) {
+      } catch {
+        // Error handled silently
       }
       try {
         if (rafCb && (gsap as any)?.ticker) {
@@ -372,13 +380,13 @@ primaryColor,
     scrollHeightVh,
     overlayBlur,
     overlayRevealDelay,
-    eases.container,
-    eases.overlay,
-    eases.text,
+    containerEaseValue,
+    overlayEaseValue,
+    textEaseValue,
     showHeroExitAnimation,
     sticky,
     smoothScroll,
-    JSON.stringify(lenisOptions),
+    lenisOptionsString,
   ]);
 
   // Media rendering
@@ -428,8 +436,8 @@ primaryColor,
       {/* Headline/hero area */}
       <div className="hsv-container" ref={headlineRef}>
         <div className="hsv-headline">
-          <h1 className="hsv-title !text-primary">{title}</h1>
-          {subtitle ? <h2 className="hsv-subtitle !mt-6 !text-primary/80 underline">{subtitle}</h2> : null}
+          <h1 className="hsv-title text-primary!">{title}</h1>
+          {subtitle ? <h2 className="hsv-subtitle mt-6! text-primary/80! underline">{subtitle}</h2> : null}
           {/* {meta ? <div className="hsv-meta">{meta}</div> : null}
           {credits ? <div className="hsv-credits">{credits}</div> : null} */}
         </div>

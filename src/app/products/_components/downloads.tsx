@@ -1,9 +1,8 @@
 import { IDownload } from '@/types/IProduct'
-import { DownloadCategory } from '@/types/IProductBySlug'
 import { Icon } from '@iconify/react'
 import { Info } from 'lucide-react'
 
-export default function Downloads({ downloads, categories }: { downloads: IDownload[], categories?: DownloadCategory[] }) {
+export default function Downloads({ downloads }: { downloads: IDownload[] }) {
 
     if (!downloads || downloads.length === 0) return null
 

@@ -24,7 +24,7 @@ export default function SuggestedProducts({ search, page, limit }: ProductListPr
       try {
         const { data } = await getAllProducts({ page, limit, search });
         setProducts(data?.products || []);
-      } catch (err) {
+      } catch {
         setError('Failed to load products. Please try again.');
       } finally {
         setLoading(false);

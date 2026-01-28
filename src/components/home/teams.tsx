@@ -1,4 +1,5 @@
 import Title from "./title"
+import Image from "next/image"
 
 export default function Teams(){
 
@@ -46,11 +47,13 @@ export default function Teams(){
                         {
                             team.map((item, idx) => (
                                 <li key={idx}>
-                                    <div className="w-full h-60 sm:h-52 md:h-70">
-                                        <img
+                                    <div className="w-full h-60 sm:h-52 md:h-70 relative">
+                                        <Image
                                             src={item.avatar}
-                                            className="w-full h-full object-cover object-center shadow-md rounded-xl"
-                                            alt=""
+                                            fill
+                                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                                            className="object-cover object-center shadow-md rounded-xl"
+                                            alt={item.name}
                                         />
                                     </div>
                                     <div className="mt-4">

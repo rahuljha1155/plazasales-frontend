@@ -44,7 +44,7 @@ export function useSearch(options: UseSearchOptions = {}) {
                 });
 
                 setSearchResults(response.data?.products || []);
-            } catch (error) {
+            } catch {
                 setSearchResults([]);
             } finally {
                 setIsSearching(false);
