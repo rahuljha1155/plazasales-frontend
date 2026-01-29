@@ -261,7 +261,10 @@ const Footer = () => {
                         Phone
                       </h2>
                       <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
-                        +977-1-4780236
+                        +977-9801016633
+                      </span>
+                       <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
+                        +977-9802026300
                       </span>
                     </Link>
                   </li>

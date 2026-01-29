@@ -79,7 +79,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                             <h1 className="text-gray-900 border-b pb-6 mb-6 font-bold text-xl md:text-3xl">{blogDetails?.blog?.title}</h1>
                             <div className="" dangerouslySetInnerHTML={{ __html: sanitizedExcerpt }}></div>
                             <div className="ckeditor-content-display px-0 mx-0 text-sm!" dangerouslySetInnerHTML={{ __html: sanitizedDescription }}></div>
-                            {blogDetails.blog?.mediaAssets.length && (<div className="grid md:grid-cols-2 gap-4 lg:mt-10">
+                            {blogDetails.blog?.mediaAssets.length > 0 && (<div className="grid md:grid-cols-2 gap-4 lg:mt-10">
                                 {blogDetails?.blog?.mediaAssets?.map((media) => (
                                     <div key={media.id} className="w-full aspect-video   relative">
                                         {media.type.toLowerCase() === 'image' ? (
