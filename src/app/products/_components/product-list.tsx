@@ -103,6 +103,19 @@ export default function ProductList({
     return (a.sortOrder || 0) - (b.sortOrder || 0);
   });
 
+  // Count visible products on current page (published and not forward brand)
+  const visibleProductsOnPage = sortedProducts.filter(
+    (product) => product.isPublished === true && !product.brand?.name?.includes("forward")
+  ).length;
+
+  // If we're on page 1 and visible products equal the limit (16), but backend says there are more,
+  // check if those "extra" are just unpublished. If visible = fetched, all are published.
+  // Hide pagination if: page 1 AND (visible < 16 OR (visible === 16 AND totalProducts - visible <= 3))
+  // The logic: if difference between total and visible is small (≤3), those are likely unpublished
+  const shouldShowPagination = page === 1 
+    ? visibleProductsOnPage === 16 && (totalProducts - visibleProductsOnPage) > 3
+    : totalPages > 1;
+
   return (
     <>
       <AdBanner ads={ads} />
@@ -154,11 +167,11 @@ export default function ProductList({
         </div>
 
         {/* Pagination */}
-        {totalPages > 1 && (
+        {shouldShowPagination && (
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-16 border-t pt-6">
             <div className="text-sm text-muted-foreground">
               Showing {(page - 1) * 16 + 1} to{" "}
-              {Math.min(page * 16, totalProducts)} of {totalProducts} products
+              {Math.min(page * 16, visibleProductsOnPage)} of {visibleProductsOnPage} products
             </div>
             <div className="flex items-center gap-2">
               <Link
