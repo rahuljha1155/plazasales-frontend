@@ -3,44 +3,46 @@ import React from "react"
 import { cn } from "@/lib/utils"
 import Title from "../home/title"
 import { Icon } from "@iconify/react"
+import Image from "next/image"
 
 const cardContents = [
   {
     title: "Innovation at Our Core",
     description:
-      "We don't just follow tech trends – we set them! With a finger on the pulse of the latest innovations, we bring you solutions that are ahead of the curve and built for tomorrow.",
+      "We bring smart technology solutions that help businesses stay ahead. By leveraging the latest in CCTV surveillance, networking infrastructure, HRMS software, and IT hardware, we deliver reliable, future-ready systems designed to improve security, efficiency, and performance.",
     icon: "mage:light-bulb",
   },
   {
     title: "Customer-First Mindset",
     description:
-      "Your success is our success! We listen, understand, and deliver exactly what you need. From first contact to after-sales support, we're with you every step of the way.",
+      "Your business comes first. We listen, understand your requirements, and deliver solutions that truly fit your needs. From the first consultation to installation and ongoing support, our team ensures a smooth, transparent, and satisfying experience at every step.",
     icon: "solar:user-heart-outline",
   },
   {
-    title: "End-to-End Solutions",
+    title: "Trusted Technology Partnerships",
     description:
-      "Why settle for pieces when you can have the whole puzzle? From security cameras and networking gear to complete IT infrastructure, we're your one-stop destination for all things tech. Whether you're securing your premises with state-of-the-art CCTV systems, upgrading your network infrastructure, or transforming your entire IT ecosystem, we've got the expertise, the products, and the passion to make it happen seamlessly.",
-    icon: "iconoir:brain",
-  },
-  {
-    title: "Trusted Partnerships",
-    description:
-      "We collaborate with industry leaders like UNV, UNIARCH, ZIASYS, FORWARD, and DELI to bring you only the best, most reliable technology solutions.",
+      "We collaborate with reliable and industry-recognized technology brands to deliver proven, high-quality solutions. Our strong partnerships allow us to offer dependable products, better performance, and long-term value for our customers.",
     icon: "ph:handshake-light",
   },
   {
+    title: "End-to-End IT Solutions",
+    description:
+      "From planning to execution, we handle it all. Our end-to-end solutions cover CCTV systems, structured networking, HRMS implementation, and complete IT hardware supply. Whether it&apos;s a small office or a large enterprise, we provide everything you need under one roof.",
+    icon: "iconoir:brain",
+  },
+
+  {
     title: "Quality You Can Count On",
     description:
-      "No compromises. No shortcuts. Just top-tier products and services that deliver real value and stand the test of time. That's the Plaza Sales promise!",
+      "We believe in quality without compromise. Every product we sell and every service we deliver is carefully selected and professionally implemented to ensure durability, reliability, and real business value.",
     icon: "la:certificate",
   },
   {
     title: "Support That Never Sleeps",
-    description:
-      "From setup to troubleshooting, our team stands by you with reliable, round-the-clock assistance. No delays, no confusion—just clear, dedicated support whenever you need it.",
-    icon: "hugeicons:headphones", // or choose: LifeBuoy, ShieldCheck, PhoneCall
+    description: "Our relationship doesn't end after installation. From setup to troubleshooting and maintenance, our support team is always ready to help. Fast response, expert assistance, and dependable service — whenever you need it.",
+    icon: "/icons/endtoend.png",
   }
+
 
 ]
 
@@ -56,6 +58,8 @@ export const PlusCard: React.FC<{
   description,
   icon,
 }) => {
+    const isLocalIcon = icon.startsWith('/');
+
     return (
       <div
         className={cn(
@@ -67,7 +71,11 @@ export const PlusCard: React.FC<{
         <CornerPlusIcons />
         <div className="relative z-10 flex flex-col justify-center items-center lg:items-start text-center lg:text-left space-y-4">
           <div className="w-12 h-12 rounded-full flex items-center justify-center">
-            <Icon icon={icon} className="size-8 md:size-10 text-primary" />
+            {isLocalIcon ? (
+              <Image src={icon} alt="" width={40} height={40} className="size-8 object-contain md:size-12" />
+            ) : (
+              <Icon icon={icon} className="size-8 md:size-10 text-primary" />
+            )}
           </div>
           <h3 className="md:text-xl font-bold text-primary dark:text-gray-100">
             {title}
@@ -108,7 +116,7 @@ export default function BentoCards() {
 
       <div className="max-w-5xl text-center! mx-auto px-4 ">
         <h2 className="  text-black dark:text-white mb-4">
-          <Title wrapperClassName="!mb-1 !mx-0 text-center w-full" className=" text-black dark:text-white !pb-0" title="Your Growth Partner" />
+          <Title wrapperClassName="!mb-1 !mx-0 text-center w-full" className=" text-black dark:text-white pb-0!" title="Your Growth Partner" />
         </h2>
         <p className="text-gray-600 text-center! text-sm md:text-xl dark:text-gray-400 ">
           We&apos;re not just a tech company - we&apos;re your growth partners - With a focus on innovation
@@ -124,8 +132,6 @@ export default function BentoCards() {
           <PlusCard {...cardContents[4]} className="lg:col-span-3 lg:row-span-1" />
           <PlusCard {...cardContents[5]} className="lg:col-span-3 lg:row-span-1" />
         </div>
-
-
       </div>
     </section>
   )
