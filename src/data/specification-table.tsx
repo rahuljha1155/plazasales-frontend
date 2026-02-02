@@ -100,7 +100,7 @@ export const specificationData = {
       "Digest Authentication for HTTP",
       "WSSE and Digest Authentication for ONVIF"
     ],
-    "Client": ["UNV-Link", "UNV-Link Pro", "EZStation"],
+    "Client": ["UNIVIEW-Link", "UNIVIEW-Link Pro", "EZStation"],
     "WebBrowser": {
       "PluginRequired": "IE 10+, Chrome 45+, Firefox 52+, Edge 79+",
       "PluginFree": "Chrome 57+, Firefox 58+, Edge 16+"

@@ -10,7 +10,7 @@ export default function PlazaHero() {
         <img
           src="/home/globe.png"
           alt="globe image"
-          className="size-full translate-y-1/2 object-contain animate-float select-none pointer-events-none"
+          className="size-full translate-y-1/2 object-contain select-none pointer-events-none"
         />
       </div>
 
@@ -64,7 +64,7 @@ export default function PlazaHero() {
         <img
           src="/home/globe.png"
           alt="globe image"
-          className="size-[75%] xl:size-[80%] 2xl:size-[85%] max-w-[520px] object-contain animate-float select-none pointer-events-none"
+          className="size-[75%] xl:size-[80%] 2xl:size-[85%] max-w-[520px] object-contain select-none pointer-events-none"
         />
       </div>
     </main>

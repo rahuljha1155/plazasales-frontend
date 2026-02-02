@@ -3,7 +3,7 @@ import { IProductBySlugResponse } from "@/types/IProductBySlug";
 
 // Client-side function (requires reCAPTCHA token)
 export async function getAllProducts({ page = 1, limit = 10, search = "", subcategory = "" }: { page?: number; limit?: number; search?: string; subcategory?: string; }): Promise<ProductApiResponse> {
-    let url = `/product/get-all-products?page=${page}&limit=${limit}&search=${search}`;
+    let url = `/product/get-published-products?page=${page}&limit=${limit}&search=${search}`;
     if (subcategory) {
         url += `&subcategory=${subcategory}`;
     }
@@ -13,7 +13,7 @@ export async function getAllProducts({ page = 1, limit = 10, search = "", subcat
 
 // Client-side function (with reCAPTCHA via interceptor)
 export async function getProductBySlug(slug: string): Promise<IProductBySlugResponse> {
-    const res = await api.get<IProductBySlugResponse>(`/product/get-product/${slug}`);
+    const res = await api.get<IProductBySlugResponse>(`/product/get-published-products/${slug}`);
     return res?.data;
 }
 
@@ -111,7 +111,7 @@ export async function getAllProductsServer({
     if (subcategories) params.set('subcategory', subcategories);
     if (technology) params.set('technology', technology);
 
-    const res = await fetch(`${API_BASE_URL}/product/get-all-products?${params.toString()}`, {
+    const res = await fetch(`${API_BASE_URL}/product/get-published-products?${params.toString()}`, {
         cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ export async function searchProductsServer({
     if (subcategory) params.set('subcategory', subcategory);
     if (subcategories) params.set('subcategories', subcategories);
 
-    const res = await fetch(`${API_BASE_URL}/product/search-products?${params.toString()}`, {
+    const res = await fetch(`${API_BASE_URL}/product/get-published-products?${params.toString()}`, {
         cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',

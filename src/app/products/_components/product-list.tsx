@@ -83,38 +83,9 @@ export default function ProductList({
     return params.toString();
   };
 
-  // Sort products by category, subcategory, and then by sortOrder
-  const sortedProducts = [...(initialProducts || [])].sort((a, b) => {
-    // First sort by category name
-    const categoryA = a.category?.name || a.category?.title || '';
-    const categoryB = b.category?.name || b.category?.title || '';
-    if (categoryA !== categoryB) {
-      return categoryA.localeCompare(categoryB);
-    }
-
-    // Then sort by subcategory name
-    const subcategoryA = a.subcategory?.name || a.subcategory?.title || '';
-    const subcategoryB = b.subcategory?.name || b.subcategory?.title || '';
-    if (subcategoryA !== subcategoryB) {
-      return subcategoryA.localeCompare(subcategoryB);
-    }
-
-    // Finally sort by sortOrder
-    return (a.sortOrder || 0) - (b.sortOrder || 0);
-  });
-
-  // Count visible products on current page (published and not forward brand)
-  const visibleProductsOnPage = sortedProducts.filter(
-    (product) => product.isPublished === true && !product.brand?.name?.includes("forward")
-  ).length;
-
-  // If we're on page 1 and visible products equal the limit (16), but backend says there are more,
-  // check if those "extra" are just unpublished. If visible = fetched, all are published.
-  // Hide pagination if: page 1 AND (visible < 16 OR (visible === 16 AND totalProducts - visible <= 3))
-  // The logic: if difference between total and visible is small (≤3), those are likely unpublished
-  const shouldShowPagination = page === 1 
-    ? visibleProductsOnPage === 16 && (totalProducts - visibleProductsOnPage) > 3
-    : totalPages > 1;
+  // Simple sort by sortOrder
+  const sortedProducts = [...(initialProducts || [])].sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+  const productsOnPage = sortedProducts.length;
 
   return (
     <>
@@ -129,15 +100,10 @@ export default function ProductList({
             Array.from({ length: 16 }).map((_, index) => (
               <ProductCardSkeleton key={index} />
             ))
-          ) : initialProducts?.length > 0 ? (
-            sortedProducts
-              ?.filter((product) => product.isPublished === true) // Only show explicitly published products
-              ?.map((product) => {
-                if (!product.brand?.name?.includes("forward")) {
-                  return <ProductCardV2 key={product.id} data={product} />;
-                }
-                return null;
-              })
+          ) : sortedProducts?.length > 0 ? (
+            sortedProducts.map((product) => (
+              <ProductCardV2 key={product.id} data={product} />
+            ))
           ) : (
             <div className="col-span-full text-center py-12">
               <Icon
@@ -167,11 +133,10 @@ export default function ProductList({
         </div>
 
         {/* Pagination */}
-        {shouldShowPagination && (
+        {totalPages > 1 && (
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-16 border-t pt-6">
             <div className="text-sm text-muted-foreground">
-              Showing {(page - 1) * 16 + 1} to{" "}
-              {Math.min(page * 16, visibleProductsOnPage)} of {visibleProductsOnPage} products
+              Showing {productsOnPage} of {totalProducts} products
             </div>
             <div className="flex items-center gap-2">
               <Link
@@ -242,7 +207,6 @@ export default function ProductList({
                   className="gap-1 h-5 px-2 py-0"
                 >
                   <span className="hidden md:block text-xs">Next</span>
-
                   <Icon icon="tabler:chevron-right" width="12" height="12" />
                 </Button>
               </Link>

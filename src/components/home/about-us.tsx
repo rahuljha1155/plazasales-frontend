@@ -34,7 +34,7 @@ const About = () => {
           establishing new IT infrastructure or upgrading existing technology.
           Our company proudly partners with trusted brands like{" "}
           <span className="text-red-500 italic">
-            UNV, UNIARCH, ZIASYS, FORWARD, DELI, and VENTION
+            UNIVIEW, UNIARCH, ZIASYS, FORWARD, DELI and H3C
           </span>
           , delivering cutting-edge technology and strong security for
           long-term success. Our dedicated expert teams ensure your business

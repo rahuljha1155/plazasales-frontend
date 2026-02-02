@@ -18,7 +18,7 @@ const timelineData = [
   },
   {
     id: 2,
-    title: "UNV",
+    title: "UNIVIEW",
     date: "Feb 2024",
     content: "When you land on a sample web page or open an email template and see content beginning with lorem ipsum,  the page creator placed that apparent gibberish there on purpose.Page layouts look better with something in each section.",
     category: "Design",

@@ -67,14 +67,14 @@ export const footerNavs = [
 export const PRODUCTS = [
   {
     id: 2,
-    title: "UNV 4K Security Camera",
+    title: "UNIVIEW 4K Security Camera",
     subtitle: "Outdoor IP Camera with Night Vision",
     image: "/products/cctv/cctv-1.png",
     price: "$89.99",
     rating: "4.9 (512)",
     link: "/products/unv-security-camera",
     category: "Security",
-    brand: "UNV",
+    brand: "UNIVIEW",
   },
   {
     id: 3,
@@ -123,7 +123,7 @@ export const PRODUCTS = [
   },
   {
     id: 8,
-    title: "UNV Network Video Recorder",
+    title: "UNIVIEW Network Video Recorder",
     subtitle: "16-Channel NVR with 4TB Storage",
     image: "/products/cctv/phone.png",
     price: "$299.99",
@@ -487,7 +487,7 @@ export const BRANDS = [
     ],
   },
   {
-    name: "UNV",
+    name: "UNIVIEW",
     slug: "unv",
     image: "/brands/UNV.png",
     desc: "UNV (Uniview) provides professional surveillance and security solutions with cutting-edge technology. :contentReference[oaicite:1]{index=1}",

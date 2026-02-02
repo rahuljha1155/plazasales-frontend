@@ -1,12 +1,12 @@
 export const BRANDS = [
   {
-    name: "UNV",
+    name: "UNIVIEW",
     color: "#2E87B1",
     data: {
       website: "https://www.unv.com/",
       gallery: ["/brands/unv/1.jpg", "/brands/unv/2.jpg", "/brands/unv/3.jpg"],
       description:
-        "UNV is a leading provider of video surveillance products and solutions, offering a wide range of innovative and reliable security technologies for various applications. UNV s commitment to quality and customer satisfaction has made it a trusted name in the security industry. With a focus on research and development, UNV continuously strives to deliver cutting-edge solutions that meet the evolving needs of its customers.",
+        "UNIVIEW is a leading provider of video surveillance products and solutions, offering a wide range of innovative and reliable security technologies for various applications. UNIVIEW s commitment to quality and customer satisfaction has made it a trusted name in the security industry. With a focus on research and development, UNIVIEW continuously strives to deliver cutting-edge solutions that meet the evolving needs of its customers.",
       coverImage: "/brands/unv/cover.jpg",
     },
   },
