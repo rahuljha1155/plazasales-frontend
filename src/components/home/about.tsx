@@ -15,7 +15,7 @@ export default function About() {
         </h2>
         <p className='mt-4 md:mt-8 lg:mt-12 md:text-lg text-center  leading-snug '>
           <span className='md:text-xl text-primary'>Plaza Sales Pvt. Ltd.</span> , established in 2014, is Nepal&apos;s leading IT hardware and software provider, offering a wide range of IT-integrated products and solutions. Serving startups to large enterprises, we empower businesses with high-quality hardware, software, and networking solutions that enhance efficiency, security, and sustainable growth. Partnered with trusted brands like <TransitionLink href='/brand/unv' className='hover:underline hover:text-primary inline-block '>UNIVIEW</TransitionLink>,<TransitionLink href='/brand/uniarch' className='hover:underline hover:text-primary  inline-block pl-2'>Uniarch</TransitionLink>,<TransitionLink href='/brand/ziasys' className='hover:underline hover:text-primary  inline-block pl-2'>Ziasys</TransitionLink>,<TransitionLink href='/brand/forward' className='hover:underline hover:text-primary  inline-block pl-2'>Forward</TransitionLink>,
-          <TransitionLink href='/brand/deli' className='hover:underline hover:text-primary  inline-block pl-2'>Deli</TransitionLink>
+          <TransitionLink href='/brand/deli' className='hover:underline hover:text-primary  inline-block pl-2'>Deli</TransitionLink>, <TransitionLink href='/brand/h3c' className='hover:underline hover:text-primary  inline-block pl-2'>H3C</TransitionLink>
           . our expert team delivers tailored IT solutions that help clients stay competitive in today&apos;s rapidly evolving digital landscape.</p>
       </div>
     </div>

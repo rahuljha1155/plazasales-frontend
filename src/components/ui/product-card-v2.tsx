@@ -17,7 +17,8 @@ export default function ProductCardV2({ data }: { data: IAllProduct }) {
     data?.subcategory?.name?.toLowerCase().replace(/\s+/g, "-") ||
     "subcategory";
 
-  if (data.brand?.slug.toLowerCase().includes("forward")) return null;
+  // Removed forward brand filter - should be handled server-side if needed
+  // if (data.brand?.slug.toLowerCase().includes("forward")) return null;
 
   return (
     <TransitionLink

@@ -145,6 +145,14 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+
+
+        {/* Google Site Verification */}
+        <meta
+          name="google-site-verification"
+          content="k6o1sifxrN0NobMwMcItYJzN-UACTlzr5N-7ec6rEVc"
+        />
+
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-FFSEP7RYRQ"

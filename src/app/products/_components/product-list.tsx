@@ -45,6 +45,7 @@ export default function ProductList({
   initialProducts,
   initialBrands,
   page,
+  limit,
   totalPages,
   totalProducts,
   brand,
@@ -134,30 +135,32 @@ export default function ProductList({
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-16 border-t pt-6">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t pt-6 bg-white dark:bg-zinc-900 rounded-lg px-4 py-3">
+            {/* Total Count */}
             <div className="text-sm text-muted-foreground">
-              Showing {productsOnPage} of {totalProducts} products
+              Total Products: <span className="font-semibold text-foreground">{totalProducts}</span>
             </div>
-            <div className="flex items-center gap-2">
+
+            {/* Page Numbers */}
+            <div className="flex items-center gap-1">
+              {/* Previous Arrow */}
               <Link
                 href={`/products?${buildUrlParams(page - 1)}`}
-                className={page <= 1 ? "pointer-events-none" : ""}
+                className={page <= 1 ? "pointer-events-none opacity-50" : ""}
                 onClick={() => {
                   setLoading(true);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
-                <Button
-                  variant="outline"
-                  size="sm"
+                <button
                   disabled={page <= 1}
-                  className="gap-1 h-6 px-2 py-1"
+                  className="w-8 h-8 flex items-center justify-center rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors disabled:cursor-not-allowed"
                 >
-                  <Icon icon="tabler:chevron-left" width="14" height="14" />
-                  <span className="hidden md:block text-xs">Previous</span>
-                </Button>
+                  <Icon icon="tabler:chevron-left" width="16" height="16" />
+                </button>
               </Link>
 
+              {/* Page Numbers */}
               <div className="flex items-center gap-1">
                 {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                   let pageNum;
@@ -180,36 +183,42 @@ export default function ProductList({
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                     >
-                      <Button
-                        variant={page === pageNum ? "default" : "outline"}
-                        size="sm"
-                        className="min-w-[32px] h-6 px-2 py-1 text-xs"
+                      <button
+                        className={`min-w-[32px] h-8 px-3 rounded text-sm font-medium transition-colors ${
+                          page === pageNum
+                            ? "bg-primary/10 text-primary"
+                            : "hover:bg-zinc-100 dark:hover:bg-zinc-800 text-muted-foreground"
+                        }`}
                       >
                         {pageNum}
-                      </Button>
+                      </button>
                     </Link>
                   );
                 })}
               </div>
 
+              {/* Next Arrow */}
               <Link
                 href={`/products?${buildUrlParams(page + 1)}`}
-                className={page >= totalPages ? "pointer-events-none" : ""}
+                className={page >= totalPages ? "pointer-events-none opacity-50" : ""}
                 onClick={() => {
                   setLoading(true);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
-                <Button
-                  variant="outline"
-                  size="sm"
+                <button
                   disabled={page >= totalPages}
-                  className="gap-1 h-5 px-2 py-0"
+                  className="w-8 h-8 flex items-center justify-center rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors disabled:cursor-not-allowed"
                 >
-                  <span className="hidden md:block text-xs">Next</span>
-                  <Icon icon="tabler:chevron-right" width="12" height="12" />
-                </Button>
+                  <Icon icon="tabler:chevron-right" width="16" height="16" />
+                </button>
               </Link>
+            </div>
+
+            {/* Show per Page - Currently static, can be made dynamic */}
+            <div className="text-sm text-muted-foreground flex items-center gap-2">
+              <span>Show per Page:</span>
+              <span className="font-semibold text-foreground">{limit}</span>
             </div>
           </div>
         )}
