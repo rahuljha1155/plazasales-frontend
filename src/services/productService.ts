@@ -163,7 +163,7 @@ export async function searchProductsServer({
     if (subcategory) params.set('subcategory', subcategory);
     if (subcategories) params.set('subcategories', subcategories);
 
-    const res = await fetch(`${API_BASE_URL}/product/get-published-products?${params.toString()}`, {
+    const res = await fetch(`${API_BASE_URL}/product/search-products?${params.toString()}`, {
         cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
