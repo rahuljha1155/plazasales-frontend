@@ -24,7 +24,7 @@ export default function FAQList({ faqs }: FAQListProps) {
     }, [faqs]);
 
     return (
-        <section className='py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-zinc-50/50 to-white dark:from-zinc-900/50 dark:to-zinc-950'>
+        <section className='py-8 sm:py-12 md:py-16 lg:py-20 bg-linear-to-b from-zinc-50/50 to-white dark:from-zinc-900/50 dark:to-zinc-950'>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-0">
                 {/* Header */}
                 <div className="md:text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
@@ -32,7 +32,7 @@ export default function FAQList({ faqs }: FAQListProps) {
                         <Icon icon="mdi:frequently-asked-questions" className="text-primary mr-2" width="18" height="18" />
                         <span className="text-xs sm:text-sm font-medium text-primary">FAQ</span>
                     </div>
-                    <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold bg-gradient-to-r from-zinc-800 to-zinc-600 dark:from-zinc-100 dark:to-zinc-300 bg-clip-text text-transparent md:px-4'>
+                    <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold bg-linear-to-r from-zinc-800 to-zinc-600 dark:from-zinc-100 dark:to-zinc-300 bg-clip-text text-transparent md:px-4'>
                         Our Most Asked Questions
                     </h1>
                     <div className='mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-zinc-600 dark:text-gray-400 md:px-4'>
@@ -59,7 +59,7 @@ export default function FAQList({ faqs }: FAQListProps) {
                             >
                                 <div className="pr-0 sm:pr-8 md:pr-12 lg:pr-14">
                                     <div className="flex flex-col md:flex-row items-start gap-6 sm:gap-3 md:gap-4 lg:gap-8 mb-3 sm:mb-4">
-                                        <div className="flex-shrink-0 hidden md:flex items-center text-primary/50 justify-center size-10 sm:size-11 md:size-12 rounded-full font-bold border text-xs sm:text-sm group-hover:border-primary group-hover:text-primary border-primary/30 transition-all duration-300">
+                                        <div className="shrink-0 hidden md:flex items-center text-primary/50 justify-center size-10 sm:size-11 md:size-12 rounded-full font-bold border text-xs sm:text-sm group-hover:border-primary group-hover:text-primary border-primary/30 transition-all duration-300">
                                             {String(index + 1).padStart(2, '0')}
                                         </div>
                                         <h4 className="text-base sm:text-lg md:text-xl  font-semibold text-zinc-800 dark:text-zinc-100 group-hover:text-primary transition-colors duration-300 leading-snug sm:leading-tight pt-1 sm:pt-1.5">

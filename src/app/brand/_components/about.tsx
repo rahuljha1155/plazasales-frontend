@@ -47,7 +47,8 @@ export default function BrandAbout({ brand }: { brand: IBrand }) {
         <div className="flex gap-5 mt-6 justify-center lg:justify-start  items-center flex-wrap">
           {
             !pathname.includes('/forward') ? (
-              <Link href={`/brand/${brand.slug}/products`}>
+              // <Link href={`/brand/${brand.slug}/products`}>
+                   <Link href={`/products`}>
                 <Button >
                   <span className="relative z-10 flex items-center gap-2">
                     View Products

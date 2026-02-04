@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
     return (
         <div className=''>
-            <div className="relative w-full h-[40vh] md:h-[60vh] bg-gradient-to-br from-primary/10 via-blue-50 to-purple-50">
+            <div className="relative w-full h-[40vh] md:h-[60vh] bg-linear-to-br from-primary/10 via-blue-50 to-purple-50">
                 <div className="absolute inset-0">
                     <Image
                         src={technology.coverImage || '/technology/default.jpg'}
@@ -61,7 +61,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                         className="object-contain opacity-90"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-800/70 via-black/30 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-zinc-800/70 via-black/30 to-transparent" />
                 </div>
 
                 {/* Title Overlay */}

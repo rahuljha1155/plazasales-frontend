@@ -13,7 +13,7 @@ import { brandFeatures } from "../_components/features-data";
 import AppStore from "../_components/app-store";
 
 export const revalidate = 1;
-export const dynamicParams = true;
+export const dynamicParams = true; 
 
 export default async function BrandPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -122,7 +122,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
             {filteredPopularProducts.length > 4 && (
               <div className="flex justify-end items-center mt-6">
                 <TransitionLink
-                  href={`/products`}
+                  href={`/brand/${brandData.slug}/products`}
                   className="group inline-flex items-center gap-2 text-primary hover:gap-3 transition-all duration-300"
                 >
                   View all products
@@ -140,7 +140,12 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
           </div>
         </section>
       )}
+
+
+
       <CTASection />
+
+
       <AppStore appStoreUrl={brandData.appStoreUrl} playStoreUrl={brandData.playStoreUrl} />
     </div>
   );

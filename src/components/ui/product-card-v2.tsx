@@ -24,9 +24,9 @@ export default function ProductCardV2({ data }: { data: IAllProduct }) {
     <TransitionLink
       href={`/products/${brandSlug}/${categorySlug}/${subcategorySlug}/${data?.slug}`}
     >
-      <div className="relative group cursor-pointer border-zinc-200 dark:border-zinc-800  overflow-hidden hover:shadow-primary/10 transition-all duration-500  flex flex-col w-full! w-[90vw] h-full max-w-[18.7rem] lg:min-w-[14.7rem] ">
+      <div className="relative group cursor-pointer border-zinc-200 dark:border-zinc-800  overflow-hidden hover:shadow-primary/10 transition-all duration-500  flex flex-col w-full! h-full max-w-[18.7rem] lg:min-w-[14.7rem] ">
         {data?.ispopular && (
-          <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-gradient-to-r from-primary to-primary/90 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full z-10 shadow-lg flex items-center gap-1">
+          <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-linear-to-r from-primary to-primary/90 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full z-10 shadow-lg flex items-center gap-1">
             <Icon
               icon="prime:star-fill"
               width="12"
