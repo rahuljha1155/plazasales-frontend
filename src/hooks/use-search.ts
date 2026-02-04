@@ -43,7 +43,11 @@ export function useSearch(options: UseSearchOptions = {}) {
                     search: query.trim(),
                 });
 
-                setSearchResults(response.data?.products || []);
+                // Filter to only show published products
+                const publishedProducts = (response.data?.products || []).filter(
+                    product => product.isPublished !== false
+                );
+                setSearchResults(publishedProducts);
             } catch {
                 setSearchResults([]);
             } finally {

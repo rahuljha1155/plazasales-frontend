@@ -135,7 +135,8 @@ export async function searchProductsServer({
     category = "",
     categories = "",
     subcategory = "",
-    subcategories = ""
+    subcategories = "",
+    technology = ""
 }: {
     page?: number;
     limit?: number;
@@ -146,6 +147,7 @@ export async function searchProductsServer({
     categories?: string;
     subcategory?: string;
     subcategories?: string;
+    technology?: string;
 }): Promise<ProductApiResponse> {
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -159,11 +161,15 @@ export async function searchProductsServer({
     const brandParam = brand || brands;
     if (brandParam) params.set('brand', brandParam);
     if (category) params.set('category', category);
-    if (categories) params.set('categories', categories);
+    if (categories) params.set('category', categories);
     if (subcategory) params.set('subcategory', subcategory);
-    if (subcategories) params.set('subcategories', subcategories);
+    if (subcategories) params.set('subcategory', subcategories);
+    if (technology) params.set('technology', technology);
 
-    const res = await fetch(`${API_BASE_URL}/product/search-products?${params.toString()}`, {
+    const url = `${API_BASE_URL}/product/search-products?${params.toString()}`;
+    console.log('Search API URL:', url);
+
+    const res = await fetch(url, {
         cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
@@ -174,5 +180,14 @@ export async function searchProductsServer({
         throw new Error(`Failed to fetch products: ${res.statusText}`);
     }
 
-    return res.json();
+    const data = await res.json();
+    console.log('Search API Response:', {
+        total: data.data?.total,
+        page: data.data?.page,
+        limit: data.data?.limit,
+        totalPages: data.data?.totalPages,
+        productsCount: data.data?.products?.length
+    });
+
+    return data;
 }

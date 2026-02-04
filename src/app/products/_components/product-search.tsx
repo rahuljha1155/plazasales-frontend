@@ -33,11 +33,15 @@ export default function ProductSearch({ initialSearch = '' }: ProductSearchProps
     try {
       const response = await searchProductsServer({
         page: 1,
-        limit: 8,
+        limit: 50,
         search: query.trim(),
       });
 
-      setSearchResults(response.data?.products || []);
+      // Filter to only show published products
+      const publishedProducts = (response.data?.products || []).filter(
+        product => product.isPublished !== false
+      );
+      setSearchResults(publishedProducts);
     } catch {
       setSearchResults([]);
     } finally {
@@ -155,14 +159,14 @@ export default function ProductSearch({ initialSearch = '' }: ProductSearchProps
               <span>Searching...</span>
             </div>
           ) : searchResults.length > 0 ? (
-            <ScrollArea className="max-h-[400px]">
-              <div className="divide-y divide-zinc-100">
+            <ScrollArea className="max-h-[500px]">
+              <div className="divide-y divide-zinc-100 p-2">
                 {searchResults.map((product) => (
                   <TransitionLink
                     key={product.id}
                     href={`/products/${product.slug}`}
                     onClick={() => setShowResults(false)}
-                    className="flex items-center gap-3 p-3 hover:bg-zinc-50 transition-colors group"
+                    className="flex items-center gap-3 p-3 hover:bg-zinc-50 transition-colors group rounded-md"
                   >
                     {product.coverimage ? (
                       <Image
@@ -189,19 +193,6 @@ export default function ProductSearch({ initialSearch = '' }: ProductSearchProps
                   </TransitionLink>
                 ))}
               </div>
-
-              {/* View All Results Button */}
-              {searchResults.length > 0 && (
-                <div className="p-3 border-t border-zinc-100 bg-zinc-50/50">
-                  <button
-                    onClick={handleViewAll}
-                    className="w-full py-2 text-center text-sm border border-primary text-primary rounded-md hover:bg-primary hover:text-white font-medium transition-colors flex items-center justify-center gap-2"
-                  >
-                    View All Results
-                    <Icon icon="tabler:arrow-right" className="size-4" />
-                  </button>
-                </div>
-              )}
             </ScrollArea>
           ) : (
             <div className="p-8 text-center">

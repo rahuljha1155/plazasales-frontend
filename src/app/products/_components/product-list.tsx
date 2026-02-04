@@ -85,7 +85,9 @@ export default function ProductList({
   };
 
   // Simple sort by sortOrder
-  const sortedProducts = [...(initialProducts || [])].sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+  // Filter out unpublished products (temporary fix until backend is updated)
+  const publishedProducts = (initialProducts || []).filter(product => product.isPublished === true);
+  const sortedProducts = [...publishedProducts].sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
   const productsOnPage = sortedProducts.length;
 
   return (

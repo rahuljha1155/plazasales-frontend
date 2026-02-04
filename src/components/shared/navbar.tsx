@@ -347,13 +347,13 @@ export default function Navbar() {
                 </div>
               ) : searchQuery.trim() ? (
                 searchResults.length > 0 ? (
-                  <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
-                    {searchResults.slice(0, 3).map((product) => (
+                  <div className="divide-y divide-zinc-100 dark:divide-zinc-800 p-2">
+                    {searchResults.map((product) => (
                       <TransitionLink
                         key={product.id}
                         href={`/products/${product?.brand?.slug}/${product?.category?.slug}/${product?.subcategory?.slug}/${product?.slug}`}
                         onClick={closeSearchModal}
-                        className="flex items-center gap-4 p-4 md:p-5 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group"
+                        className="flex items-center gap-4 p-4 md:p-5 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group rounded-lg"
                       >
                         {product.coverImage ? (
                           <Image
@@ -379,21 +379,6 @@ export default function Navbar() {
                         <Icon icon="tabler:arrow-up-right" className="size-5 text-zinc-400 group-hover:text-primary transition-colors shrink-0" />
                       </TransitionLink>
                     ))}
-
-                    {/* View All Button */}
-                    {
-                      searchResults.length > 3 && (
-                        <div className="p-4 bg-white flex justify-end items-center dark:bg-zinc-800/50 sticky bottom-0">
-                          <button
-                            onClick={handleViewAll}
-                            className="w-fit p-2 px-4 text-center border border-primary text-primary rounded-lg hover:bg-primary hover:text-white font-medium transition-colors flex items-center justify-center gap-2"
-                          >
-                            View All Results
-                            <Icon icon="tabler:arrow-right" className="size-5" />
-                          </button>
-                        </div>
-                      )
-                    }
                   </div>
                 ) : (
                   <div className="p-12 md:p-16 text-center">
@@ -409,7 +394,8 @@ export default function Navbar() {
                     {brands?.map((brand) => {
                       if (brand?.name.toLowerCase().includes("forward")) return null;
                       return (
-                        <TransitionLink key={brand?.id} onClick={closeSearchModal} href={`/brand/${brand?.slug}/products`} className="bg-muted/80 hover:text-white text-zinc-500 hover:bg-primary px-4 py-1 flex gap-1 items-center rounded-sm">{brand?.name} </TransitionLink>
+                        // <TransitionLink key={brand?.id} onClick={closeSearchModal} href={`/brand/${brand?.slug}/products`} className="bg-muted/80 hover:text-white text-zinc-500 hover:bg-primary px-4 py-1 flex gap-1 items-center rounded-sm">{brand?.name} </TransitionLink>
+                        <TransitionLink key={brand?.id} onClick={closeSearchModal} href={`/products`} className="bg-muted/80 hover:text-white text-zinc-500 hover:bg-primary px-4 py-1 flex gap-1 items-center rounded-sm">{brand?.name} </TransitionLink>
                       )
                     })}
                   </div>
@@ -419,9 +405,7 @@ export default function Navbar() {
           </div>
         </div>
       )}
-
       <ButtonNavs />
-
     </>
   );
 }
