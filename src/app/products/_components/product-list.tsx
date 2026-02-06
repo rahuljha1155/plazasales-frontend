@@ -7,7 +7,6 @@ import { useBrandStore } from "@/store/useBrandStore";
 import ProductCardV2 from "@/components/ui/product-card-v2";
 import ProductCardSkeleton from "@/components/ui/product-card-skeleton";
 import { IAllProduct } from "@/services/productService";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useLoading } from "./loading-context";
 import AdBanner from "@/components/shared/ad-banner";
@@ -88,7 +87,6 @@ export default function ProductList({
   // Filter out unpublished products (temporary fix until backend is updated)
   const publishedProducts = (initialProducts || []).filter(product => product.isPublished === true);
   const sortedProducts = [...publishedProducts].sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
-  const productsOnPage = sortedProducts.length;
 
   return (
     <>

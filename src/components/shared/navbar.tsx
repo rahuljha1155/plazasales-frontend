@@ -122,11 +122,6 @@ export default function Navbar() {
     navigateToResults();
   };
 
-  const handleViewAll = () => {
-    closeSearchModal();
-    navigateToResults();
-  };
-
   // Fetch brands on mount if not already loaded
   useEffect(() => {
     if (brands.length === 0) {

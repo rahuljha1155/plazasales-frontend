@@ -86,7 +86,10 @@ export default function DetailsMain({ initialData }: { initialData: IProductBySl
                 <Summary summary={product?.product?.description || ""} />
                 <Specifications productData={product} speficication={product?.product?.feature as string} productType={product?.product?.productType} />
                 <DetailsImage images={product?.product?.detailImage} />
-                <Downloads downloads={product?.product?.downloads || []} />
+                <Downloads 
+                    downloads={product?.product?.downloads || []} 
+                    downloadCategories={product?.product?.downloadCategories || []} 
+                />
                 <Videos productName={product?.product?.name || ""} videos={product?.product?.videos || []} />
                 <RelatedProducts similarProduct={similarProductsTransformed} />
             </div>

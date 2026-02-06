@@ -75,13 +75,6 @@ export default function ProductSearch({ initialSearch = '' }: ProductSearchProps
     }
   };
 
-  const handleViewAll = () => {
-    if (searchQuery.trim()) {
-      setShowResults(false);
-      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
-
   const handleClearSearch = () => {
     setSearchQuery('');
     setSearchResults([]);

@@ -220,7 +220,7 @@ export interface IDownloadCategory {
   iconKey: string;
   isActive: boolean;
   extra: Record<string, unknown>;
-  items: IDownloadItem[];
+  items: IDownload[];
 }
 
 export interface IDownloadItem {

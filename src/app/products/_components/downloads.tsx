@@ -1,13 +1,17 @@
-import { IDownload } from '@/types/IProduct'
+import { IDownload, IDownloadCategory } from '@/types/IProduct'
 import { Icon } from '@iconify/react'
 import { Info } from 'lucide-react'
 
-export default function Downloads({ downloads }: { downloads: IDownload[] }) {
+interface DownloadsProps {
+    downloads?: IDownload[];
+    downloadCategories?: IDownloadCategory[];
+}
 
-    if (!downloads || downloads.length === 0) return null
+export default function Downloads({ downloads, downloadCategories }: DownloadsProps) {
+    const hasCategories = downloadCategories && downloadCategories.length > 0;
+    const hasDownloads = downloads && downloads.length > 0;
 
-    // Sort downloads by sortOrder
-    const sortedDownloads = [...downloads].sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+    if (!hasCategories && !hasDownloads) return null;
 
     // Helper function to format file size
     const formatFileSize = (bytes: string) => {
@@ -28,8 +32,8 @@ export default function Downloads({ downloads }: { downloads: IDownload[] }) {
     };
 
     const DownloadCard = ({ download }: { download: IDownload }) => (
-        <div className="pb-6 mb-6  border-b last:border-b-0">
-            <div className="flex justify-between items-start gap-4 ">
+        <div className="pb-6 mb-6 border-b last:border-b-0">
+            <div className="flex justify-between items-start gap-4">
                 <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                         <h3 className='text-xl font-semibold'>{download.title}</h3>
@@ -44,44 +48,34 @@ export default function Downloads({ downloads }: { downloads: IDownload[] }) {
                         <p className="text-sm text-gray-600 mt-2">Minimum OS: {download.minOsVersion}</p>
                     )}
                 </div>
-
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-sm">
-                {
-                    download.version && (
-                        <div>
-                            <span className="font-semibold">Version:</span>
-                            <p className="font-medium">{download.version}</p>
-                        </div>
-                    )
-                }
-                {
-                    download.sizeBytes && (
-                        <div>
-                            <span className="font-semibold">Size:</span>
-                            <p className="font-medium">{formatFileSize(download.sizeBytes)}</p>
-                        </div>
-                    )
-                }
-                {
-                    download.releasedOn && (
-                        <div>
-                            <span className="font-semibold">Released:</span>
-                            <p className="font-medium">{formatDate(download.releasedOn)}</p>
-                        </div>
-                    )
-                }
-                {
-                    download.platforms && (
-                        <div>
-                            <span className="font-semibold">Platform:</span>
-                            <p className="font-medium">{download.platforms.join(', ')}</p>
-                        </div>
-                    )
-                }
+                {download.version && (
+                    <div>
+                        <span className="font-semibold">Version:</span>
+                        <p className="font-medium">{download.version}</p>
+                    </div>
+                )}
+                {download.sizeBytes && (
+                    <div>
+                        <span className="font-semibold">Size:</span>
+                        <p className="font-medium">{formatFileSize(download.sizeBytes)}</p>
+                    </div>
+                )}
+                {download.releasedOn && (
+                    <div>
+                        <span className="font-semibold">Released:</span>
+                        <p className="font-medium">{formatDate(download.releasedOn)}</p>
+                    </div>
+                )}
+                {download.platforms && (
+                    <div>
+                        <span className="font-semibold">Platform:</span>
+                        <p className="font-medium">{download.platforms.join(', ')}</p>
+                    </div>
+                )}
             </div>
-
 
             <div className="flex gap-3 pt-2 mt-6">
                 <a
@@ -94,12 +88,10 @@ export default function Downloads({ downloads }: { downloads: IDownload[] }) {
                     Download
                 </a>
 
-
                 {download.mirrors && download.mirrors.length > 0 && (
                     <div className="flex gap-2">
-                        {download?.mirrors?.map((mirror, idx) => {
+                        {download.mirrors.map((mirror, idx) => {
                             if (!mirror.url) return null;
-
                             return (
                                 <a
                                     key={idx}
@@ -110,30 +102,66 @@ export default function Downloads({ downloads }: { downloads: IDownload[] }) {
                                 >
                                     {mirror.label}
                                 </a>
-                            )
+                            );
                         })}
                     </div>
                 )}
-
-
-
             </div>
 
             {download.extra?.note && (
-                <p className="text-sm mt-4 flex gap-2 items-center italic"><span><Info className='size-4' /></span> {download.extra.note}</p>
+                <p className="text-sm mt-4 flex gap-2 items-center italic">
+                    <span><Info className='size-4' /></span> {download.extra.note}
+                </p>
             )}
         </div>
     );
 
     return (
         <section className='space-y-6'>
-            <h2 className='leading-none text-[22px] font-medium will-change-transform sm:text-3xl   font-overusedGrotesk mb-4 text-primary '>Downloads</h2>
+            <h2 className='leading-none text-[22px] font-medium will-change-transform sm:text-3xl font-overusedGrotesk mb-4 text-primary'>Downloads</h2>
 
-            <div>
-                {sortedDownloads?.map((download) => (
-                    <DownloadCard key={download.id} download={download} />
-                ))}
-            </div>
+            {hasCategories ? (
+                <div className="space-y-8">
+                    {downloadCategories
+                        .filter(cat => cat.isActive)
+                        .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
+                        .map((category) => (
+                            <div key={category.id}>
+                                <div className="flex items-start gap-3 mb-6">
+                                    {category.iconKey && (
+                                        <div className="shrink-0">
+                                            <Icon icon={category.iconKey} className="w-8 h-8 text-primary" />
+                                        </div>
+                                    )}
+                                    <div className="flex-1">
+                                        <h3 className='text-2xl font-semibold text-gray-900'>{category.title}</h3>
+                                        {category.subtitle && (
+                                            <p className='text-gray-600 mt-1'>{category.subtitle}</p>
+                                        )}
+                                    </div>
+                                </div>
+                                
+                                {category.items && category.items.length > 0 ? (
+                                    <div>
+                                        {category.items.map((item) => (
+                                            <DownloadCard key={item.id} download={item} />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-gray-500 italic">No downloads available</p>
+                                )}
+                            </div>
+                        ))}
+                </div>
+            ) : (
+                <div>
+                    {downloads!
+                        .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
+                        .map((download) => (
+                            <DownloadCard key={download.id} download={download} />
+                        ))}
+                </div>
+            )}
         </section>
-    )
+    );
 }

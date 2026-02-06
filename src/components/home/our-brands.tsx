@@ -47,7 +47,7 @@ export default function HoverSliderDemo() {
                         <TransitionLink key={slide.name} href={`/brand/${slide.slug}`}>
                             <TextStaggerHover
                                 index={index}
-                                className="cursor-pointer text-2xl md:text-3xl font-bold uppercase tracking-tighter"
+                                className="cursor-pointer text-2xl md:text-3xl font-bold uppercase tracking-wider"
                                 text={slide.name}
                                 style={{
                                     color: slide?.themeColor || ""
@@ -57,14 +57,14 @@ export default function HoverSliderDemo() {
                         </TransitionLink>
                     ))}
                 </div>
-                <HoverSliderImageWrap className=" hidden max-w-xl md:grid">
+                <HoverSliderImageWrap className="hidden md:grid w-full max-w-xl h-96 rounded-lg overflow-hidden">
                     {brands?.map((slide, index) => (
-                        <div key={slide.id} className="  ">
+                        <div key={slide.id} className="w-full h-full">
                             <HoverSliderImage
                                 index={index}
                                 src={slide.brandImageUrls[0]}
                                 alt={slide.name}
-                                className="size-full rounded-lg max-h-96 object-cover"
+                                className="w-full h-full object-cover"
                                 loading="eager"
                                 decoding="async"
                             />
