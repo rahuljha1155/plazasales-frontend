@@ -38,6 +38,7 @@ export default function DetailsMain({ initialData }: { initialData: IProductBySl
             brandId: p?.brand?.id,
             model: p.model || '',
             coverImage: p.coverImage || '',
+            isPublished: p.isPublished,
             brand: {
                 id: p?.brand?.id || '',
                 name: p?.brand?.name || 'Brand',
