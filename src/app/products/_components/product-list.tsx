@@ -136,9 +136,9 @@ export default function ProductList({
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t pt-6 bg-white dark:bg-zinc-900 rounded-lg px-4 py-3">
-            {/* Total Count */}
+            {/* Current Page Count */}
             <div className="text-sm text-muted-foreground">
-              Total Products: <span className="font-semibold text-foreground">{totalProducts}</span>
+              Showing <span className="font-semibold text-foreground">{sortedProducts.length}</span> of <span className="font-semibold text-foreground">{totalProducts}</span> products
             </div>
 
             {/* Page Numbers */}
@@ -215,7 +215,7 @@ export default function ProductList({
               </Link>
             </div>
 
-            {/* Show per Page - Currently static, can be made dynamic */}
+            {/* Show per Page */}
             <div className="text-sm text-muted-foreground flex items-center gap-2">
               <span>Show per Page:</span>
               <span className="font-semibold text-foreground">{limit}</span>
