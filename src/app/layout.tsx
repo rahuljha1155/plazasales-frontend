@@ -145,7 +145,8 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0a2a4b" />
 
         {/* Google Site Verification */}
         <meta

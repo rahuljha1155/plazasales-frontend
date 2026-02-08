@@ -16,8 +16,20 @@ interface CategoryCardProps {
 }
 
 export default function CategoryCard({ data }: CategoryCardProps) {
+  // Build URL with both category and brand filters
+  const buildProductUrl = () => {
+    const params = new URLSearchParams();
+    params.set('category', data.slug);
+    if (data.brand?.name) {
+      // Convert brand name to slug format (lowercase, replace spaces with hyphens)
+      const brandSlug = data.brand.name.toLowerCase().replace(/\s+/g, '-');
+      params.set('brand', brandSlug);
+    }
+    return `/products?${params.toString()}`;
+  };
+
   return (
-    <TransitionLink href={`/products?category=${encodeURIComponent(data.slug)}`} className="group block">
+    <TransitionLink href={buildProductUrl()} className="group block">
       <article className="relative h-full  w-full sm:min-w-[200px] md:min-w-[300px]   border border-zinc-200 rounded-md md:rounded-2xl lg:rounded-3xl overflow-hidden  transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg">
         <div className=" inset-0 flex items-center justify-center ">
           <div className="relative w-full h-30 sm:h-50   transition-transform duration-700 ease-out group-hover:scale-105">
