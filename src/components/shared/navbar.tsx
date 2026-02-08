@@ -355,7 +355,7 @@ export default function Navbar() {
                       return (
                         <TransitionLink
                           key={product.id}
-                          href={`/products/${product.brand.slug}/${product.category.slug}/${product.subcategory.slug}/${product.slug}`}
+                          href={`/products/${product.brand.slug}/${product.category!.slug}/${product.subcategory!.slug}/${product.slug}`}
                           onClick={closeSearchModal}
                           className="flex items-center gap-4 p-4 md:p-5 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group rounded-lg"
                         >
