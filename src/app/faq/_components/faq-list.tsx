@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Icon } from "@iconify/react";
 import { IFAQ } from '@/types/IFAQ';
@@ -12,16 +12,26 @@ interface FAQListProps {
 }
 
 export default function FAQList({ faqs }: FAQListProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     // Sanitize all FAQ descriptions for security
     const sanitizedFaqs = useMemo(() => {
-        if (typeof window !== 'undefined') {
+        if (mounted && typeof window !== 'undefined') {
             return faqs.map(faq => ({
                 ...faq,
                 sanitizedContent: DOMPurify.sanitize(faq.description.content)
             }));
         }
-        return faqs.map(faq => ({ ...faq, sanitizedContent: '' }));
-    }, [faqs]);
+        // Return unsanitized content for server-side rendering (will be replaced on client)
+        return faqs.map(faq => ({
+            ...faq,
+            sanitizedContent: faq.description.content
+        }));
+    }, [faqs, mounted]);
 
     return (
         <section className='py-8 sm:py-12 md:py-16 lg:py-20 bg-linear-to-b from-zinc-50/50 to-white dark:from-zinc-900/50 dark:to-zinc-950'>
