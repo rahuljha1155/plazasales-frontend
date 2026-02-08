@@ -12,11 +12,20 @@ interface PopularProductsProps {
 export default function PopularProducts({ products }: PopularProductsProps) {
   return (
     <div className="flex gap-4 justify-center  flex-wrap">
-      {products?.slice(0, 8).map((data) => (
-        <TransitionLink
-          key={data.id}
-          href={`/products/${data?.brand?.slug}/${data?.category?.slug}/${data?.subcategory?.slug}/${data?.slug}`}
-        >
+      {products?.slice(0, 8).map((data) => {
+        // Validate product has all required URL parts
+        const hasValidUrl = data?.brand?.slug && data?.category?.slug && data?.subcategory?.slug && data?.slug;
+        
+        if (!hasValidUrl) {
+          console.warn('Popular product missing URL data:', data);
+          return null;
+        }
+        
+        return (
+          <TransitionLink
+            key={data.id}
+            href={`/products/${data.brand.slug}/${data.category!.slug}/${data.subcategory!.slug}/${data.slug}`}
+          >
           <div className="relative group cursor-pointer border-zinc-200 dark:border-zinc-800  overflow-hidden hover:shadow-primary/10 transition-all duration-500  flex flex-col  w-[90vw] sm:w-full h-full sm:max-w-[18.7rem] lg:min-w-[14.7rem] ">
             {data?.ispopular && (
               <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-linear-to-r from-primary to-primary/90 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full z-10 shadow-lg flex items-center gap-1">
@@ -67,7 +76,8 @@ export default function PopularProducts({ products }: PopularProductsProps) {
             </div>
           </div>
         </TransitionLink>
-      ))}
+      );
+      })}
     </div>
   );
 }

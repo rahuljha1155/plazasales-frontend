@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { useBrandStore } from '@/store/useBrandStore'
 import TransitionLink from './transition-link'
 import { Button } from '../ui/button'
-import { IAllProduct } from '@/services/productService'
 
 export default function NavbarDropdown({
   drapdownState,

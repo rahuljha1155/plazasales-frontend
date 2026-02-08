@@ -4,21 +4,24 @@ import { TransitionLink } from "../shared";
 import { IAllProduct } from "@/services/productService";
 
 export default function ProductCardV2({ data }: { data: IAllProduct }) {
-  const brandSlug =
-    data?.brand?.slug ||
-    data?.brand?.name?.toLowerCase().replace(/\s+/g, "-") ||
-    "brand";
-  const categorySlug =
-    data?.category?.slug ||
-    data?.category?.name?.toLowerCase().replace(/\s+/g, "-") ||
-    "category";
-  const subcategorySlug =
-    data?.subcategory?.slug ||
-    data?.subcategory?.name?.toLowerCase().replace(/\s+/g, "-") ||
-    "subcategory";
+  // Build URL with proper fallbacks and validation
+  const brandSlug = data?.brand?.slug || data?.brandName?.toLowerCase().replace(/\s+/g, "-") || null;
+  const categorySlug = data?.category?.slug || null;
+  const subcategorySlug = data?.subcategory?.slug || null;
 
-  // Removed forward brand filter - should be handled server-side if needed
-  // if (data.brand?.slug.toLowerCase().includes("forward")) return null;
+  // If any required slug is missing, don't render the card or use a fallback URL
+  if (!brandSlug || !categorySlug || !subcategorySlug || !data?.slug) {
+    console.warn('Product missing required URL data:', {
+      productId: data?.id,
+      title: data?.title || data?.name,
+      brandSlug,
+      categorySlug,
+      subcategorySlug,
+      productSlug: data?.slug
+    });
+    // Return null to hide products with incomplete data
+    return null;
+  }
 
   return (
     <TransitionLink

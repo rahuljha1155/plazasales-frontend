@@ -343,13 +343,22 @@ export default function Navbar() {
               ) : searchQuery.trim() ? (
                 searchResults.length > 0 ? (
                   <div className="divide-y divide-zinc-100 dark:divide-zinc-800 p-2">
-                    {searchResults.map((product) => (
-                      <TransitionLink
-                        key={product.id}
-                        href={`/products/${product?.brand?.slug}/${product?.category?.slug}/${product?.subcategory?.slug}/${product?.slug}`}
-                        onClick={closeSearchModal}
-                        className="flex items-center gap-4 p-4 md:p-5 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group rounded-lg"
-                      >
+                    {searchResults.map((product) => {
+                      // Validate product has all required URL parts
+                      const hasValidUrl = product?.brand?.slug && product?.category?.slug && product?.subcategory?.slug && product?.slug;
+                      
+                      if (!hasValidUrl) {
+                        console.warn('Search result missing URL data:', product);
+                        return null;
+                      }
+                      
+                      return (
+                        <TransitionLink
+                          key={product.id}
+                          href={`/products/${product.brand.slug}/${product.category.slug}/${product.subcategory.slug}/${product.slug}`}
+                          onClick={closeSearchModal}
+                          className="flex items-center gap-4 p-4 md:p-5 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group rounded-lg"
+                        >
                         {product.coverImage ? (
                           <Image
                             src={product.coverImage}
@@ -373,7 +382,8 @@ export default function Navbar() {
                         </div>
                         <Icon icon="tabler:arrow-up-right" className="size-5 text-zinc-400 group-hover:text-primary transition-colors shrink-0" />
                       </TransitionLink>
-                    ))}
+                    );
+                    })}
                   </div>
                 ) : (
                   <div className="p-12 md:p-16 text-center">
