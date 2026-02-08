@@ -102,28 +102,34 @@ const Footer = () => {
               </p>
 
               <div className="flex gap-4 mt-4">
-                <TransitionLink
+                <a
                   href="https://www.facebook.com/share/1BuwkXnq8w/"
                   target="_blank"
-                  className="hover:text-primary hover:underline"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary hover:underline transition-colors"
+                  aria-label="Visit our Facebook page"
                 >
                   <Icon icon="ri:facebook-fill" className="size-5" />
-                </TransitionLink>
-                <TransitionLink
+                </a>
+                <a
                   href="https://www.instagram.com/plazasales.np?igsh=MXQzd2UyYWdxY3lpeQ=="
                   target="_blank"
-                  className="hover:text-primary hover:underline"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary hover:underline transition-colors"
+                  aria-label="Visit our Instagram page"
                 >
                   <Icon icon="mdi:instagram" className="size-5" />
-                </TransitionLink>
+                </a>
 
-                <TransitionLink
+                <a
                   href="https://www.linkedin.com/company/plazasales/"
                   target="_blank"
-                  className="hover:text-primary hover:underline"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary hover:underline transition-colors"
+                  aria-label="Visit our LinkedIn page"
                 >
                   <Icon icon="mdi:linkedin" className="size-5" />
-                </TransitionLink>
+                </a>
               </div>
 
               <div className="mt-6">
@@ -305,6 +311,7 @@ const Footer = () => {
         <Link
           href="https://webxnepal.com/"
           target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center text-sm gap-2 mt-1 md:mt-3 sm:mt-0  transition"
         >
           <span>Design & Developed by:</span>

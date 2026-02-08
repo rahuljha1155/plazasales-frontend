@@ -2,7 +2,7 @@
   "name": "Plaza Sales Pvt. Ltd.",
   "short_name": "Plaza Sales",
   "description": "IT hardware and software solutions provider in Nepal",
-  "start_url": "/",
+  "start_url": "https://plazasales.com.np/",
   "display": "browser",
   "background_color": "#ffffff",
   "theme_color": "#0a2a4b",
@@ -13,7 +13,7 @@
       "type": "image/png"
     },
     {
-      "src": "/logos/manifestimg.png",
+      "src": "/logos/manifest.png",
       "sizes": "512x512",
       "type": "image/png"
     }
