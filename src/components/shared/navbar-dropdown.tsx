@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useBrandStore } from '@/store/useBrandStore'
 import TransitionLink from './transition-link'
 import { Button } from '../ui/button'
+import { IAllProduct } from '@/services/productService'
 
 export default function NavbarDropdown({
   drapdownState,
@@ -164,29 +165,30 @@ export default function NavbarDropdown({
                       <TransitionLink
                         key={category.id}
                         href={`/products?category=${category.slug}&brand=${brands[activeCategory]?.slug}`}
-                        onClick={() => setDrapdownState({ isActive: false, idx: null })}
                       >
-                        <div className="relative group cursor-pointer border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300 flex flex-col h-full">
-                          <div className="w-full h-35 xl:h-40 bg-white relative overflow-hidden">
-                            <Image
-                              src={category?.coverImage || "/brokenimg.jpg"}
-                              alt={category?.title || "Category"}
-                              fill
-                              quality={90}
-                              sizes="(max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-                              className="object-contain p-3 group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
+                        <div className="relative group cursor-pointer border-zinc-200 dark:border-zinc-800 overflow-hidden hover:shadow-primary/10 transition-all duration-500 flex flex-col h-full max-w-[18.7rem] lg:min-w-full w-full">
+                          <div className="flex flex-col h-full">
+                            <div className="w-full! h-35 xl:h-45 bg-white border rounded-xl sm:rounded-2xl overflow-hidden relative">
+                              <Image
+                                src={category?.coverImage || "/brokenimg.jpg"}
+                                alt={category?.title || "Category"}
+                                fill
+                                quality={90}
+                                sizes="(max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                                className="object-contain p-2"
+                              />
+                            </div>
 
-                          <div className="p-3 flex-1 flex flex-col justify-center bg-linear-to-b from-white to-zinc-50">
-                            <h3 className="text-sm xl:text-base font-semibold text-center group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                              {category?.title}
-                            </h3>
-                            {category?.subCategories && category.subCategories.length > 0 && (
-                              <p className="text-xs text-muted-foreground text-center mt-1">
-                                {category.subCategories.length} {category.subCategories.length === 1 ? 'type' : 'types'}
-                              </p>
-                            )}
+                            <div className="mt-2 sm:mt-3 md:mt-4 flex-1 flex flex-col">
+                              <h2 className="text-sm xl:text-base font-semibold group-hover:underline line-clamp-1 group-hover:text-primary transition-all duration-300">
+                                {category?.title}
+                              </h2>
+                              {category?.subCategories && category.subCategories.length > 0 && (
+                                <p className="text-xs text-muted-foreground mt-2">
+                                  {category.subCategories.length} {category.subCategories.length === 1 ? 'product' : 'products'}
+                                </p>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </TransitionLink>
