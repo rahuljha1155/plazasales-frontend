@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { useBrandStore } from '@/store/useBrandStore'
 import TransitionLink from './transition-link'
 import { Button } from '../ui/button'
-import { IAllProduct } from '@/services/productService'
 
 export default function NavbarDropdown({
   drapdownState,
@@ -127,8 +126,8 @@ export default function NavbarDropdown({
 
             <div className="col-span-8 space-y-3">
               <h2 className="xl:text-xl font-semibold flex gap-6 items-center justify-between pr-4">
-                {activeCategory !== null && brands[activeCategory]?.slug?.toLowerCase() === 'forward' ? 'About Forward' : 'Featured Products'}
-                {activeCategory !== null && brands[activeCategory]?.popularProducts?.length > 0 && brands[activeCategory]?.slug?.toLowerCase() !== 'forward' && (
+                {activeCategory !== null && brands[activeCategory]?.slug?.toLowerCase() === 'forward' ? 'About Forward' : 'Product Types'}
+                {activeCategory !== null && brands[activeCategory]?.categories?.length > 0 && brands[activeCategory]?.slug?.toLowerCase() !== 'forward' && (
                   <TransitionLink href={`/brand/${brands[activeCategory]?.slug}/products`}>
                     <span className="flex gap-3 hover:text-primary items-center text-base font-normal">
                       See All <Icon icon="mingcute:arrow-right-line" className="w-4 h-4" />
@@ -159,55 +158,43 @@ export default function NavbarDropdown({
                     </TransitionLink>
                   </div>
                 ) : (
-                  brands[activeCategory]?.popularProducts
+                  brands[activeCategory]?.categories
                     ?.slice(0, 3)
-                    .map((data: IAllProduct) => (
+                    .map((category) => (
                       <TransitionLink
-                        key={data.id}
-                        href={`/products/${brands[activeCategory]?.slug}/${data?.category?.slug}/${data?.subcategory?.slug}/${data?.slug}`}
+                        key={category.id}
+                        href={`/products?category=${category.slug}&brand=${brands[activeCategory]?.slug}`}
+                        onClick={() => setDrapdownState({ isActive: false, idx: null })}
                       >
-                        <div className="relative group cursor-pointer border-zinc-200 dark:border-zinc-800 overflow-hidden hover:shadow-primary/10 transition-all duration-500 flex flex-col h-full max-w-[18.7rem] lg:min-w-full w-full">
-                          {data?.ispopular && (
-                            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-linear-to-r from-primary to-primary/90 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full z-10 shadow-lg flex items-center gap-1">
-                              <Icon icon="prime:star-fill" width="12" height="12" className="sm:w-[14px] sm:h-[14px]" />
-                              <span className="hidden sm:block">Popular</span>
-                            </div>
-                          )}
+                        <div className="relative group cursor-pointer border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300 flex flex-col h-full">
+                          <div className="w-full h-35 xl:h-40 bg-white relative overflow-hidden">
+                            <Image
+                              src={category?.coverImage || "/brokenimg.jpg"}
+                              alt={category?.title || "Category"}
+                              fill
+                              quality={90}
+                              sizes="(max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                              className="object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                            />
+                          </div>
 
-                          <div className="flex flex-col h-full">
-                            <div className="w-full! h-35 xl:h-45 bg-white border rounded-xl sm:rounded-2xl overflow-hidden relative">
-                              <Image
-                                src={data?.coverimage || data?.coverImage || "/brokenimg.jpg"}
-                                alt={data?.title || data?.name || "Product"}
-                                fill
-                                quality={90}
-                                sizes="(max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-                                className="object-contain p-2"
-                              />
-                            </div>
-
-                            <div className="mt-2 sm:mt-3 md:mt-4 flex-1 flex flex-col">
-                              <h2 className="text-sm xl:text-base font-semibold group-hover:underline line-clamp-2 group-hover:text-primary transition-all duration-300">
-                                {data?.title || data?.name}
-                              </h2>
-                              <h3 className="text-muted-foreground font-semibold mt-2 text-xs">{data?.model || "MEHB-EWFJ12"}</h3>
-                              {data?.brand?.name && (
-                                <div className="flex justify-between items-center mt-1">
-                                  <div className="flex gap-1 sm:gap-2 items-center text-sm text-muted-foreground">
-                                    <Icon icon="proicons:tag-multiple" className="w-3 h-3 sm:w-4 sm:h-4" />
-                                    <span className="truncate">{data?.brand?.name || data?.brandName || "No Brand"}</span>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
+                          <div className="p-3 flex-1 flex flex-col justify-center bg-linear-to-b from-white to-zinc-50">
+                            <h3 className="text-sm xl:text-base font-semibold text-center group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                              {category?.title}
+                            </h3>
+                            {category?.subCategories && category.subCategories.length > 0 && (
+                              <p className="text-xs text-muted-foreground text-center mt-1">
+                                {category.subCategories.length} {category.subCategories.length === 1 ? 'type' : 'types'}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </TransitionLink>
                     ))
                 )}
 
-                {(typeof activeCategory === "number" && brands[activeCategory]?.popularProducts?.length === 0 && !isLoading && brands[activeCategory]?.slug?.toLowerCase() !== 'forward') && (
-                  <p className="text-muted-foreground mt-10 col-span-3 text-center">No Featured products available.</p>
+                {(typeof activeCategory === "number" && brands[activeCategory]?.categories?.length === 0 && !isLoading && brands[activeCategory]?.slug?.toLowerCase() !== 'forward') && (
+                  <p className="text-muted-foreground mt-10 col-span-3 text-center">No product types available.</p>
                 )}
               </ul>
             </div>
