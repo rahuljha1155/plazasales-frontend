@@ -50,9 +50,9 @@ const Footer = () => {
     } catch (error: unknown) {
       // Safely access error.response using type guard
       const errorMessage =
-        (error && typeof error === 'object' && 'response' in error && 
-         error.response && typeof error.response === 'object' && 'data' in error.response &&
-         error.response.data && typeof error.response.data === 'object' && 'message' in error.response.data)
+        (error && typeof error === 'object' && 'response' in error &&
+          error.response && typeof error.response === 'object' && 'data' in error.response &&
+          error.response.data && typeof error.response.data === 'object' && 'message' in error.response.data)
           ? String(error.response.data.message)
           : "Failed to subscribe. Please try again later.";
       toast.error(errorMessage, {
@@ -188,8 +188,8 @@ const Footer = () => {
                     <TransitionLink
                       href="/shareable-resources"
                       className="hover:text-primary hover:underline"
-                      >
-                        Shareable Resources
+                    >
+                      Shareable Resources
                     </TransitionLink>
                   </li>
                   <li>
@@ -235,23 +235,33 @@ const Footer = () => {
                     <h2 className="font-semibold text-primary   text-sm">
                       Head Office
                     </h2>
-                    <div className="flex text-xs items-start gap-2 max-w-[90%] ">
+                    <Link
+                      href="https://www.google.com/maps?q=26.458056,87.285365"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex text-xs items-start gap-2 max-w-[90%] hover:text-primary hover:underline"
+                    >
                       <span>
                         4F, Mahabir Plaza | Hospital Chowk Biratnagar - 7 |
                         Koshi | Nepal
                       </span>
-                    </div>
+                    </Link>
                   </li>
                   <li className="space-y-2  h-full md:bg-transparent  md:p-0 rounded-md ">
                     <h2 className="font-semibold text-primary   text-sm">
                       Corporate Office
                     </h2>
-                    <div className="flex text-xs items-start gap-2 max-w-[90%]">
+                    <Link
+                      href="https://www.google.com/maps/place/UNV+Experience+Center/@27.718311,85.334342,205m/data=!3m1!1e3!4m6!3m5!1s0x39eb1900599c704d:0x6253d9ddf8b71ffa!8m2!3d27.7183105!4d85.334342!16s%2Fg%2F11xg0qj6h7!5m1!1e1?hl=en&entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoKLDEwMDc5MjA3MUgBUAM%3D"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex text-xs items-start gap-2 max-w-[90%] hover:text-primary hover:underline"
+                    >
                       <span>
                         2F, AP Complex | Bishal Nagar Marg Hadigaun | Kathmandu
                         - 5 | Nepal
                       </span>
-                    </div>
+                    </Link>
                   </li>
 
                   <li className="col-span-2 md:col-span-1 ">
@@ -263,7 +273,7 @@ const Footer = () => {
                       <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
                         +977-9801016633
                       </span>
-                       <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
+                      <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
                         +977-9802026300
                       </span>
                     </Link>

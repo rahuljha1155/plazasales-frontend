@@ -40,7 +40,7 @@ export function Pricing({
   // Parse feature data from popularProducts if available
   const parsedFeatures = useMemo(() => {
     const features: Record<string, PricingPackage[]> = {};
-    
+
     if (data.popularProducts && data.popularProducts.length > 0) {
       data.popularProducts.forEach((product) => {
         // Type assertion for products that may have specification or feature property
@@ -49,12 +49,12 @@ export function Pricing({
           feature?: string;
           productType?: string;
         };
-        
+
         if (productWithFeature.productType?.toUpperCase() === 'SAAS') {
           try {
             // Check specification field first (like in specifications.tsx), then feature field
             const dataSource = productWithFeature.specification || productWithFeature.feature;
-            
+
             if (dataSource) {
               const parsed = typeof dataSource === 'string'
                 ? JSON.parse(dataSource)
@@ -77,7 +77,7 @@ export function Pricing({
         }
       });
     }
-    
+
     return features;
   }, [data.popularProducts]);
 
