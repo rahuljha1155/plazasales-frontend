@@ -164,6 +164,7 @@ export default function NavbarDropdown({
                       <TransitionLink
                         key={category.id}
                         href={`/products?category=${category.slug}&brand=${brands[activeCategory]?.slug}`}
+                        onClick={() => setDrapdownState({ isActive: false, idx: null })}
                       >
                         <div className="relative group cursor-pointer border-zinc-200 dark:border-zinc-800 overflow-hidden hover:shadow-primary/10 transition-all duration-500 flex flex-col h-full max-w-[18.7rem] lg:min-w-full w-full">
                           <div className="flex flex-col h-full">

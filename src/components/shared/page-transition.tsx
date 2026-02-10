@@ -32,6 +32,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [displayPath, setDisplayPath] = useState(pathname);
   const [, setIsUserInitiated] = useState(false);
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const startTransition = useCallback(
     (callback: () => void) => {
@@ -40,8 +41,13 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       setIsUserInitiated(true);
       setIsTransitioning(true);
 
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
       // Wait for slide up (0.5s) + hold (0.5s) before navigating
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         callback(); // This triggers the navigation
       }, 800);
     },
@@ -60,13 +66,36 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
         setDisplayPath(pathname);
 
         // Wait a bit then reveal
-        setTimeout(() => {
+        const revealTimeout = setTimeout(() => {
           setIsTransitioning(false);
           setIsUserInitiated(false);
         }, 100);
+
+        return () => clearTimeout(revealTimeout);
       }
     }
   }, [pathname, displayPath, isTransitioning]);
+
+  // Safety timeout: force end transition after 3 seconds
+  React.useEffect(() => {
+    if (isTransitioning) {
+      const safetyTimeout = setTimeout(() => {
+        setIsTransitioning(false);
+        setIsUserInitiated(false);
+      }, 3000);
+
+      return () => clearTimeout(safetyTimeout);
+    }
+  }, [isTransitioning]);
+
+  // Cleanup on unmount
+  React.useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <TransitionContext.Provider value={{ startTransition, isTransitioning }}>
