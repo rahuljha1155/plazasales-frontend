@@ -1,9 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "np.com.plazasales.forward",
-    "sha256_cert_fingerprints":
-    ["6A:1A:B2:5D:37:8F:72:7D:DF:31:97:98:CF:C6:1D:23:BF:0D:3C:AB:D4:B0:2E:71:61:48:F5:82:2C:B1:9B:44"]
-  }
-}]
