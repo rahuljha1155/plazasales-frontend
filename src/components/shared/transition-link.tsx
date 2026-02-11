@@ -31,12 +31,12 @@ function TransitionLinkContent({
     }
 
     e.preventDefault();
-    
+
     // Build current full URL with search params
-    const currentUrl = searchParams.toString() 
-      ? `${pathname}?${searchParams.toString()}` 
+    const currentUrl = searchParams.toString()
+      ? `${pathname}?${searchParams.toString()}`
       : pathname;
-    
+
     // If clicking the exact same URL (including query params), just call onClick (close dropdown)
     if (currentUrl === href) {
       // Call custom onClick if provided (like closing dropdown)
@@ -45,17 +45,17 @@ function TransitionLinkContent({
       }
       return;
     }
-    
+
     // Call custom onClick if provided (like closing dropdown)
     if (onClick) {
       onClick(e);
     }
-    
+
     // If already transitioning, prevent multiple clicks
     if (isTransitioning) {
       return;
     }
-    
+
     // Navigate to different URL with transition
     startTransition(() => {
       router.push(href);
