@@ -67,9 +67,16 @@ export default function Navbar() {
       isDrapdown: true,
       highlight: pathname.startsWith("/brand") && !isBrandProductPage,
     },
+    // Old code: Brand-specific products path
+    // {
+    //   title: pathname.includes("/brand/") && !pathname.includes('/forward') ? "Products" : "All Products",
+    //   path: pathname.includes("/brand/") && !pathname.includes('/forward') ? `/brand/${params?.slug}/products` : "/products",
+    //   isDrapdown: false,
+    //   highlight: pathname.includes("/products"),
+    // },
     {
-      title: pathname.includes("/brand/") && !pathname.includes('/forward') ? "Products" : "All Products",
-      path: pathname.includes("/brand/") && !pathname.includes('/forward') ? `/brand/${params?.slug}/products` : "/products",
+      title: "Products",
+      path: "/products",
       isDrapdown: false,
       highlight: pathname.includes("/products"),
     },
