@@ -298,8 +298,8 @@ export default function Specifications({
         Product Specifications
       </h2>
 
-
-      <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+      {/* Desktop view - keep original table */}
+      <div className="hidden md:block overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
         <div
           className="editor text-base! min-w-full"
           dangerouslySetInnerHTML={{
@@ -315,6 +315,78 @@ export default function Specifications({
         >
         </div>
       </div>
+
+      {/* Mobile view - simple list style */}
+      {/* <div className="md:hidden">
+        <div
+          className="editor text-base! [&_table]:!block [&_table]:w-full [&_table]:border [&_table]:border-border [&_table]:rounded-lg [&_table]:overflow-hidden [&_tbody]:!block [&_tr]:!block [&_tr]:border-b [&_tr]:border-border [&_tr:last-child]:border-b-0 [&_td]:!block [&_td]:text-left [&_td]:px-4 [&_td]:py-3 [&_td]:border-0 [&_td:first-child]:font-semibold [&_td:first-child]:text-foreground [&_td:first-child]:bg-muted/30 [&_td:last-child]:text-muted-foreground [&_td:last-child]:pb-4 [&_thead]:hidden"
+          dangerouslySetInnerHTML={{
+            __html: (() => {
+              let html = decodeHtml(speficication || '');
+              html = html
+                .replace(/^<pre><code[^>]*>/, '')
+                .replace(/<\/code><\/pre>$/, '');
+
+              return DOMPurify.sanitize(html);
+            })()
+          }}
+        >
+        </div>
+      </div> */}
+      <div className="md:hidden">
+  <div
+    className="
+      editor text-base!
+
+      border border-border rounded-lg overflow-hidden
+
+      [&_table]:!block
+      [&_table]:w-full
+      [&_table]:border-0
+
+      [&_thead]:hidden
+      [&_tbody]:!block
+
+      [&_tr]:!block
+      [&_tr]:border-b
+      [&_tr]:border-border
+      [&_tr]:last:border-b-0
+
+      [&_td]:!block
+      [&_td]:px-4
+      [&_td]:border-none
+
+      [&_td_*]:!m-0
+
+      /* Title */
+      [&_td:first-child]:pt-1
+      [&_td:first-child]:pb-0
+      [&_td:first-child]:font-semibold
+      [&_td:first-child]:leading-[0.6]
+      [&_td:first-child]:bg-muted/30
+
+      /* ⭐ Smart spacing */
+      [&_td:last-child]:pb-1
+      [&_td:last-child]:leading-[0.6]
+ /* Remove spacing from empty paragraphs */
+[&_td:last-child_p:empty]:hidden
+
+/* Apply spacing when paragraph has content */
+[&_td:last-child_p:not(:empty)]:-mt-4
+      [&_td:last-child]:text-muted-foreground
+    "
+    dangerouslySetInnerHTML={{
+      __html: (() => {
+        let html = decodeHtml(speficication || '');
+        html = html
+          .replace(/^<pre><code[^>]*>/, '')
+          .replace(/<\/code><\/pre>$/, '');
+
+        return DOMPurify.sanitize(html);
+      })()
+    }}
+  />
+</div>
     </section>
   );
 }
