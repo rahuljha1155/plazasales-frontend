@@ -15,8 +15,6 @@ export const metadata = {
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-export const revalidate = 0;
-
 
 export default async function Page({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams;
