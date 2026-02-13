@@ -12,7 +12,6 @@ import { brandFeatures } from "../_components/features-data";
 import AppStore from "../_components/app-store";
 import Image from "next/image";
 
-export const revalidate = 1;
 export const dynamicParams = true;
 
 export default async function BrandPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -61,8 +60,8 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
     product => product.productType?.toLowerCase() === 'saas'
   ) || [];
 
-  // Get product categories
-  const productCategories = brandData?.categories || [];
+  // Get product categories sorted by sortOrder
+  const productCategories = brandData?.categories?.sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)) || [];
 
   return (
     <div className="">

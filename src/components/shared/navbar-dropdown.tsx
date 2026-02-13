@@ -159,6 +159,7 @@ export default function NavbarDropdown({
                   </div>
                 ) : (
                   brands[activeCategory]?.categories
+                    ?.sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
                     ?.slice(0, 3)
                     .map((category) => (
                       <TransitionLink

@@ -12,7 +12,7 @@ export async function fetchBrandsServer(): Promise<IBrandResponse> {
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     const res = await fetch(`${API_BASE_URL}/brand/get-all-brands`, {
-        next: { revalidate: 60 },
+        cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
         }
@@ -46,6 +46,7 @@ export async function fetchBrandBySlugServer(slug: string): Promise<IBrandDetail
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     const res = await fetch(`${API_BASE_URL}/brand/get-brand/${slug}`, {
+        cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
         }
