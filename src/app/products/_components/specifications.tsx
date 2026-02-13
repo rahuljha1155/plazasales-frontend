@@ -333,7 +333,7 @@ export default function Specifications({
         >
         </div>
       </div> */}
-      <div className="md:hidden">
+    <div className="md:hidden">
   <div
     className="
       editor text-base!
@@ -347,33 +347,43 @@ export default function Specifications({
       [&_thead]:hidden
       [&_tbody]:!block
 
+      /* Row */
       [&_tr]:!block
       [&_tr]:border-b
       [&_tr]:border-border
       [&_tr]:last:border-b-0
 
+      /* Cells */
       [&_td]:!block
       [&_td]:px-4
+      [&_td]:py-1
       [&_td]:border-none
+      [&_td]:whitespace-normal
+      [&_td]:break-words
 
+      /* Remove random margins from backend html */
       [&_td_*]:!m-0
 
       /* Title */
-      [&_td:first-child]:pt-1
-      [&_td:first-child]:pb-0
+      [&_td:first-child]:pt-2
+      [&_td:first-child]:pb-[2px]
       [&_td:first-child]:font-semibold
-      [&_td:first-child]:leading-[0.6]
+      [&_td:first-child]:leading-tight
       [&_td:first-child]:bg-muted/30
 
-      /* ⭐ Smart spacing */
-      [&_td:last-child]:pb-1
-      [&_td:last-child]:leading-[0.6]
- /* Remove spacing from empty paragraphs */
-[&_td:last-child_p:empty]:hidden
-
-/* Apply spacing when paragraph has content */
-[&_td:last-child_p:not(:empty)]:-mt-4
+      /* Description */
+      [&_td:last-child]:pt-0
+      [&_td:last-child]:pb-2
+      [&_td:last-child]:leading-tight
       [&_td:last-child]:text-muted-foreground
+
+      /* Reduce spacing between multiple paragraph lines */
+      [&_td:last-child_p]:leading-tight
+      [&_td:last-child_p]:-mb-[2px]
+      [&_td:last-child_p:last-child]:mb-0
+
+      /* Hide empty paragraphs safely */
+      [&_td:last-child_p:empty]:hidden
     "
     dangerouslySetInnerHTML={{
       __html: (() => {
