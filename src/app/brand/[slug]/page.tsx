@@ -11,6 +11,7 @@ import CTASection from "../_components/cta-section";
 import { brandFeatures } from "../_components/features-data";
 import AppStore from "../_components/app-store";
 import Image from "next/image";
+import PopularProducts from "../_components/popular-products";
 
 export const dynamicParams = true;
 
@@ -60,6 +61,10 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
     product => product.productType?.toLowerCase() === 'saas'
   ) || [];
 
+  const filteredPopularProducts = brandData?.popularProducts.filter(
+    product => product.productType?.toLowerCase() !== 'saas'
+  ) || [];
+
   // Get product categories sorted by sortOrder
   const productCategories = brandData?.categories?.sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)) || [];
 
@@ -98,6 +103,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
           </div>
         </section>
       )}
+
 
       {/* Product Types Section - Hidden for Forward brand */}
       {productCategories.length > 0 && brandData.slug?.toLowerCase() !== 'forward' && (
@@ -174,6 +180,47 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
           </div>
         </section>
       )}
+
+      {/* Popular Products Section */}
+      {/* {filteredPopularProducts.length > 0 && (
+        <section className="relative py-8 pb-10 md:py-12 lg:py-20">
+          <div className="absolute inset-0 bg-grid-slate-100 mask-[linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
+          <div className="mx-auto px-4 max-w-7xl">
+            <div className="space-y-6 md:space-y-12">
+              
+              <div className="flex flex-col md:flex-row justify-center text-center items-center gap-6">
+                <div className="space-y-3 text-center lg:flex-1">
+                  <Title title="Popular Products" wrapperClassName="!mx-0 lg:!mx-auto mb-2" />
+                  <p className="text-muted-foreground lg:text-lg max-w-2xl lg:mx-auto">
+                    Discover our most sought-after solutions trusted by industry leaders
+                  </p>
+                </div>
+              </div>
+
+              <PopularProducts products={filteredPopularProducts} />
+            </div>
+
+            {filteredPopularProducts.length > 4 && (
+              <div className="flex justify-end items-center mt-6">
+                <TransitionLink
+                  href={`/brand/${brandData.slug}/products`}
+                  className="group inline-flex items-center gap-2 text-primary hover:gap-3 transition-all duration-300"
+                >
+                  View all products
+                  <svg
+                    className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </TransitionLink>
+              </div>
+            )}
+          </div>
+        </section>
+      )} */}
 
       <CTASection />
 

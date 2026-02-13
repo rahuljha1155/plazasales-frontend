@@ -151,8 +151,7 @@ export default async function RootLayout({
         {/* Google Site Verification */}
         <meta
           name="google-site-verification"
-          content="SI3ViGhf_45lOTrkwCZeTdL1-kvz58ziCvt59TnYeP8"
-         
+          content="k6o1sifxrN0NobMwMcItYJzN-UACTlzr5N-7ec6rEVc"
         />
 
         {/* Google Analytics */}
