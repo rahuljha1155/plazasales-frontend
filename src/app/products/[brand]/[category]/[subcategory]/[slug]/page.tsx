@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ brand: st
         url: (seo?.openGraph as Record<string, unknown>)?.url as string || seo?.canonicalUrl as string,
         siteName: (seo?.openGraph as Record<string, unknown>)?.siteName as string,
         locale: (seo?.openGraph as Record<string, unknown>)?.locale as string || 'en_US',
-        images: ((seo?.openGraph as Record<string, unknown>)?.images as Array<{url: string}>)?.map((img) => img.url) || [product.coverImage],
+        images: ((seo?.openGraph as Record<string, unknown>)?.images as Array<{ url: string }>)?.map((img) => img.url) || [product.coverImage],
       },
       twitter: {
         card: 'summary_large_image',

@@ -31,17 +31,17 @@ export default function ShortDescription({ product }: { product: Product | undef
         <section className='pt-2 md:pt-6'>
             <div className="col-span-2">
                 <span className='text-primary md:text-lg'>Brand : {product?.brand?.name}</span>
-                <h1 className="text-xl  text-primary flex flex-wrap lg:gap-4 justify-between items-center leading-none text-[22px] font-semibold will-change-transform sm:text-3xl  font-overusedGrotesk ">
+                <h1 className="text-xl mt-2 text-primary flex flex-wrap lg:gap-4 justify-between items-center leading-none text-[22px] font-semibold will-change-transform sm:text-3xl  font-overusedGrotesk ">
                     <div className="lg:max-w-[75%]  ">
                         {product?.name}
                     </div>
 
                     <ContactModal productData={product} btnClassName="rounded-full  lg:py-2 !text-base hidden lg:flex justify-center items-center" />
                 </h1>
-                {product?.model && <p className="text-zinc-600  sm:-mt-1 lg:-mt-2 dark:text-zinc-400 text-sm lg:text-base">Model: {product?.model}</p>}
+                {product?.model && <p className="text-zinc-600 mt-2 dark:text-zinc-400 text-sm lg:text-base">Model: {product?.model}</p>}
                 {mounted && sanitizedHtml && (
                     <div
-                        className="editor mt-4"
+                        className="editor mt-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:marker:text-primary [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:marker:text-primary"
                         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
                     />
                 )}
