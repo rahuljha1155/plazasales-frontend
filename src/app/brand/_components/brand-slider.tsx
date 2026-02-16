@@ -113,7 +113,7 @@ const BrandSlider: React.FC<PropType> = ({ slides, options }) => {
                     alt="Slide image"
                     height={1000}
                     width={1500}
-                    className="flex-[0_0_calc(115%+2rem)] sm:h-[40vh] lg:h-[50vh]  object-cover"
+                    className="flex-[0_0_calc(115%+2rem)] h-60 sm:h-[40vh] lg:h-[50vh] object-fill sm:object-cover md:object-cover"
                     priority={slides.indexOf(index) === 0}
                   />
                 </div>
