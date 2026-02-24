@@ -2,8 +2,8 @@ import FAQList from "./_components/faq-list";
 import { api } from "@/config/axios.config";
 
 export const metadata = {
-    title: "FAQ - Plaze Electronics",
-    description: "Find answers to frequently asked questions about Plaze Electronics products, services, and policies.",
+    title: "FAQ - Plaza Sales",
+    description: "Find answers to frequently asked questions about Plaza Sales products, services, and policies.",
     keywords: ["FAQ", "Questions", "Support", "Help", "Electronics"],
 };
 

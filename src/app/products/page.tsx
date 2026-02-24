@@ -8,8 +8,8 @@ import Sidebar from "./_components/sidebar";
 import { LoadingProvider } from "./_components/loading-context";
 
 export const metadata = {
-  title: "Products - Plaze Electronics",
-  description: "Discover a wide range of high-quality electronics products at Plaze Electronics. From the latest gadgets to essential home appliances, we have everything you need to upgrade your lifestyle.",
+  title: "Products - Plaza Sales",
+  description: "Discover a wide range of high-quality electronics products at Plaza Sales. From the latest gadgets to essential home appliances, we have everything you need to upgrade your lifestyle.",
   keywords: ["Products", "Electronics", "Gadgets", "Home Appliances", "Smart Home", "Innovative Technology",],
 };
 

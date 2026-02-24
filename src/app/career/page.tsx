@@ -6,9 +6,9 @@ import { TransitionLink } from "@/components/shared";
 import { Icon } from "@iconify/react";
 
 export const metadata = {
-    title: 'Career - Plaze Electronics',
-    description: 'Join our team at Plaze Electronics and explore exciting career opportunities in the tech industry.',
-    keywords: ['Career', 'Jobs', 'Opportunities', 'Tech Jobs', 'Join Our Team', 'Plaze Electronics Careers'],
+    title: 'Career - Plaza Sales',
+    description: 'Join our team at Plaza Sales and explore exciting career opportunities in the tech industry.',
+    keywords: ['Career', 'Jobs', 'Opportunities', 'Tech Jobs', 'Join Our Team', 'Plaza Sales Careers'],
 }
 
 const jobTypeMap: Record<string, string> = {

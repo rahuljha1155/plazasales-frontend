@@ -8,16 +8,16 @@ import { Icon } from "@iconify/react";
 import AdTitle from "./title";
 
 export const metadata = {
-  title: "Special Offers - Plaze Electronics",
+  title: "Special Offers - Plaza Sales",
   description:
-    "Discover exclusive offers and deals on high-quality electronics products at Plaze Electronics. Limited time special offers on your favorite brands.",
+    "Discover exclusive offers and deals on high-quality electronics products at Plaza Sales. Limited time special offers on your favorite brands.",
   keywords: [
     "Special Offers",
     "Deals",
     "Electronics",
     "Discounts",
     "Sales",
-    "Plaze Electronics",
+    "Plaza Sales",
   ],
 };
 

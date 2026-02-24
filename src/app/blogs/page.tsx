@@ -3,9 +3,9 @@ import BlogCard from '@/components/ui/blogs-card'
 import { getAllBlogs } from '@/services/blogService';
 
 export const metadata = {
-    title: 'Blogs - Plaze Electronics',
+    title: 'Blogs - Plaza Sales',
     description: 'Explore expert blogs on cutting-edge gadgets, home appliances, and emerging tech. Learn how modern electronics redefine comfort, productivity, and entertainment in your daily life.',
-    keywords: ['Blogs', 'Tech Blogs', 'Gadgets', 'Home Appliances', 'Electronics Reviews', 'Tech News', 'Plaze Electronics Blogs', 'Smart Home', 'Innovative Technology'],
+    keywords: ['Blogs', 'Tech Blogs', 'Gadgets', 'Home Appliances', 'Electronics Reviews', 'Tech News', 'Plaza Sales Blogs', 'Smart Home', 'Innovative Technology'],
 }
 
 // Disable caching to fetch fresh blogs on every request

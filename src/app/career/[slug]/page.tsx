@@ -95,7 +95,7 @@ export default function JobDetailPage() {
     const handleShare = async () => {
         const shareData = {
             title: job.title,
-            text: `Check out this job opportunity: ${job.title} at Plaze Electronics`,
+            text: `Check out this job opportunity: ${job.title} at Plaza Sales`,
             url: window.location.href,
         };
 
@@ -140,7 +140,7 @@ export default function JobDetailPage() {
                                     <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm sm:text-base text-gray-600 mb-4">
                                         <div className="flex items-center gap-2">
                                             <Building2 className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-                                            <span className="font-medium">Plaze Electronics</span>
+                                            <span className="font-medium">Plaza Sales</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <MapPin className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
@@ -213,7 +213,7 @@ export default function JobDetailPage() {
 
                             {/* Company Info */}
                             <div className="bg-white rounded-lg  sm:p-6  sm:border border-gray-100">
-                                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">About Plaze Electronics</h3>
+                                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">About Plaza Sales</h3>
                                 <div className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-gray-600">
                                     <div className="flex items-center gap-2.5 sm:gap-3">
                                         <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 shrink-0" />
