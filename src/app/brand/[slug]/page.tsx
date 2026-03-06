@@ -147,7 +147,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
                           </h2>
                           {category?.subCategories && category.subCategories.length > 0 && (
                             <p className="text-sm text-muted-foreground mt-2">
-                              {category.subCategories.length} {category.subCategories.length === 1 ? 'product' : 'products'}
+                              {category.subCategories.length} {category.subCategories.length === 1 ? 'category' : 'categories'}
                             </p>
                           )}
                         </div>

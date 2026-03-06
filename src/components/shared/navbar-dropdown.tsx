@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useBrandStore } from '@/store/useBrandStore'
 import TransitionLink from './transition-link'
 import { Button } from '../ui/button'
+// import { getAllProducts } from '@/services/productService'
 
 export default function NavbarDropdown({
   drapdownState,
@@ -19,6 +20,8 @@ export default function NavbarDropdown({
   const [activeCategory, setActiveCategory] = useState<number | null>(null)
   const [mounted, setMounted] = useState(false)
   const [scrollY, setScrollY] = useState(0)
+  // const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({})
+  // const [loadingCounts, setLoadingCounts] = useState(false)
   const { brands, isLoading, fetchBrands } = useBrandStore()
 
   // Track scroll position
@@ -46,6 +49,47 @@ export default function NavbarDropdown({
       fetchBrands()
     }
   }, [brands.length, isLoading, fetchBrands])
+
+  // Fetch product counts when active category changes
+  // useEffect(() => {
+  //   const fetchCategoryCounts = async () => {
+  //     if (activeCategory === null || !brands[activeCategory]) return
+  //     
+  //     const brand = brands[activeCategory]
+  //     if (!brand.categories || brand.categories.length === 0) return
+  //     
+  //     setLoadingCounts(true)
+  //     const counts: Record<string, number> = {}
+  //     
+  //     try {
+  //       // Fetch counts for each category by filtering with brand + category
+  //       await Promise.all(
+  //         brand.categories.slice(0, 3).map(async (category) => {
+  //           try {
+  //             // Count all products in this brand's category (including all subcategories)
+  //             const url = `/product/get-published-products?page=1&limit=1&brand=${brand.slug}&category=${category.slug}`;
+  //             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`);
+  //             const data = await response.json();
+  //             counts[category.id] = data.data?.total || 0;
+  //           } catch (error) {
+  //             console.error(`Failed to fetch count for ${category.slug}:`, error)
+  //             counts[category.id] = 0
+  //           }
+  //         })
+  //       )
+  //       setCategoryCounts(counts)
+  //     } catch (error) {
+  //       console.error('Failed to fetch category counts:', error)
+  //     } finally {
+  //       setLoadingCounts(false)
+  //     }
+  //   }
+
+  //   // Only fetch if dropdown is active
+  //   if (drapdownState.isActive) {
+  //     fetchCategoryCounts()
+  //   }
+  // }, [activeCategory, brands, drapdownState.isActive])
 
   // Determine dropdown position based on pathname and scroll
   const getDropdownPosition = () => {
@@ -186,9 +230,18 @@ export default function NavbarDropdown({
                               </h2>
                               {category?.subCategories && category.subCategories.length > 0 && (
                                 <p className="text-xs text-muted-foreground mt-2">
-                                  {category.subCategories.length} {category.subCategories.length === 1 ? 'product' : 'products'}
+                                  {category.subCategories.length} {category.subCategories.length === 1 ? 'category' : 'categories'}
                                 </p>
                               )}
+                              {/* Product count - commented for now */}
+                              {/* {categoryCounts[category.id] !== undefined && (
+                                <p className="text-xs text-muted-foreground mt-2">
+                                  {categoryCounts[category.id]} {categoryCounts[category.id] === 1 ? 'product' : 'products'}
+                                </p>
+                              )}
+                              {loadingCounts && categoryCounts[category.id] === undefined && (
+                                <div className="h-4 w-16 bg-zinc-200 rounded animate-pulse mt-2"></div>
+                              )} */}
                             </div>
                           </div>
                         </div>
