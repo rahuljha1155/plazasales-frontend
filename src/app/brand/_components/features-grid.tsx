@@ -19,6 +19,11 @@ export default function FeaturesGrid({
   subtitle = "Experience excellence with our comprehensive solutions and dedicated support",
   features
 }: FeaturesGridProps) {
+  // Don't render the section if there are no features
+  if (!features || features.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-10 md:py-12 lg:py-20 bg-muted/60">
       <div className="mx-auto px-4 max-w-7xl">
@@ -37,8 +42,8 @@ export default function FeaturesGrid({
             >
               <div className="text-5xl mb-4">
                 {typeof feature.icon === 'string' ? (
-                  <Image 
-                    src={feature.icon} 
+                  <Image
+                    src={feature.icon}
                     alt={feature.title}
                     width={48}
                     height={48}
