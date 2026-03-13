@@ -18,6 +18,8 @@ export default function LoadCalculator(){
 
     const [consumption,setConsumption] = useState(20)
 
+    const [showResult, setShowResult] = useState(false)
+
     const increaseQty=(index:number)=>{
 
         const updated=[...devices]
@@ -185,10 +187,39 @@ export default function LoadCalculator(){
 
                 <div className="mt-10 text-center">
 
-                    <button className="bg-green-600 text-white px-6 py-2 rounded">
+                    <button
+                        onClick={() => setShowResult(true)}
+                        className="bg-green-600 text-white px-6 py-2 rounded"
+                    >
                         Lets Plan
                     </button>
+                    {showResult && (
 
+                        <div className="mt-8 border p-6 rounded bg-white">
+
+                            <h3 className="text-xl font-semibold mb-4">
+                                Recommended System
+                            </h3>
+
+                            <p>Total Load: {totalWatts} W</p>
+
+                            <p>
+                                Recommended Inverter:
+                                {" "}
+                                {Math.ceil(totalWatts / 1000)} kVA
+                            </p>
+
+                            <p>
+                                Backup Hours Selected: {backupHours} hrs
+                            </p>
+
+                            <p>
+                                Consumption Level: {consumption}%
+                            </p>
+
+                        </div>
+
+                    )}
                 </div>
 
             </div>
