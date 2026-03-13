@@ -4,12 +4,20 @@ import { useState } from "react"
 import { Device } from "./types"
 import AddDevicePopup from "./AddDevicePopup"
 
+type Result = {
+    va: number
+    batteryAh: number
+    inverter: number
+}
+
 export default function LoadCalculator(){
 
     const [devices,setDevices] = useState<Device[]>([
         { name:"LED Bulb 5W", watt:5, qty:4 },
         { name:"Laptop", watt:45, qty:1 },
-        { name:"Ceiling Fan", watt:75, qty:2 }
+        { name:"Ceiling Fan", watt:75, qty:2 },
+        { name:"Table Fan", watt:50, qty:2 },
+        { name:"Room Fan", watt:250, qty:1 }
     ])
 
     const [showPopup,setShowPopup] = useState(false)
@@ -18,7 +26,8 @@ export default function LoadCalculator(){
 
     const [consumption,setConsumption] = useState(20)
 
-    const [result,setResult] = useState<any>(null)
+    const [result,setResult] = useState<Result | null>(null)
+
 
 
     const increaseQty=(index:number)=>{
@@ -28,6 +37,7 @@ export default function LoadCalculator(){
         setDevices(updated)
 
     }
+
 
     const decreaseQty=(index:number)=>{
 
@@ -76,6 +86,7 @@ export default function LoadCalculator(){
     }
 
 
+
     return(
 
         <section className="py-20 bg-gray-50">
@@ -120,9 +131,9 @@ export default function LoadCalculator(){
                         <tr>
 
                             <th className="p-4 text-left">Device</th>
-                            <th className="p-4">Usage</th>
-                            <th className="p-4">Quantity</th>
-                            <th className="p-4">Total</th>
+                            <th className="p-4 text-center">Usage</th>
+                            <th className="p-4 text-center">Quantity</th>
+                            <th className="p-4 text-center">Total</th>
 
                         </tr>
 
@@ -183,7 +194,7 @@ export default function LoadCalculator(){
                 </div>
 
 
-                {/* ADD DEVICE BUTTON */}
+                {/* ADD DEVICE */}
 
                 <div className="mt-6">
 
@@ -267,7 +278,6 @@ export default function LoadCalculator(){
 
                     </div>
 
-
                 </div>
 
 
@@ -314,7 +324,6 @@ export default function LoadCalculator(){
                     </div>
 
                 )}
-
 
             </div>
 
