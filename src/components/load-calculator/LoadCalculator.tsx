@@ -18,7 +18,7 @@ export default function LoadCalculator(){
 
     const [consumption,setConsumption] = useState(20)
 
-    const [showResult, setShowResult] = useState(false)
+    const [result, setResult] = useState<any>(null)
 
     const increaseQty=(index:number)=>{
 
@@ -45,6 +45,24 @@ export default function LoadCalculator(){
 
         setDevices([...devices,device])
         setShowPopup(false)
+
+    }
+
+    const calculatePlan = () => {
+
+        const load = totalWatts
+
+        const va = Math.ceil(load * 1.25)
+
+        const batteryAh = Math.ceil((load * backupHours) / 12)
+
+        const inverter = Math.ceil(va / 1000)
+
+        setResult({
+            va,
+            batteryAh,
+            inverter
+        })
 
     }
 
@@ -188,33 +206,25 @@ export default function LoadCalculator(){
                 <div className="mt-10 text-center">
 
                     <button
-                        onClick={() => setShowResult(true)}
-                        className="bg-green-600 text-white px-6 py-2 rounded"
+                        onClick={calculatePlan}
+                        className="bg-blue-600 text-white px-6 py-2 rounded"
                     >
                         Lets Plan
                     </button>
-                    {showResult && (
+                    {result && (
 
-                        <div className="mt-8 border p-6 rounded bg-white">
-
-                            <h3 className="text-xl font-semibold mb-4">
-                                Recommended System
-                            </h3>
-
-                            <p>Total Load: {totalWatts} W</p>
+                        <div className="text-center mt-8 space-y-2">
 
                             <p>
-                                Recommended Inverter:
-                                {" "}
-                                {Math.ceil(totalWatts / 1000)} kVA
+                                Total Capacity: {result.va}VA, {result.batteryAh}Ah
                             </p>
 
                             <p>
-                                Backup Hours Selected: {backupHours} hrs
+                                {result.inverter} x Inverter is required: Minimum {result.va}VA
                             </p>
 
                             <p>
-                                Consumption Level: {consumption}%
+                                1 x Battery is required: Minimum {Math.ceil(result.batteryAh * 1.7)}Ah
                             </p>
 
                         </div>
