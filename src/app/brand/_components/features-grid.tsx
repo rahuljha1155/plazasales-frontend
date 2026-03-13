@@ -1,8 +1,9 @@
 import Title from "@/components/home/title";
 import { ReactNode } from "react";
+import Image from "next/image";
 
 interface Feature {
-  icon: ReactNode;
+  icon: ReactNode | string;
   title: string;
   description: string;
 }
@@ -18,6 +19,11 @@ export default function FeaturesGrid({
   subtitle = "Experience excellence with our comprehensive solutions and dedicated support",
   features
 }: FeaturesGridProps) {
+  // Don't render the section if there are no features
+  if (!features || features.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-10 md:py-12 lg:py-20 bg-muted/60">
       <div className="mx-auto px-4 max-w-7xl">
@@ -34,7 +40,19 @@ export default function FeaturesGrid({
               key={index}
               className="group relative p-4 md:p-8 rounded-lg md:rounded-2xl border border-border bg-white transition-all duration-300 flex flex-col justify-center items-center text-center hover:shadow-lg hover:-translate-y-1"
             >
-              <div className="text-5xl mb-4">{feature.icon}</div>
+              <div className="text-5xl mb-4">
+                {typeof feature.icon === 'string' ? (
+                  <Image
+                    src={feature.icon}
+                    alt={feature.title}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 object-contain"
+                  />
+                ) : (
+                  feature.icon
+                )}
+              </div>
               <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
                 {feature.title}
               </h3>

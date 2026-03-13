@@ -1,6 +1,7 @@
 import BrandSlider from "../_components/brand-slider";
 import { Pricing } from "@/components/brands/pricing";
 import { fetchBrandBySlugServer } from "@/services/brandService";
+import { fetchSellingPointsServer } from "@/services/sellingPointService";
 import BrandAbout from "../_components/about";
 import Title from "@/components/home/title";
 import Certificate from "../_components/certificate";
@@ -8,7 +9,7 @@ import { TransitionLink } from "@/components/shared";
 import ImageShowcase from "../_components/image-showcase";
 import FeaturesGrid from "../_components/features-grid";
 import CTASection from "../_components/cta-section";
-import { brandFeatures } from "../_components/features-data";
+
 import AppStore from "../_components/app-store";
 import Image from "next/image";
 import PopularProducts from "../_components/popular-products";
@@ -57,6 +58,28 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
     );
   }
 
+  // Fetch selling points for this brand
+  let sellingPoints: Array<{ icon: string | React.ReactNode; title: string; description: string }> = [];
+  try {
+    const sellingPointsResponse = await fetchSellingPointsServer(brandData.id);
+    console.log('Selling points response for brand:', brandData.id, sellingPointsResponse);
+    
+    if (sellingPointsResponse.data.brandSellingPoints.length > 0) {
+      // Transform API data to match Feature interface
+      sellingPoints = sellingPointsResponse.data.brandSellingPoints
+        .sort((a, b) => a.sortOrder - b.sortOrder)
+        .map(point => ({
+          icon: point.icon, // URL string
+          title: point.title,
+          description: point.subtitle
+        }));
+      console.log('Using API selling points:', sellingPoints.length);
+    }
+  } catch (error) {
+    console.error('Failed to fetch selling points:', error);
+    // No fallback - will show empty array which hides the section
+  }
+
   // Filter products by type
   const filteredSaasProducts = brandData?.popularProducts.filter(
     product => product.productType?.toLowerCase() === 'saas'
@@ -92,7 +115,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
       <FeaturesGrid
         title={`Why Choose ${brandData.name}?`}
         subtitle="Experience excellence with our comprehensive solutions and dedicated support"
-        features={brandFeatures}
+        features={sellingPoints}
       />
 
 
@@ -148,7 +171,7 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
                           </h2>
                           {category?.subCategories && category.subCategories.length > 0 && (
                             <p className="text-sm text-muted-foreground mt-2">
-                              {category.subCategories.length} {category.subCategories.length === 1 ? 'product' : 'products'}
+                              {category.subCategories.length} {category.subCategories.length === 1 ? 'category' : 'categories'}
                             </p>
                           )}
                         </div>
