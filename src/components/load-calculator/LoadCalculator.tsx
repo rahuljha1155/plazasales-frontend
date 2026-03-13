@@ -18,7 +18,8 @@ export default function LoadCalculator(){
 
     const [consumption,setConsumption] = useState(20)
 
-    const [result, setResult] = useState<any>(null)
+    const [result,setResult] = useState<any>(null)
+
 
     const increaseQty=(index:number)=>{
 
@@ -41,12 +42,20 @@ export default function LoadCalculator(){
 
     }
 
+
     const addDevice=(device:Device)=>{
 
         setDevices([...devices,device])
         setShowPopup(false)
 
     }
+
+
+    const totalWatts = devices.reduce(
+        (sum,d)=> sum + d.watt * d.qty,
+        0
+    )
+
 
     const calculatePlan = () => {
 
@@ -56,7 +65,7 @@ export default function LoadCalculator(){
 
         const batteryAh = Math.ceil((load * backupHours) / 12)
 
-        const inverter = Math.ceil(va / 1000)
+        const inverter = Math.max(1, Math.ceil(va / 1000))
 
         setResult({
             va,
@@ -66,36 +75,55 @@ export default function LoadCalculator(){
 
     }
 
-    const totalWatts=devices.reduce(
-        (sum,d)=>sum + d.watt * d.qty,
-        0
-    )
 
     return(
 
-        <section className="py-16 bg-gray-50">
+        <section className="py-20 bg-gray-50">
 
             <div className="max-w-6xl mx-auto px-4">
 
-                <h2 className="text-3xl font-semibold text-center mb-8">
-                    Load Calculator
-                </h2>
+                {/* TITLE */}
 
-                <p className="text-center mb-6 font-medium">
-                    Total Watts: {totalWatts} W
-                </p>
+                <div className="text-center mb-10">
 
-                <div className="border rounded overflow-hidden">
+                    <h2 className="text-3xl font-bold text-gray-800">
+                        Load Calculator
+                    </h2>
+
+                    <p className="text-gray-500 mt-2">
+                        Estimate inverter and battery requirements
+                    </p>
+
+                </div>
+
+
+                {/* TOTAL WATTS */}
+
+                <div className="text-center mb-6 text-lg font-medium text-gray-700">
+
+                    Total Watts :
+                    <span className="text-primary font-semibold ml-2">
+{totalWatts} W
+</span>
+
+                </div>
+
+
+                {/* DEVICE TABLE */}
+
+                <div className="bg-white rounded-xl shadow border overflow-x-auto">
 
                     <table className="w-full">
 
-                        <thead className="bg-gray-100">
+                        <thead className="bg-gray-100 text-sm">
 
                         <tr>
-                            <th className="p-3 text-left">Device</th>
-                            <th className="p-3">Usage</th>
-                            <th className="p-3">Qty</th>
-                            <th className="p-3">Total</th>
+
+                            <th className="p-4 text-left">Device</th>
+                            <th className="p-4">Usage</th>
+                            <th className="p-4">Quantity</th>
+                            <th className="p-4">Total</th>
+
                         </tr>
 
                         </thead>
@@ -106,34 +134,42 @@ export default function LoadCalculator(){
 
                             <tr key={index} className="border-t">
 
-                                <td className="p-3">{device.name}</td>
+                                <td className="p-4 font-medium">
+                                    {device.name}
+                                </td>
 
-                                <td className="p-3">{device.watt}W</td>
+                                <td className="p-4 text-center">
+                                    {device.watt} W
+                                </td>
 
-                                <td className="p-3">
+                                <td className="p-4 text-center">
 
-                                    <button
-                                        onClick={()=>decreaseQty(index)}
-                                        className="px-2 border"
-                                    >
-                                        -
-                                    </button>
+                                    <div className="flex items-center justify-center gap-2">
 
-                                    <span className="px-3">
+                                        <button
+                                            onClick={()=>decreaseQty(index)}
+                                            className="px-3 py-1 border rounded hover:bg-gray-100"
+                                        >
+                                            -
+                                        </button>
+
+                                        <span className="w-8 text-center">
 {device.qty}
 </span>
 
-                                    <button
-                                        onClick={()=>increaseQty(index)}
-                                        className="px-2 border"
-                                    >
-                                        +
-                                    </button>
+                                        <button
+                                            onClick={()=>increaseQty(index)}
+                                            className="px-3 py-1 border rounded hover:bg-gray-100"
+                                        >
+                                            +
+                                        </button>
+
+                                    </div>
 
                                 </td>
 
-                                <td className="p-3">
-                                    {device.qty * device.watt}W
+                                <td className="p-4 text-center font-medium">
+                                    {device.qty * device.watt} W
                                 </td>
 
                             </tr>
@@ -146,50 +182,74 @@ export default function LoadCalculator(){
 
                 </div>
 
+
+                {/* ADD DEVICE BUTTON */}
+
                 <div className="mt-6">
 
                     <button
                         onClick={()=>setShowPopup(true)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded"
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow"
                     >
                         Add Device
                     </button>
 
                 </div>
 
-                <div className="mt-10 flex gap-10">
 
-                    <div>
+                {/* BACKUP + CONSUMPTION */}
 
-                        <p className="mb-2 font-medium">
-                            Backup Hours
+                <div className="grid md:grid-cols-2 gap-6 mt-10">
+
+
+                    {/* BACKUP HOURS */}
+
+                    <div className="bg-white rounded-xl shadow p-6">
+
+                        <p className="font-medium mb-4">
+                            Set Your Hours of Backup
                         </p>
 
-                        <button
-                            onClick={()=>setBackupHours(backupHours-1)}
-                            className="border px-3"
-                        >
-                            -
-                        </button>
+                        <div className="flex items-center gap-3">
 
-                        <span className="px-3">
+                            <button
+                                onClick={()=>backupHours>1 && setBackupHours(backupHours-1)}
+                                className="px-4 py-1 border rounded hover:bg-gray-100"
+                            >
+                                -
+                            </button>
+
+                            <span className="text-lg font-semibold">
 {backupHours}
 </span>
 
-                        <button
-                            onClick={()=>setBackupHours(backupHours+1)}
-                            className="border px-3"
-                        >
-                            +
-                        </button>
+                            <button
+                                onClick={()=>setBackupHours(backupHours+1)}
+                                className="px-4 py-1 border rounded hover:bg-gray-100"
+                            >
+                                +
+                            </button>
+
+                        </div>
 
                     </div>
 
-                    <div>
 
-                        <p className="mb-2 font-medium">
-                            Average Consumption {consumption}%
-                        </p>
+                    {/* CONSUMPTION */}
+
+                    <div className="bg-white rounded-xl shadow p-6">
+
+                        <div className="flex justify-between mb-4">
+
+                            <p className="font-medium">
+                                Average Consumption
+                            </p>
+
+                            <span className="font-semibold">
+{consumption}%
+</span>
+
+                        </div>
 
                         <input
                             type="range"
@@ -197,48 +257,75 @@ export default function LoadCalculator(){
                             max="100"
                             value={consumption}
                             onChange={(e)=>setConsumption(Number(e.target.value))}
+                            className="w-full"
                         />
+
+                        <div className="flex justify-between text-sm text-gray-500 mt-1">
+                            <span>20%</span>
+                            <span>100%</span>
+                        </div>
 
                     </div>
 
+
                 </div>
 
-                <div className="mt-10 text-center">
+
+                {/* PLAN BUTTON */}
+
+                <div className="text-center mt-10">
 
                     <button
                         onClick={calculatePlan}
-                        className="bg-blue-600 text-white px-6 py-2 rounded"
+                        className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full font-medium shadow"
                     >
                         Lets Plan
                     </button>
-                    {result && (
 
-                        <div className="text-center mt-8 space-y-2">
-
-                            <p>
-                                Total Capacity: {result.va}VA, {result.batteryAh}Ah
-                            </p>
-
-                            <p>
-                                {result.inverter} x Inverter is required: Minimum {result.va}VA
-                            </p>
-
-                            <p>
-                                1 x Battery is required: Minimum {Math.ceil(result.batteryAh * 1.7)}Ah
-                            </p>
-
-                        </div>
-
-                    )}
                 </div>
+
+
+                {/* RESULT */}
+
+                {result && (
+
+                    <div className="mt-10 text-center bg-white border shadow rounded-xl p-6 max-w-xl mx-auto">
+
+                        <p className="text-lg font-semibold mb-3">
+
+                            Total Capacity : {result.va} VA , {result.batteryAh} Ah
+
+                        </p>
+
+                        <p className="text-gray-700">
+
+                            {result.inverter} x Inverter Required
+                            (Minimum {result.va} VA)
+
+                        </p>
+
+                        <p className="text-gray-700 mt-1">
+
+                            1 x Battery Required
+                            (Minimum {Math.ceil(result.batteryAh * 1.7)} Ah)
+
+                        </p>
+
+                    </div>
+
+                )}
+
 
             </div>
 
+
             {showPopup && (
+
                 <AddDevicePopup
                     onAdd={addDevice}
                     onClose={()=>setShowPopup(false)}
                 />
+
             )}
 
         </section>
