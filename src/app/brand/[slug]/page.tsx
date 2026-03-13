@@ -12,6 +12,7 @@ import { brandFeatures } from "../_components/features-data";
 import AppStore from "../_components/app-store";
 import Image from "next/image";
 import PopularProducts from "../_components/popular-products";
+import LoadCalculator from "@/components/load-calculator/LoadCalculator";
 
 export const dynamicParams = true;
 
@@ -224,8 +225,8 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
 
       <CTASection />
 
-
-      <AppStore appStoreUrl={brandData.appStoreUrl} playStoreUrl={brandData.playStoreUrl} />
+        {brandData.slug?.toLowerCase() === "microtek" && <LoadCalculator />}
+        <AppStore appStoreUrl={brandData.appStoreUrl} playStoreUrl={brandData.playStoreUrl} />
     </div>
   );
 }
