@@ -1,5 +1,12 @@
 import React from "react";
 
+export const metadata = {
+  title: "Privacy Policy - Plaza Sales",
+  description: "Read Plaza Sales privacy policy to understand how we collect, use, and protect your personal information with secure and transparent practices.",
+  keywords: ["Products", "Electronics", "Gadgets", "Home Appliances", "Smart Home", "Innovative Technology",],
+};
+
+
 export default function PrivacyPolicy() {
   const companyName = "Plaza Sales Pvt. Ltd.";
   const contactEmail = "info@plazasales.com";

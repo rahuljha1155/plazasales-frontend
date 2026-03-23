@@ -6,7 +6,10 @@ import ProductCategory from "@/components/home/product-category";
 import PlazaHero from "@/components/home/scroll-hero";
 import OurBrands from "@/components/home/our-brands";
 
-
+export const metadata = {
+    title: "Plaza Sales | Enhancing Technology",
+    description: `Plaza Sales Pvt. Ltd., established in 2014, is a leading IT company in Nepal offering hardware & software, Partnered with brands like UNIVIEW, Uniarch, Ziasys, Forward, Deli, and H3C`,
+};
 export default function Home() {
   return (
     <main className="font-sans max-w-screen  ">
