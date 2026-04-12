@@ -221,16 +221,16 @@ export default function JobDetailPage() {
                                     </div>
                                     <div className="flex items-center gap-2.5 sm:gap-3">
                                         <Users className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 shrink-0" />
-                                        <span>50+ employees</span>
+                                        <span>100+ Employees</span>
                                     </div>
                                     <div className="flex items-center gap-2.5 sm:gap-3">
                                         <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 shrink-0" />
-                                        <span>Addis Ababa, Ethiopia</span>
+                                        <span>Kathmandu, Nepal</span>
                                     </div>
                                 </div>
                                 <p className="mt-3 sm:mt-4 text-gray-700 text-xs sm:text-sm leading-relaxed">
                                     Leading provider of security systems, networking solutions, and
-                                    technology products in Ethiopia.
+                                    technology products in Nepal.
                                 </p>
                                 <TransitionLink
                                     href="/about"
