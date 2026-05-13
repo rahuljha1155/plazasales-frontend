@@ -59,7 +59,7 @@ export default function ImagesPreview({ slides, defaultImage, product }: { slide
                   {media?.type === "IMAGE" ? (
                     <Image
                       src={media.fileUrl || '/brokenimg.jpg'}
-                      alt={media.caption } //`Product Image ${index + 1}`
+                      alt={`Product Image ${index + 1}`}
                       fill
                       className="object-contain"
                       sizes="100vw"
@@ -111,7 +111,7 @@ export default function ImagesPreview({ slides, defaultImage, product }: { slide
               <>
                 <Image
                   src={media.fileUrl || '/brokenimg.jpg'}
-                  alt={media.caption} //`Product Image ${index + 1}`
+                  alt={`Product Image ${index + 1}`}
                   fill
                   className="object-contain"
                   sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 25vw, 33vw"
