@@ -62,13 +62,16 @@ export async function generateMetadata(): Promise<Metadata> {
         robots: {
           index: seo.robots?.index ?? true,
           follow: seo.robots?.follow ?? true,
-          "max-snippet": seo.robots?.maxSnippet,
-          "max-image-preview": seo.robots?.maxImagePreview as
-            | "none"
-            | "standard"
-            | "large"
-            | undefined,
-          "max-video-preview": seo.robots?.maxVideoPreview,
+          // "max-snippet": seo.robots?.maxSnippet,
+          // "max-image-preview": seo.robots?.maxImagePreview as
+          //   | "none"
+          //   | "standard"
+          //   | "large"
+          //   | undefined,
+          // "max-video-preview": seo.robots?.maxVideoPreview,
+          "max-snippet": -1,
+          "max-image-preview": "large",
+          "max-video-preview": -1,
         },
         alternates: {
           canonical: seo.canonicalUrl,
