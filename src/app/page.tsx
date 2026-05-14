@@ -8,7 +8,7 @@ import OurBrands from "@/components/home/our-brands";
 
 export const metadata = {
     title: "Plaza Sales | Enhancing Technology",
-    description: `Plaza Sales Pvt. Ltd., established in 2014, is a leading IT company in Nepal offering hardware & software, Partnered with brands like UNIVIEW, Uniarch, Ziasys, Forward, Deli, and H3C`,
+    description: `Plaza Sales Pvt. Ltd. is a leading IT and electronics distributor in Nepal, offering networking, surveillance, office automation, and technology solutions.`,
 };
 export default function Home() {
   return (
