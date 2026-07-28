@@ -310,7 +310,7 @@ const Footer = () => {
       <hr className="bg-primary  mb-1" />
 
       <div className=" max-w-7xl mx-auto font-poppins font-light   py-2 flex flex-col sm:flex-row items-center justify-center md:justify-between text-sm  px-4 xl:px-0">
-        <span>© Copyright 2025 | Plaza Sales Pvt. Ltd.</span>
+        <span>© Copyright {new Date().getFullYear()} | Plaza Sales Pvt. Ltd.</span>
         <Link
           href="https://webxnepal.com/"
           target="_blank"
