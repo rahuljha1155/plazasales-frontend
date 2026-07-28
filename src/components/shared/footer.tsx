@@ -271,7 +271,7 @@ const Footer = () => {
                   </li>
 
                   <li className="col-span-2 md:col-span-1 ">
-                    <Link href="tel:+977-1-4780236" className="space-y-1">
+                    <Link href="tel:9801016633 " className="space-y-1">
                       {/* <Icon icon="mdi:phone" className="size-4" /> */}
                       <h2 className="font-semibold text-sm text-primary">
                         Phone
@@ -279,6 +279,9 @@ const Footer = () => {
                       <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
                         +977-9801016633
                       </span>
+                      
+                    </Link>
+                    <Link href="tel:9802026300 " className="space-y-1">
                       <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
                         +977-9802026300
                       </span>
