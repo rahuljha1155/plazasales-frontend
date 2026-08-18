@@ -19,7 +19,9 @@ export default function Preloader() {
         ease: "power2.inOut",
         onUpdate: () => {
           if (numberRef.current) {
-            numberRef.current.textContent = Math.floor(counterRef.current.value).toString();
+            numberRef.current.textContent = Math.floor(
+              counterRef.current.value,
+            ).toString();
           }
           // Update logo inset reveal based on progress (bottom to top)
           if (logoRef.current) {
@@ -67,12 +69,18 @@ export default function Preloader() {
       </div>
 
       <div className=" space-y-4  flex flex-col gap-6 justify-center items-center  z-10">
-        <div 
+        <div
           ref={logoRef}
           className="logo w-28 mx-auto"
-          style={{ clipPath: 'inset(0 0 100% 0)' }}
+          style={{ clipPath: "inset(0 0 100% 0)" }}
         >
-          <Image src="/logos/Favicon.png" alt="logo" width={100} height={100} className="h-full w-full" />
+          <Image
+            src="/logo/logo.png"
+            alt="logo"
+            width={100}
+            height={100}
+            className="h-full w-full"
+          />
         </div>
         {/* <div className="flex items-baseline gap-1">
           <span

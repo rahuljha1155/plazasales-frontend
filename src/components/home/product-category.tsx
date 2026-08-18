@@ -33,14 +33,19 @@ export default function ProductCategory() {
     <section className="relative py-8 md:py-12 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-6 md:mb-16">
-          <Title title="Product Verticals" />
-          <p className='text-sm md:text-lg mt-1 lg:mt-3'>Discover innovative technology designed for your lifestyle</p>
+          <Title title="Product Categories" />
+          <p className="text-sm md:text-lg mt-1 lg:mt-3">
+            Discover innovative technology designed for your lifestyle
+          </p>
         </div>
 
         {loading ? (
           <div className="grid grid-cols-1! sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {[...Array(4)].map((_, idx) => (
-              <div key={idx} className="h-[250px] sm:h-[300px] md:h-[400px] rounded-md md:rounded-2xl lg:rounded-3xl bg-gray-200 animate-pulse" />
+              <div
+                key={idx}
+                className="h-[250px] sm:h-[300px] md:h-[400px] rounded-md md:rounded-2xl lg:rounded-3xl bg-gray-200 animate-pulse"
+              />
             ))}
           </div>
         ) : (
@@ -48,11 +53,11 @@ export default function ProductCategory() {
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
               {(() => {
                 const filtered = categories.filter(
-                  (item) => !item.brand?.name.toLowerCase().includes("forward")
+                  (item) => !item.brand?.name.toLowerCase().includes("forward"),
                 );
-                return filtered.slice(0, 4).map((item) => (
-                  <CategoryCard key={item.id} data={item} />
-                ));
+                return filtered
+                  .slice(0, 8)
+                  .map((item) => <CategoryCard key={item.id} data={item} />);
               })()}
             </div>
 
@@ -71,5 +76,5 @@ export default function ProductCategory() {
         )}
       </div>
     </section>
-  )
+  );
 }

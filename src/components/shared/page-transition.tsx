@@ -21,7 +21,9 @@ const TransitionContext = createContext<TransitionContextType | null>(null);
 export const useTransitionContext = () => {
   const context = useContext(TransitionContext);
   if (!context) {
-    throw new Error("useTransitionContext must be used within TransitionProvider");
+    throw new Error(
+      "useTransitionContext must be used within TransitionProvider",
+    );
   }
   return context;
 };
@@ -51,7 +53,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
         callback(); // This triggers the navigation
       }, 800);
     },
-    [isTransitioning]
+    [isTransitioning],
   );
 
   // Detect pathname changes and update display
@@ -123,7 +125,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
               className="w-20 h-20"
             >
               <Image
-                src="/logos/WhiteFav.png"
+                src="/logo/logo.png"
                 alt="Logo"
                 width={80}
                 height={80}
@@ -139,9 +141,5 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 
 // Component that wraps page content for transitions
 export default function PageTransition({ children }: { children: ReactNode }) {
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

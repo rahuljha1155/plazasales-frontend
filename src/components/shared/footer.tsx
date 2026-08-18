@@ -50,9 +50,15 @@ const Footer = () => {
     } catch (error: unknown) {
       // Safely access error.response using type guard
       const errorMessage =
-        (error && typeof error === 'object' && 'response' in error &&
-          error.response && typeof error.response === 'object' && 'data' in error.response &&
-          error.response.data && typeof error.response.data === 'object' && 'message' in error.response.data)
+        error &&
+        typeof error === "object" &&
+        "response" in error &&
+        error.response &&
+        typeof error.response === "object" &&
+        "data" in error.response &&
+        error.response.data &&
+        typeof error.response.data === "object" &&
+        "message" in error.response.data
           ? String(error.response.data.message)
           : "Failed to subscribe. Please try again later.";
       toast.error(errorMessage, {
@@ -90,11 +96,11 @@ const Footer = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-10">
             <div className="col-span-2 md:col-span-1">
               <Image
-                src="/logos/letter-logo.png"
+                src="/logo/logo.png"
                 alt="Plaza Sales"
                 width={170}
                 height={500}
-                className="w-full max-w-40"
+                className="w-full max-w-22"
               />
               <p className="text-sm mt-4  font-light font-poppins ">
                 Plaza Sales is dedicated to empowering individuals through
@@ -279,7 +285,6 @@ const Footer = () => {
                       <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
                         +977-9801016633
                       </span>
-                      
                     </Link>
                     <Link href="tel:9802026300 " className="space-y-1">
                       <span className="flex items-center gap-2 hover:text-primary hover:underline text-xs">
@@ -310,7 +315,9 @@ const Footer = () => {
       <hr className="bg-primary  mb-1" />
 
       <div className=" max-w-7xl mx-auto font-poppins font-light   py-2 flex flex-col sm:flex-row items-center justify-center md:justify-between text-sm  px-4 xl:px-0">
-        <span>© Copyright {new Date().getFullYear()} | Plaza Sales Pvt. Ltd.</span>
+        <span>
+          © Copyright {new Date().getFullYear()} | Plaza Sales Pvt. Ltd.
+        </span>
         <Link
           href="https://webxnepal.com/"
           target="_blank"
