@@ -33,15 +33,9 @@ export default function ImagesPreview({ slides, defaultImage, product }: { slide
 
 
   if (allMediaAssets?.length === 0) return (
-    <>
-      <div className="h-64 sm:h-80 md:h-96 px-4 relative overflow-hidden border rounded-sm">
-        <Image src={defaultImage || "/brokenimg.jpg"} fill alt='gallery' className='object-contain' sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-      </div>
-
-      <div className="flex justify-end items-end mt-4">
-        <ContactModal productData={product} btnClassName="rounded-full py-2 text-sm! sm:text-base lg:hidden flex justify-center items-center" />
-      </div>
-    </>
+    <div className="h-64 sm:h-80 md:h-96 px-4 relative overflow-hidden border rounded-sm">
+      <Image src={defaultImage || "/brokenimg.jpg"} fill alt='gallery' className='object-contain' sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+    </div>
   )
 
   return (
@@ -131,11 +125,6 @@ export default function ImagesPreview({ slides, defaultImage, product }: { slide
           </div>
         ))}
       </div>
-
-      <div className="flex justify-end items-end mt-4">
-        <ContactModal productData={product} btnClassName="rounded-full py-2 text-sm! sm:text-base lg:hidden flex justify-center items-center" />
-      </div>
-
     </div>
   )
 }

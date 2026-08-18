@@ -28,24 +28,14 @@ export default function ShortDescription({ product }: { product: Product | undef
     }, [product?.shortDescription, mounted])
 
     return (
-        <section className='pt-2 md:pt-6'>
+        <section className='pt-2 md:pt-4'>
             <div className="col-span-2">
-                <span className='text-primary md:text-lg'>Brand : {product?.brand?.name}</span>
-                <h1 className="text-xl mt-2 text-primary flex flex-wrap lg:gap-4 justify-between items-center leading-none text-[22px] font-semibold will-change-transform sm:text-3xl  font-overusedGrotesk ">
-                    <div className="lg:max-w-[75%]  ">
-                        {product?.name}
-                    </div>
-
-                    <ContactModal productData={product} btnClassName="rounded-full  lg:py-2 !text-base hidden lg:flex justify-center items-center" />
-                </h1>
-                {product?.model && <p className="text-zinc-600 mt-2 dark:text-zinc-400 text-sm lg:text-base">Model: {product?.model}</p>}
                 {mounted && sanitizedHtml && (
                     <div
-                        className="editor mt-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:marker:text-primary [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:marker:text-primary"
+                        className="editor mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:marker:text-primary [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:marker:text-primary"
                         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
                     />
                 )}
-
             </div>
 
             {(product?.icons && product.icons.length > 0 && <div className="flex gap-2 md:gap-2 items-center mt-8 flex-wrap">
