@@ -15,8 +15,8 @@ interface HoverSliderProps {
   children?: React.ReactNode
 }
 interface HoverSliderContextValue {
-  activeSlide: number
-  changeSlide: (index: number) => void
+  activeSlide: number | null
+  changeSlide: (index: number | null) => void
 }
 function splitText(text: string) {
   const words = text.split(" ").map((word) => word.concat(" "))
@@ -30,7 +30,7 @@ function splitText(text: string) {
 
 const HoverSliderContext = React.createContext<HoverSliderContextValue | undefined>(undefined);
 
-function useHoverSliderContext() {
+export function useHoverSliderContext() {
   const context = React.useContext(HoverSliderContext)
   if (context === undefined) {
     throw new Error(
@@ -43,15 +43,22 @@ function useHoverSliderContext() {
 export const HoverSlider = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & HoverSliderProps
->(({ children, className }, ref) => {
-  const [activeSlide, setActiveSlide] = React.useState<number>(0)
+>(({ children, className, ...props }, ref) => {
+  const [activeSlide, setActiveSlide] = React.useState<number | null>(null)
   const changeSlide = React.useCallback(
-    (index: number) => setActiveSlide(index),
+    (index: number | null) => setActiveSlide(index),
     [setActiveSlide]
   )
   return (
     <HoverSliderContext.Provider value={{ activeSlide, changeSlide }}>
-      <div ref={ref} className={className}>{children}</div>
+      <div
+        ref={ref}
+        className={className}
+        onMouseLeave={() => changeSlide(null)}
+        {...props}
+      >
+        {children}
+      </div>
     </HoverSliderContext.Provider>
   )
 })

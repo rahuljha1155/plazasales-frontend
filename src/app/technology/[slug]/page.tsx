@@ -122,7 +122,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                                                     src={imageUrl}
                                                     alt={`${technology.title} - Image ${index + 1}`}
                                                     fill
-                                                    quality={70}
+                                                    quality={75}
                                                     sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 25vw, 33vw"
                                                     className="object-cover group-hover:scale-105 transition-transform duration-500 object-center"
                                                 />

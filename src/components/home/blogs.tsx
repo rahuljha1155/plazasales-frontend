@@ -14,7 +14,7 @@ export default async function Blogs() {
   const displayBlogs = data?.slice(0, 3) || [];
 
   return (
-    <div className="pt-6 lg:pt-0 pb-10 " style={{ willChange: "auto" }}>
+    <div className="py-8 md:py-12 lg:py-20 pb-12 lg:pb-24" style={{ willChange: "auto" }}>
       <div className="max-w-7xl px-4 xl:px-0 mx-auto hidden lg:block">
         <div className="flex  flex-col justify-center items-center text-center">
           <Title

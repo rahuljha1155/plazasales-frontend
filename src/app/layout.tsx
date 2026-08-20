@@ -80,12 +80,15 @@ export async function generateMetadata(): Promise<Metadata> {
         manifest: "/manifest.json",
         other: {
           ...(seo.extraMeta
-            ? Object.entries(seo.extraMeta).reduce((acc, [key, value]) => {
-              if (typeof value === "string" || typeof value === "number") {
-                acc[key] = value;
-              }
-              return acc;
-            }, {} as Record<string, string | number>)
+            ? Object.entries(seo.extraMeta).reduce(
+                (acc, [key, value]) => {
+                  if (typeof value === "string" || typeof value === "number") {
+                    acc[key] = value;
+                  }
+                  return acc;
+                },
+                {} as Record<string, string | number>,
+              )
             : {}),
         },
       };
