@@ -113,13 +113,13 @@ export default function AdBanner({ ads, className = '' }: AdBannerProps) {
 
 
     return (
-        <div className={`max-w-7xl  mt-2 rounded-md mb-4 h-32 md:h-45 overflow-hidden sm:mt-2 relative ${className}`}>
-            <div className="embla" ref={emblaRef}>
-                <div className="embla__container flex">
+        <div className={`max-w-7xl mt-2 rounded-xl sm:rounded-2xl mb-4 h-36 sm:h-44 md:h-56 lg:h-64 w-full overflow-hidden relative ${className}`}>
+            <div className="embla w-full h-full" ref={emblaRef}>
+                <div className="embla__container flex w-full h-full">
                     {allBanners.map((banner, index) => (
                         <div
                             key={`${banner.adId}-${index}`}
-                            className="embla__slide flex-[0_0_100%] min-w-0 relative h-32 md:h-45"
+                            className="embla__slide flex-[0_0_100%] min-w-0 relative w-full h-full"
                         >
                             <div
                                 className="relative w-full h-full cursor-pointer"
@@ -128,9 +128,9 @@ export default function AdBanner({ ads, className = '' }: AdBannerProps) {
                                 <Image
                                     src={banner.url}
                                     fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
                                     alt={banner.title}
-                                    className="object-cover"
+                                    className="object-cover object-center"
                                     priority={index === 0}
                                 />
                             </div>

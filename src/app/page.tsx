@@ -6,6 +6,7 @@ import PlazaHero from "@/components/home/scroll-hero";
 import OurBrands from "@/components/home/our-brands";
 import ZOOMXZoom from "@/components/home/zoomxzoom";
 import NewBrands from "@/components/home/new-brands";
+import Advertizement from "@/components/home/advertizment";
 
 export const metadata = {
   title: "Plaza Sales | Enhancing Technology",
@@ -19,8 +20,10 @@ export default function Home() {
       <About />
       <IndoorOutdoor />
       <NewBrands />
+
       {/* <OurBrands /> */}
       <ProductCategory />
+      <Advertizement />
       <ZOOMXZoom />
       <Blogs />
     </main>
