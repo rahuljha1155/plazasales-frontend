@@ -84,10 +84,26 @@ export const TextStaggerHover = React.forwardRef<
   HTMLElement,
   React.HTMLAttributes<HTMLElement> & TextStaggerHoverProps
 >(({ text, index, className, ...props }, ref) => {
-  const { activeSlide, changeSlide } = useHoverSliderContext()
+  const context = React.useContext(HoverSliderContext)
+  const [localHover, setLocalHover] = React.useState(false)
+
   const { characters } = splitText(text)
-  const isActive = activeSlide === index
-  const handleMouse = () => changeSlide(index)
+  const isActive = context ? context.activeSlide === index : localHover
+
+  const handleMouseEnter = () => {
+    if (context) {
+      context.changeSlide(index)
+    } else {
+      setLocalHover(true)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (!context) {
+      setLocalHover(false)
+    }
+  }
+
   return (
     <span
       className={cn(
@@ -96,7 +112,8 @@ export const TextStaggerHover = React.forwardRef<
       )}
       {...props}
       ref={ref}
-      onMouseEnter={handleMouse}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <span className="flex gap-0.5 items-center">
         {characters.map((char, index) => (
@@ -112,7 +129,7 @@ export const TextStaggerHover = React.forwardRef<
               }}
             >
               <motion.span
-                className="inline-block  md:opacity-50"
+                className="inline-block opacity-100"
                 initial={{ y: "0%" }}
                 animate={isActive ? { y: "-110%" } : { y: "0%" }}
               >

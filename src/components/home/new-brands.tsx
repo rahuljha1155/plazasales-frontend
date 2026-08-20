@@ -7,6 +7,8 @@ import { useBrandStore } from "@/store/useBrandStore";
 import { IBrand } from "@/types/IBrand";
 import { TransitionLink } from "../shared";
 import Title from "./title";
+import { TextStaggerHover } from "./animated-slideshow";
+import { Icon } from "@iconify/react";
 
 const getBrandImage = (brand: IBrand) => {
   return (
@@ -66,7 +68,7 @@ export default function NewBrands() {
         </div>
 
         {/* Embla Auto-Carousel Container */}
-        <div className="overflow-hidden cursor-grab active:cursor-grabbing py-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" ref={emblaRef}>
+        <div className="overflow-hidden cursor-grab active:cursor-grabbing py-2 w-full" ref={emblaRef}>
           <div className="flex gap-4 sm:gap-5 md:gap-6">
             {displayBrands.map((brand, index) => {
               const brandImg = getBrandImage(brand);
@@ -74,44 +76,46 @@ export default function NewBrands() {
               return (
                 <div
                   key={brand.id || brand.slug || index}
-                  className="flex-[0_0_280px] sm:flex-[0_0_320px] md:flex-[0_0_350px] min-w-0"
+                  className="flex-[0_0_calc(100%)] sm:flex-[0_0_calc(50%-10px)] md:flex-[0_0_calc(50%-12px)] min-w-0"
                 >
                   <TransitionLink
                     href={`/brand/${brand.slug}`}
-                    className="group relative flex items-stretch gap-4 w-full h-[135px] sm:h-[155px] bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-xs hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300 transform hover:-translate-y-1 p-3 sm:p-3.5 overflow-hidden"
+                    className="group relative flex flex-col justify-end w-full h-[280px] sm:h-[320px] md:h-[360px] lg:h-[380px] rounded-2xl md:rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-xs hover:shadow-xl hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300 transform hover:-translate-y-1 p-5 sm:p-6 overflow-hidden select-none"
                   >
-                    {/* Left: Brand Image / Logo Container (Full Card Height) */}
-                    <div className="relative w-[105px] sm:w-[125px] md:w-[140px] h-full shrink-0 rounded-xl overflow-hidden bg-zinc-50 dark:bg-zinc-800/50 p-2 flex items-center justify-center border border-zinc-100 dark:border-zinc-800">
+                    {/* Full Card Cover Background Image */}
+                    <div className="absolute inset-0 z-0 bg-zinc-900">
                       {brandImg ? (
                         <img
                           src={brandImg}
                           alt={brand.name}
-                          className="w-full h-full object-contain object-center"
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <span className="text-2xl font-black text-primary uppercase">
-                          {brand.name.charAt(0)}
-                        </span>
+                        <div className="w-full h-full bg-zinc-900 flex items-center justify-center">
+                          <span className="text-4xl font-black text-primary uppercase">
+                            {brand.name.charAt(0)}
+                          </span>
+                        </div>
                       )}
+                      {/* Gradient Overlay for Text Legibility */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
                     </div>
 
-                    {/* Right: Brand Information (Title Top Right Aligned) */}
-                    <div className="flex flex-col justify-start min-w-0 flex-1 pt-1 space-y-1.5">
-                      <h3
-                        className="text-base sm:text-lg font-extrabold uppercase tracking-wide truncate transition-colors"
-                        style={{ color: brand.themeColor ? brand.themeColor : undefined }}
-                      >
-                        {brand.name}
-                      </h3>
+                    {/* Content Layer Over Image */}
+                    <div className="relative z-10 space-y-1.5 text-white">
+                      <TextStaggerHover
+                        index={index}
+                        text={brand.name}
+                        className="text-xl sm:text-2xl font-black uppercase tracking-wider truncate drop-shadow-md"
+                        style={{
+                          color: brand.themeColor ? brand.themeColor : "#ffffff",
+                        }}
+                      />
 
-                      {brand.description ? (
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+                      {brand.description && (
+                        <p className="text-xs sm:text-sm text-zinc-200 line-clamp-2 leading-relaxed drop-shadow-xs">
                           {brand.description}
                         </p>
-                      ) : (
-                        <span className="inline-block text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
-                          Authorized Brand
-                        </span>
                       )}
                     </div>
                   </TransitionLink>

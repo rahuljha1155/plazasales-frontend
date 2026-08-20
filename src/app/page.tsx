@@ -20,7 +20,6 @@ export default function Home() {
       <About />
       <IndoorOutdoor />
       <NewBrands />
-
       {/* <OurBrands /> */}
       <ProductCategory />
       <Advertizement />

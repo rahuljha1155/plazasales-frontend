@@ -312,7 +312,7 @@ const Footer = () => {
         </div>
       </footer>
 
-      <hr className="bg-primary  mb-1" />
+      <hr className="  mb-1" />
 
       <div className=" max-w-7xl mx-auto font-poppins font-light   py-2 flex flex-col sm:flex-row items-center justify-center md:justify-between text-sm  px-4 xl:px-0">
         <span>
