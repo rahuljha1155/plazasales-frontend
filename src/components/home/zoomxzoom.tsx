@@ -146,7 +146,7 @@ export default function ZOOMXZoom() {
       <div className="w-full max-w-7xl mx-auto px-4 xl:px-0">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-5 h-auto md:h-[450px] lg:h-[500px]">
           {/* COLUMN 1: LEFT TALL CARD */}
-          <div className="relative w-full h-[320px] md:h-full rounded-xl overflow-hidden bg-zinc-50 dark:bg-zinc-900/60 group shadow-xs border border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md hover:-translate-y-1 transition-all duration-300 p-2 md:p-3">
+          <div className="hidden md:block relative w-full h-[320px] md:h-full rounded-xl overflow-hidden bg-zinc-50 dark:bg-zinc-900/60 group shadow-xs border border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md hover:-translate-y-1 transition-all duration-300 p-2 md:p-3">
             <AnimatePresence initial={false}>
               <motion.div
                 key={`left-${leftImage}`}
@@ -246,7 +246,7 @@ export default function ZOOMXZoom() {
           </div>
 
           {/* COLUMN 3: RIGHT TALL CARD */}
-          <div className="relative w-full h-[320px] md:h-full rounded-xl overflow-hidden bg-zinc-50 dark:bg-zinc-900/60 group shadow-xs border border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md hover:-translate-y-1 transition-all duration-300 p-2 md:p-3">
+          <div className="hidden md:block relative w-full h-[320px] md:h-full rounded-xl overflow-hidden bg-zinc-50 dark:bg-zinc-900/60 group shadow-xs border border-zinc-200/80 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md hover:-translate-y-1 transition-all duration-300 p-2 md:p-3">
             <AnimatePresence initial={false}>
               <motion.div
                 key={`right-${rightImage}`}
