@@ -88,13 +88,141 @@ const Footer = () => {
     subscribe();
   };
 
+  const circuitPaths = [
+    "M 100 300 L 350 440 L 580 440 L 720 500 L 1200 500 L 1340 440 L 1570 440 L 1820 300",
+    "M 80 420 L 300 480 L 560 480 L 700 520 L 1220 520 L 1360 480 L 1620 480 L 1840 420",
+    "M 80 550 L 1840 550",
+    "M 80 700 L 300 620 L 560 620 L 700 580 L 1220 580 L 1360 620 L 1620 620 L 1840 700",
+    "M 100 820 L 350 660 L 580 660 L 720 600 L 1200 600 L 1340 660 L 1570 660 L 1820 820",
+  ];
+
+  function CircuitBackground() {
+    const rawId = React.useId();
+    const id = rawId.replace(/:/g, "");
+
+    return (
+      <div className="absolute inset-0 w-full h-full pointer-events-none opacity-60 dark:opacity-50 overflow-hidden">
+        {/* Smooth gradient fade overlay masks */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent dark:from-zinc-950 dark:via-transparent dark:to-zinc-950 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white dark:from-zinc-950 dark:via-transparent dark:to-zinc-950 z-10" />
+
+        <div className="relative mx-auto aspect-video w-full h-full max-w-9xl">
+          <svg
+            viewBox="0 0 1920 1080"
+            className="absolute inset-0 h-full w-full"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            <defs>
+              <filter
+                id={`glow-${id}`}
+                x="-100%"
+                y="-100%"
+                width="300%"
+                height="300%"
+              >
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+
+              <filter
+                id={`chip-shadow-${id}`}
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
+              >
+                <feDropShadow
+                  dx="0"
+                  dy="8"
+                  stdDeviation="12"
+                  floodColor="#000000"
+                  floodOpacity="0.12"
+                />
+              </filter>
+            </defs>
+
+            <g
+              fill="none"
+              stroke="#DA2127"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity="0.65"
+            >
+              {circuitPaths.map((path, index) => (
+                <path key={index} id={`circuit-path-${id}-${index}`} d={path} />
+              ))}
+            </g>
+
+            <g fill="#DA2127">
+              {[
+                [100, 300],
+                [80, 420],
+                [80, 550],
+                [80, 700],
+                [100, 820],
+                [1820, 300],
+                [1840, 420],
+                [1840, 550],
+                [1840, 700],
+                [1820, 820],
+              ].map(([cx, cy], index) => (
+                <circle key={index} cx={cx} cy={cy} r="3" opacity="0.7" />
+              ))}
+            </g>
+
+            {circuitPaths.map((_, index) => {
+              const duration = 2.8 + (index % 4) * 0.35;
+              return (
+                <g key={`energy-${index}`}>
+                  <circle r="5" fill="#DA2127" filter={`url(#glow-${id})`}>
+                    <animateMotion
+                      dur={`${duration}s`}
+                      begin={`${index * 0.22}s`}
+                      repeatCount="indefinite"
+                    >
+                      <mpath
+                        href={`#circuit-path-${id}-${index}`}
+                        xlinkHref={`#circuit-path-${id}-${index}`}
+                      />
+                    </animateMotion>
+                  </circle>
+
+                  <circle
+                    r="3"
+                    fill="#DA2127"
+                    opacity="0.8"
+                    filter={`url(#glow-${id})`}
+                  >
+                    <animateMotion
+                      dur={`${duration}s`}
+                      begin={`${index * 0.22 + duration / 2}s`}
+                      repeatCount="indefinite"
+                    >
+                      <mpath
+                        href={`#circuit-path-${id}-${index}`}
+                        xlinkHref={`#circuit-path-${id}-${index}`}
+                      />
+                    </animateMotion>
+                  </circle>
+                </g>
+              );
+            })}
+          </svg>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <>
-      <hr className="bg-primary md:mb-14 " />
-      <footer className="p-4 py-6  w-full max-w-7xl xl:px-0 mx-auto    ">
-        <div className="mt-">
+    <footer className="w-full relative bg-white dark:bg-zinc-950">
+      <div className="relative overflow-hidden w-full py-8 md:py-12">
+        <div className="relative z-10 p-4 max-w-7xl xl:px-0 mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-10">
-            <div className="col-span-2 md:col-span-1">
+            {/* <div className="col-span-2 md:col-span-1">
               <Image
                 src="/logo/logo.png"
                 alt="Plaza Sales"
@@ -137,42 +265,7 @@ const Footer = () => {
                   <Icon icon="mdi:linkedin" className="size-5" />
                 </a>
               </div>
-
-              <div className="mt-6">
-                <h4 className="text-sm font-semibold mb-3 text-gray-900">
-                  Stay Updated
-                </h4>
-                <form
-                  onSubmit={handleSubmit}
-                  className="flex items-stretch border max-w-[90vw]! rounded-full border-gray-300  overflow-hidden  focus-within:border-primary transition-all duration-200 w-fit"
-                >
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-[60vw] md:w-fit! py-1.5! md:py-2.5 px-4 text-sm border-0 outline-0 bg-white placeholder:text-gray-400 focus:placeholder:text-gray-300"
-                    placeholder="Enter your email"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-primary hover:bg-primary/90 w-25 flex justify-center items-center text-white px-4 border border-primary py-1.5! md:py-2.5 font-medium text-sm transition-colors duration-200  gap-2 group"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <Icon
-                        icon="eos-icons:loading"
-                        className="size-5 animate-spin"
-                      />
-                    ) : (
-                      "Subscribe"
-                    )}
-                  </button>
-                </form>
-              </div>
-            </div>
+            </div> */}
             {mounted && brands.length > 0 && (
               <div className="flex md:justify-center">
                 <div>
@@ -275,7 +368,13 @@ const Footer = () => {
                       </span>
                     </Link>
                   </li>
-
+                </ul>
+              </div>
+            </div>
+            <div className="flex md:justify-center col-span-2 md:col-span-1 ">
+              <div className="">
+                <h4 className="text-lg font-semibold mb-4 ">Contact Us</h4>
+                <ul className="space-y-3 grid grid-cols-2 md:grid-cols-1 gap-4 gap-y-0 sm:gap-y-4 lg:gap-y-0 sm:gap-10 lg:gap-0 ">
                   <li className="col-span-2 md:col-span-1 ">
                     <Link href="tel:9801016633 " className="space-y-1">
                       {/* <Icon icon="mdi:phone" className="size-4" /> */}
@@ -310,7 +409,54 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </div>
+
+      <div className="max-w-7xl flex flex-col items-center justify-center mx-auto mt-6">
+        <h4 className="text-sm font-semibold items-left md:items-center justify-center  mx-auto mb-3 text-gray-900">
+          Stay Updated
+        </h4>
+        <form
+          onSubmit={handleSubmit}
+          className="flex items-stretch border max-w-[90vw]! rounded-full border-gray-300  overflow-hidden  focus-within:border-primary transition-all duration-200 w-fit"
+        >
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-[60vw] md:w-fit! py-1.5! md:py-2.5 px-4 text-sm border-0 outline-0 bg-white placeholder:text-gray-400 focus:placeholder:text-gray-300"
+            placeholder="Enter your email"
+          />
+          <button
+            type="submit"
+            className="bg-primary hover:bg-primary/90 w-25 flex justify-center items-center text-white px-4 border border-primary py-1.5! md:py-2.5 font-medium text-sm transition-colors duration-200  gap-2 group"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <Icon icon="eos-icons:loading" className="size-5 animate-spin" />
+            ) : (
+              "Subscribe"
+            )}
+          </button>
+        </form>
+      </div>
+
+      {/* Fixed Height Logo Banner with Circuit Background */}
+      <div className="relative overflow-hidden w-full max-w-7xl mx-auto h-[160px] sm:h-[200px] md:h-[220px] flex items-center justify-center my-3">
+        <CircuitBackground />
+
+        <div className="relative z-10 px-4 xl:px-0 w-full h-full flex items-center justify-center pointer-events-none select-none">
+          <Image
+            src="/logo/logo.png"
+            alt="Plaza Sales"
+            width={800}
+            height={200}
+            className="max-w-xl sm:max-w-2xl md:max-w-3xl max-h-[70%] h-auto w-auto object-contain"
+          />
+        </div>
+      </div>
 
       <hr className="  mb-1" />
 
@@ -390,7 +536,7 @@ const Footer = () => {
       </div>
 
       <div className="mb-16 lg:mb-0"></div>
-    </>
+    </footer>
   );
 };
 

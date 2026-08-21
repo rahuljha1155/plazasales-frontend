@@ -122,10 +122,10 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.3, delay: 0.2 }}
-              className="w-20 h-20"
+              className="w-25 h-25"
             >
               <Image
-                src="/logo/logo.png"
+                src="/logo/plazawhite.png"
                 alt="Logo"
                 width={80}
                 height={80}
