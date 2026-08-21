@@ -42,7 +42,7 @@ export default function IndoorOutdoor() {
         <p className="text-sm md:text-xl mt-1 lg:mt-3 text-center max-w-4xl mx-auto">
           Discover innovative technology designed for your lifestyle
         </p>
-        <div className="grid grid-cols-2 mt-4 md:mt-14 lg:grid-cols-2 gap-3 lg:gap-4 py-2 max-w-7xl mx-auto relative  w-full pointer-events-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-6 md:mt-14 gap-4 lg:gap-6 py-2 max-w-7xl mx-auto relative w-full pointer-events-auto">
           {data?.map((item, idx) => {
             return (
               <TransitionLink
@@ -50,14 +50,14 @@ export default function IndoorOutdoor() {
                 href={`/technology/${item?.id}`}
                 className="group relative overflow-hidden border border-zinc-200 dark:border-zinc-800 rounded-2xl lg:rounded-3xl bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg"
               >
-                <div className="relative z-10 flex flex-col items-center gap-3 lg:gap-4 p-3 md:p-4 lg:p-5">
+                <div className="relative z-10 flex flex-col items-center gap-3 lg:gap-4 p-4 md:p-5">
                   {/* Text Section */}
                   <div className="flex-1 w-full max-w-md mx-auto flex flex-col justify-center items-center text-center space-y-2 lg:space-y-3">
                     <h3 className="text-lg lg:text-xl font-semibold text-zinc-900 dark:text-white tracking-tight text-center">
                       {item.title}
                     </h3>
 
-                    <div className="hidden lg:block">
+                    <div>
                       <div
                         dangerouslySetInnerHTML={{
                           __html: DOMPurify.sanitize(item?.description),
