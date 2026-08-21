@@ -1,160 +1,165 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
-import Image from 'next/image';
-import { IAd } from '@/types/IAd';
-import { recordClick, recordImpression } from '@/services/adService';
-import { useRecaptchaToken } from '@/hooks/use-recaptcha-ready';
-import { useRouter } from 'next/navigation';
-import { useAdsStore } from '@/store/useAdsStore';
+import React, { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
+import { IAd } from "@/types/IAd";
+import { recordClick, recordImpression } from "@/services/adService";
+import { useRecaptchaToken } from "@/hooks/use-recaptcha-ready";
+import { useRouter } from "next/navigation";
+import { useAdsStore } from "@/store/useAdsStore";
 
 interface AdBannerProps {
-    ads: IAd[];
-    className?: string;
+  ads: IAd[];
+  className?: string;
 }
 
-export default function AdBanner({ ads, className = '' }: AdBannerProps) {
-    const router = useRouter();
-    const { setSelectedAd } = useAdsStore();
-    const [emblaRef, emblaApi] = useEmblaCarousel(
-        {
-            loop: true,
-            align: 'center',
-        },
-        [Autoplay({ delay: 4000, stopOnInteraction: false })]
-    );
+export default function AdBanner({ ads, className = "" }: AdBannerProps) {
+  const router = useRouter();
+  const { setSelectedAd } = useAdsStore();
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: "center",
+    },
+    [Autoplay({ delay: 4000, stopOnInteraction: false })],
+  );
 
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const [recordedImpressions, setRecordedImpressions] = useState<Set<string>>(new Set());
-    const { getToken } = useRecaptchaToken();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [recordedImpressions, setRecordedImpressions] = useState<Set<string>>(
+    new Set(),
+  );
+  const { getToken } = useRecaptchaToken();
 
-    const onSelect = useCallback(() => {
-        if (!emblaApi) return;
-        setSelectedIndex(emblaApi.selectedScrollSnap());
-    }, [emblaApi]);
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
 
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
+  }, [emblaApi, onSelect]);
 
-    useEffect(() => {
-        if (!emblaApi) return;
-        onSelect();
-        emblaApi.on('select', onSelect);
-        return () => {
-            emblaApi.off('select', onSelect);
-        };
-    }, [emblaApi, onSelect]);
+  // Flatten all banner URLs from all ads
+  const allBanners = ads.flatMap((ad) =>
+    (ad.bannerUrls || []).map((url) => ({
+      url,
+      targetUrl: ad.targetUrl,
+      title: ad.title,
+      adId: ad.id,
+      ad,
+    })),
+  );
 
+  useEffect(() => {
+    try {
+      if (allBanners.length === 0) return;
 
+      const currentBanner = allBanners[selectedIndex];
+      if (!currentBanner) return;
 
-    // Flatten all banner URLs from all ads
-    const allBanners = ads.flatMap(ad =>
-        ad.bannerUrls.map(url => ({
-            url,
-            targetUrl: ad.targetUrl,
-            title: ad.title,
-            adId: ad.id
-        }))
-    );
+      // Check if impression already recorded for this ad
+      const impressionKey = `ad_impression_${currentBanner.adId}`;
+      const alreadyRecorded = sessionStorage.getItem(impressionKey);
 
-    useEffect(() => {
-        try {
-            if (allBanners.length === 0) return;
-
-        const currentBanner = allBanners[selectedIndex];
-        if (!currentBanner) return;
-
-        // Check if impression already recorded for this ad
-        const impressionKey = `ad_impression_${currentBanner.adId}`;
-        const alreadyRecorded = sessionStorage.getItem(impressionKey);
-
-        if (!alreadyRecorded && !recordedImpressions.has(currentBanner.adId)) {
-            const recordImpressions = async () => {
-                try {
-                    const token = await getToken('ad_impression');
-                    if (token) {
-                        await recordImpression(currentBanner.adId, token);
-                        // Mark as recorded in both state and sessionStorage
-                        setRecordedImpressions(prev => new Set(prev).add(currentBanner.adId));
-                        sessionStorage.setItem(impressionKey, 'true');
-                    }
-                } catch {
-                    // Error handled silently
-                }
-            };
-            recordImpressions();
+      if (!alreadyRecorded && !recordedImpressions.has(currentBanner.adId)) {
+        const recordImpressions = async () => {
+          try {
+            const token = await getToken("ad_impression");
+            if (token) {
+              await recordImpression(currentBanner.adId, token);
+              // Mark as recorded in both state and sessionStorage
+              setRecordedImpressions((prev) =>
+                new Set(prev).add(currentBanner.adId),
+              );
+              sessionStorage.setItem(impressionKey, "true");
             }
-        } catch {
+          } catch {
             // Error handled silently
-        }
-    }, [selectedIndex, allBanners, getToken, recordedImpressions]);
-    // Track impression for currently visible banner
+          }
+        };
+        recordImpressions();
+      }
+    } catch {
+      // Error handled silently
+    }
+  }, [selectedIndex, allBanners, getToken, recordedImpressions]);
+  // Track impression for currently visible banner
 
-    if (allBanners.length === 0) {
-        return <div className="mt-4"></div>;
+  if (allBanners.length === 0) {
+    return <div className="mt-4"></div>;
+  }
+
+  const handleAdClick = async (adId: string, targetUrl: string, ad: IAd) => {
+    try {
+      const token = await getToken("ad_click");
+      if (token) {
+        await recordClick(adId, token);
+      }
+    } catch {
+      // Error handled silently
     }
 
-    const handleAdClick = async (adId: string, targetUrl: string, ad: IAd) => {
-        try {
-            const token = await getToken('ad_click');
-            if (token) {
-                await recordClick(adId, token);
-            }
-        } catch {
-            // Error handled silently
-        }
+    // Open target URL
+    setSelectedAd(ad);
+    router.push(`/products/offers/${adId}`);
+  };
 
-        // Open target URL
-        setSelectedAd(ad);
-        router.push(`/products/offers/${adId}`);
-    };
-
-
-
-
-    return (
-        <div className={`max-w-7xl mt-2 rounded-xl sm:rounded-2xl mb-4 h-36 sm:h-44 md:h-56 lg:h-64 w-full overflow-hidden relative ${className}`}>
-            <div className="embla w-full h-full" ref={emblaRef}>
-                <div className="embla__container flex w-full h-full">
-                    {allBanners.map((banner, index) => (
-                        <div
-                            key={`${banner.adId}-${index}`}
-                            className="embla__slide flex-[0_0_100%] min-w-0 relative w-full h-full"
-                        >
-                            <div
-                                className="relative w-full h-full cursor-pointer"
-                                onClick={() => handleAdClick(banner.adId, banner.targetUrl, ads[index])}
-                            >
-                                <Image
-                                    src={banner.url}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
-                                    alt={banner.title}
-                                    className="object-cover object-center"
-                                    priority={index === 0}
-                                />
-                            </div>
-                        </div>
-                    ))}
-                </div>
+  return (
+    <div
+      className={`max-w-7xl mt-2 rounded-xl sm:rounded-2xl mb-4 h-32 sm:h-44 md:h-56 lg:h-64 w-full overflow-hidden relative ${className}`}
+    >
+      <div className="embla w-full h-full" ref={emblaRef}>
+        <div className="embla__container flex w-full h-full">
+          {allBanners.map((banner, index) => (
+            <div
+              key={`${banner.adId}-${index}`}
+              className="embla__slide flex-[0_0_100%] min-w-0 relative w-full h-full"
+            >
+              <div
+                className="relative w-full h-full cursor-pointer"
+                onClick={() =>
+                  handleAdClick(banner.adId, banner.targetUrl, banner.ad)
+                }
+              >
+                <Image
+                  src={banner.url}
+                  fill
+                  sizes="100vw"
+                  quality={95}
+                  alt={banner.title}
+                  className="object-cover object-center"
+                  priority={index === 0}
+                />
+              </div>
             </div>
-
-            {/* Dots indicator */}
-            {allBanners.length > 1 && (
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-                    {allBanners.map((_, index) => (
-                        <button
-                            key={index}
-                            className={`w-2 h-2 rounded-full transition-all ${index === selectedIndex
-                                ? 'bg-white w-6'
-                                : 'bg-white/50 hover:bg-white/75'
-                                }`}
-                            onClick={() => emblaApi?.scrollTo(index)}
-                            aria-label={`Go to slide ${index + 1}`}
-                        />
-                    ))}
-                </div>
-            )}
+          ))}
         </div>
-    );
+      </div>
+
+      {/* Dots indicator */}
+      {allBanners.length > 1 && (
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+          {allBanners.map((_, index) => (
+            <button
+              key={index}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === selectedIndex
+                  ? "bg-white w-6"
+                  : "bg-white/50 hover:bg-white/75"
+              }`}
+              onClick={() => emblaApi?.scrollTo(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }

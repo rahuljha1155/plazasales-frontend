@@ -2,33 +2,33 @@ import { Product } from "./IProductBySlug";
 
 export interface IAd {
     id: string;
-    createdAt: string;
-    updatedAt: string;
-    sortOrder: number;
     title: string;
-    description: string;
     bannerUrls: string[];
     targetUrl: string;
     isActive: boolean;
-    startAt: string;
-    endAt: string;
-    impressions: string;
-    clicks: string;
-    brand: {
+    createdAt?: string;
+    updatedAt?: string;
+    sortOrder?: number;
+    description?: string;
+    startAt?: string;
+    endAt?: string;
+    impressions?: string;
+    clicks?: string;
+    brand?: {
         id: string;
         name: string;
         slug: string;
         logoUrl: string;
     } | null;
-    category: {
+    category?: {
         id: string;
         title: string;
-    };
-    subcategory: {
+    } | null;
+    subcategory?: {
         id: string;
-        title: string
-    };
-    product: Product;
+        title: string;
+    } | null;
+    product?: Product | null;
 }
 
 export interface IAdResponse {
