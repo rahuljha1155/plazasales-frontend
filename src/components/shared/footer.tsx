@@ -222,6 +222,45 @@ const Footer = () => {
       <div className="relative overflow-hidden w-full py-8 md:py-12">
         <div className="relative z-10 p-4 max-w-7xl xl:px-0 mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-10">
+            <div className="flex md:justify-center col-span-2 md:col-span-1 ">
+              <div className="">
+                <h4 className="text-lg font-semibold mb-4 ">Location</h4>
+                <ul className="space-y-3 grid grid-cols-2 md:grid-cols-1 gap-4 gap-y-0 sm:gap-y-4 lg:gap-y-0 sm:gap-10 lg:gap-0 ">
+                  <li className="space-y-2   h-full md:bg-transparent  md:p-0 rounded-md">
+                    <h2 className="font-semibold text-primary   text-sm">
+                      Head Office
+                    </h2>
+                    <Link
+                      href="https://www.google.com/maps?q=26.458056,87.285365"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex text-xs items-start gap-2 max-w-[90%] hover:text-primary hover:underline"
+                    >
+                      <span>
+                        4F, Mahabir Plaza | Hospital Chowk Biratnagar - 7 |
+                        Koshi | Nepal
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="space-y-2  h-full md:bg-transparent  md:p-0 rounded-md ">
+                    <h2 className="font-semibold text-primary   text-sm">
+                      Corporate Office
+                    </h2>
+                    <Link
+                      href="https://www.google.com/maps/place/UNV+Experience+Center/@27.718311,85.334342,205m/data=!3m1!1e3!4m6!3m5!1s0x39eb1900599c704d:0x6253d9ddf8b71ffa!8m2!3d27.7183105!4d85.334342!16s%2Fg%2F11xg0qj6h7!5m1!1e1?hl=en&entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoKLDEwMDc5MjA3MUgBUAM%3D"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex text-xs items-start gap-2 max-w-[90%] hover:text-primary hover:underline"
+                    >
+                      <span>
+                        2F, AP Complex | Bishal Nagar Marg Hadigaun | Kathmandu
+                        - 5 | Nepal
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
             {/* <div className="col-span-2 md:col-span-1">
               <Image
                 src="/logo/logo.png"
@@ -332,45 +371,7 @@ const Footer = () => {
                 </ul>
               </div>
             </div>
-            <div className="flex md:justify-center col-span-2 md:col-span-1 ">
-              <div className="">
-                <h4 className="text-lg font-semibold mb-4 ">Contact Us</h4>
-                <ul className="space-y-3 grid grid-cols-2 md:grid-cols-1 gap-4 gap-y-0 sm:gap-y-4 lg:gap-y-0 sm:gap-10 lg:gap-0 ">
-                  <li className="space-y-2   h-full md:bg-transparent  md:p-0 rounded-md">
-                    <h2 className="font-semibold text-primary   text-sm">
-                      Head Office
-                    </h2>
-                    <Link
-                      href="https://www.google.com/maps?q=26.458056,87.285365"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex text-xs items-start gap-2 max-w-[90%] hover:text-primary hover:underline"
-                    >
-                      <span>
-                        4F, Mahabir Plaza | Hospital Chowk Biratnagar - 7 |
-                        Koshi | Nepal
-                      </span>
-                    </Link>
-                  </li>
-                  <li className="space-y-2  h-full md:bg-transparent  md:p-0 rounded-md ">
-                    <h2 className="font-semibold text-primary   text-sm">
-                      Corporate Office
-                    </h2>
-                    <Link
-                      href="https://www.google.com/maps/place/UNV+Experience+Center/@27.718311,85.334342,205m/data=!3m1!1e3!4m6!3m5!1s0x39eb1900599c704d:0x6253d9ddf8b71ffa!8m2!3d27.7183105!4d85.334342!16s%2Fg%2F11xg0qj6h7!5m1!1e1?hl=en&entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoKLDEwMDc5MjA3MUgBUAM%3D"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex text-xs items-start gap-2 max-w-[90%] hover:text-primary hover:underline"
-                    >
-                      <span>
-                        2F, AP Complex | Bishal Nagar Marg Hadigaun | Kathmandu
-                        - 5 | Nepal
-                      </span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
+
             <div className="flex md:justify-center col-span-2 md:col-span-1 ">
               <div className="">
                 <h4 className="text-lg font-semibold mb-4 ">Contact Us</h4>
