@@ -7,6 +7,7 @@ import { EmblaOptionsType } from "embla-carousel";
 import { NextButton, PrevButton, usePrevNextButtons } from "@/components/home/embla-carousel/embla-buttons";
 
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function ImagesPreview({ slides, defaultImage, product }: { slides: IGalleryItem[], defaultImage: string | null, product?: Product }) {
 
   const options: EmblaOptionsType = { loop: true };
