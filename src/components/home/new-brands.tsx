@@ -156,6 +156,7 @@ export default function NewBrands() {
                   >
                     {/* Image on Left Side */}
                     <div className="w-full sm:w-[42%] h-40 sm:h-44 rounded-2xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 relative shadow-sm shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={getBrandImage(brand)}
                         alt={brand.name || "Brand"}

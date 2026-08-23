@@ -1,12 +1,13 @@
-"use client"
-import { IGalleryItem } from '@/types/IProductBySlug'
+"use client";
+
+import { IGalleryItem, Product } from '@/types/IProductBySlug'
 import Image from 'next/image'
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
 import { NextButton, PrevButton, usePrevNextButtons } from "@/components/home/embla-carousel/embla-buttons";
 
 
-export default function ImagesPreview({ slides, defaultImage }: { slides: IGalleryItem[], defaultImage: string | null }) {
+export default function ImagesPreview({ slides, defaultImage, product }: { slides: IGalleryItem[], defaultImage: string | null, product?: Product }) {
 
   const options: EmblaOptionsType = { loop: true };
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
