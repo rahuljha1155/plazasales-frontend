@@ -11,8 +11,10 @@ import { useBrandStore } from "@/store/useBrandStore";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { IBrand } from "@/types/IBrand";
+
 // Right side vertical accordion component using the HoverSlider context
-function BrandAccordionGallery({ displayBrands }: { displayBrands: any[] }) {
+function BrandAccordionGallery({ displayBrands }: { displayBrands: IBrand[] }) {
   const { activeSlide, changeSlide } = useHoverSliderContext();
   const isAnyActive = activeSlide !== null;
 
@@ -47,6 +49,7 @@ function BrandAccordionGallery({ displayBrands }: { displayBrands: any[] }) {
             }`}
           >
             {/* Background Image */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={brandImg}
               alt={brand.name}
@@ -109,7 +112,7 @@ function BrandAccordionGallery({ displayBrands }: { displayBrands: any[] }) {
   );
 }
 
-function BrandSectionContent({ displayBrands }: { displayBrands: any[] }) {
+function BrandSectionContent({ displayBrands }: { displayBrands: IBrand[] }) {
   const { changeSlide } = useHoverSliderContext();
 
   return (

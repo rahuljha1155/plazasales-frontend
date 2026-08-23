@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import TransitionLink from "./transition-link";
 import Image from "next/image";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import NavbarDropdown from "./navbar-dropdown";
 import { ScrollArea } from "../ui/scroll-area";
 import { useBrandStore } from "@/store/useBrandStore";
@@ -15,7 +15,6 @@ import { useScrollVisibility } from "@/hooks/use-scroll-visibility";
 
 export default function Navbar() {
   const [state, setState] = useState(false);
-  const params = useParams();
   const [drapdownState, setDrapdownState] = useState<{
     isActive: boolean;
     idx: number | null;

@@ -15,6 +15,7 @@ export default function BgGradient({
     <div className={`relative overflow-hidden ${className}`}>
       {bgImage && (
         <div className="absolute inset-0 pointer-events-none z-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={bgImage}
             alt="background image"
