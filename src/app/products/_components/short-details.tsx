@@ -2,7 +2,6 @@
 
 import { Product } from '@/types/IProductBySlug'
 import { decodeHtml } from './specifications'
-import ContactModal from '@/components/dialog/contact-modal';
 import { useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
 import Image from 'next/image';

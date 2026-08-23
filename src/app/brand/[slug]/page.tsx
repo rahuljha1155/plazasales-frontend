@@ -12,7 +12,6 @@ import CTASection from "../_components/cta-section";
 
 import AppStore from "../_components/app-store";
 import Image from "next/image";
-import PopularProducts from "../_components/popular-products";
 import LoadCalculator from "@/components/load-calculator/LoadCalculator";
 
 export const dynamicParams = true;
@@ -83,10 +82,6 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
   // Filter products by type
   const filteredSaasProducts = brandData?.popularProducts.filter(
     product => product.productType?.toLowerCase() === 'saas'
-  ) || [];
-
-  const filteredPopularProducts = brandData?.popularProducts.filter(
-    product => product.productType?.toLowerCase() !== 'saas'
   ) || [];
 
   // Get product categories sorted by sortOrder
