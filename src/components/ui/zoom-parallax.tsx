@@ -1,7 +1,7 @@
 'use client';
 
 import { useScroll, useTransform, motion } from 'framer-motion';
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { GalleryItem } from '../home/zoom';
 import Image from 'next/image';
 
@@ -23,21 +23,26 @@ const imagePositions = [
 
 export function ZoomParallax({ images }: ZoomParallaxProps) {
 	const container = useRef<HTMLDivElement>(null);
+	const [isMounted, setIsMounted] = useState(false);
+
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
 	
 	const urls = useMemo(
 		() => [
 			images[0]?.centerImage,
-			images[0]?.sideImages?.[0],
-			images[0]?.sideImages?.[1],
-			images[0]?.sideImages?.[2],
-			images[0]?.sideImages?.[3],
-			images[0]?.sideImages?.[4],
-		].filter((url): url is string => Boolean(url)),
+			images[0]?.sideImages[0],
+			images[0]?.sideImages[1],
+			images[0]?.sideImages[2],
+			images[0]?.sideImages[3],
+			images[0]?.sideImages[4],
+		],
 		[images]
 	);
 	
 	const { scrollYProgress } = useScroll({
-		target: container,
+		target: isMounted ? container : undefined,
 		offset: ['start start', 'end end'],
 	});
 
