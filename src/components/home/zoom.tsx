@@ -47,7 +47,15 @@ export default function DefaultDemo() {
 		fetchGallery();
 	}, []);
 
+	// Sort galleries by createdAt ascending to get the oldest items first
+	const sortedGalleries = React.useMemo(() => {
+		if (!data?.data?.galleries) return [];
+		return [...data.data.galleries].sort(
+			(a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+		);
+	}, [data]);
 
+	const oldestGallery = sortedGalleries[0];
 
 	return (
 		<main className="py-8 md:py-10 lg:py-12 lg:min-h-screen w-full  ">
@@ -57,11 +65,18 @@ export default function DefaultDemo() {
 			</div>
 			<div className="w-full px-4 lg:hidden xl:px-0 max-w-7xl mx-auto mt-8">
 				<div className="w-full rounded-xl h-60 md:h-80 relative overflow-hidden">
-					<Image src={"/feature/outdoor.jpg"} fill quality={90} sizes="(max-width: 768px) 90vw, 95vw" alt='plaza sales' className='h-full object-cover w-full' />
+					<Image 
+						src={oldestGallery?.centerImage || "/feature/outdoor.jpg"} 
+						fill 
+						quality={90} 
+						sizes="(max-width: 768px) 90vw, 95vw" 
+						alt='plaza sales' 
+						className='h-full object-cover w-full' 
+					/>
 				</div>
 			</div>
 			<div className="lg:block hidden">
-				<ZoomParallax images={data?.data?.galleries || []} />
+				<ZoomParallax images={sortedGalleries} />
 			</div>
 		</main>
 	);

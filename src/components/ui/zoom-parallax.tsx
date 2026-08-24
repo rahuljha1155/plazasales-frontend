@@ -27,12 +27,12 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 	const urls = useMemo(
 		() => [
 			images[0]?.centerImage,
-			images[0]?.sideImages[0],
-			images[0]?.sideImages[1],
-			images[0]?.sideImages[2],
-			images[0]?.sideImages[3],
-			images[0]?.sideImages[4],
-		],
+			images[0]?.sideImages?.[0],
+			images[0]?.sideImages?.[1],
+			images[0]?.sideImages?.[2],
+			images[0]?.sideImages?.[3],
+			images[0]?.sideImages?.[4],
+		].filter((url): url is string => Boolean(url)),
 		[images]
 	);
 	
